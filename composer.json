@@ -1,0 +1,37 @@
+{
+  "name": "cxsquared/howzat-cricket-league",
+  "description": "Highly specific implementation of a cricket simulation",
+  "keywords": [
+    "flarum"
+  ],
+  "type": "flarum-extension",
+  "license": "gnuplot",
+  "require": {
+    "flarum/core": "^0.1.0-beta.8"
+  },
+  "authors": [
+    {
+      "name": "cxsquared",
+      "email": "cxsquared@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Cxsquared\\HowzatCricketLeague\\": "src/"
+    }
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "Howzat Cricket League",
+      "icon": {
+        "name": "",
+        "backgroundColor": "",
+        "color": ""
+      }
+    },
+    "flagrow": {
+      "discuss": ""
+    }
+  }
+}
