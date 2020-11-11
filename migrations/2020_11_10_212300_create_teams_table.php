@@ -7,8 +7,8 @@ return Migration::CreateTable(
     'teams',
     function(Blueprint $table) {
         $table->increments('id');
-        $table->string('name', 256);
-        $table->string('logo_link', 256);
+        $table->string('name');
+        $table->string('logo_link');
         $table->unsignedInteger('gm_user_id')->nullable();
         $table->unsignedInteger('agm_user_id')->nullable();
 

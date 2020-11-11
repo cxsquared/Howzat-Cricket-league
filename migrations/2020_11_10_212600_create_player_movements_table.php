@@ -11,7 +11,7 @@ return Migration::CreateTable(
         $table->unsignedInteger('player_id')->nullable();
         $table->unsignedInteger('from_team_id')->nullable();
         $table->unsignedInteger('to_team_id')->nullable();
-        $table->string('type', 256);
+        $table->string('type');
 
         // Audit Trail
         $table->dateTime('created_at')->nullable();

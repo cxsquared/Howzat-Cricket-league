@@ -18,6 +18,7 @@ return Migration::createTable(
         $table->unsignedInteger('age');
         $table->unsignedInteger('height');
         $table->unsignedInteger('weight');
+        $table->unsignedInteger('nationality');
 
         $table->unsignedInteger('tpe')->default('0');
         $table->unsignedInteger('banked_tpe')->default('30');
