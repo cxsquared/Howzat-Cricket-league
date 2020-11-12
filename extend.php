@@ -11,6 +11,7 @@
 
 namespace Cxsquared\HowzatCricketLeague;
 
+use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;
@@ -31,6 +32,8 @@ return [
         ->hasOne('gm_team', Team::class, 'gm_user_id')
         ->hasOne('agm_team', Team::class, 'agm_user_id')
         ->hasMany('submitted_updates', Update::class, 'submitted_user_id'),
+    (new Extend\Routes('api'))
+        ->get('/players', 'players.index', ListPlayersController::class),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);

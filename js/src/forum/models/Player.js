@@ -1,7 +1,8 @@
 import Model from 'flarum/Model';
-import copmuted from 'flarum/utils/computed';
+import computed from 'flarum/utils/computed';
 
 export default class Player extends Model {
+    id = Model.attribute('id');
     firstName = Model.attribute('firstName');
     lastName = Model.attribute('lastName');
     age = Model.attribute('age');
