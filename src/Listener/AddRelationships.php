@@ -7,7 +7,6 @@ use Cxsquared\HowzatCricketLeague\Api\Serializer\TeamSerializer;
 use Cxsquared\HowzatCricketLeague\Api\Serializer\UpdateSerializer;
 use Flarum\Api\Controller\ListUsersController;
 use Flarum\Api\Controller\ShowUserController;
-use Flarum\Api\Event\Serializing;
 use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\BasicUserSerializer;
 use Flarum\Event\GetApiRelationship;
@@ -17,8 +16,8 @@ class AddRelationships
 {
     public function subscribe(Dispatcher $events)
     {
-        $events->listen(Serializing::class, [$this, 'getApiRelationship']);
-        $events->listen(Serializing::class, [$this, 'prepareApiData']);
+        $events->listen(GetApiRelationship::class, [$this, 'getApiRelationship']);
+        $events->listen(WillSerializeData::class, [$this, 'prepareApiData']);
     }
 
     public function getApiRelationship(GetApiRelationship $event)

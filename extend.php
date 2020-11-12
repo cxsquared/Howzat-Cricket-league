@@ -28,9 +28,9 @@ return [
     new Extend\Locales(__DIR__ . '/resources/locale'),
     (new Extend\Model(User::class))
         ->hasOne('player', Player::class)
-        ->hasOne('gm_team', Team::class)
-        ->hasOne('agm_team', Team::class)
-        ->hasMany('submitted_updates', Update::class),
+        ->hasOne('gm_team', Team::class, 'gm_user_id')
+        ->hasOne('agm_team', Team::class, 'agm_user_id')
+        ->hasMany('submitted_updates', Update::class, 'submitted_user_id'),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);

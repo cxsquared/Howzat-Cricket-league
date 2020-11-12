@@ -40,15 +40,15 @@ class Update extends AbstractModel
 
     public function approve($updater_user_id)
     {
-        return $this->update($updater_user_id, "approved");
+        return $this->update_update($updater_user_id, "approved");
     }
 
     public function deny($updater_user_id)
     {
-        return $this->update($updater_user_id, "deny");
+        return $this->update_update($updater_user_id, "deny");
     }
 
-    protected function update($updater_user_id, string $status)
+    protected function update_update($updater_user_id, string $status)
     {
         $this->updater_user_id = $updater_user_id;
         $this->updated_at = Carbon::now();
