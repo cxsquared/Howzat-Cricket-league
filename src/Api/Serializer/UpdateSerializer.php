@@ -26,8 +26,8 @@ class UpdateSerializer extends AbstractSerializer
             'type'          => $update->type,
             'tpe'           => $update->tpe,
             'status'        => $update->status,
-            'submitted_at'  => $this->formatDate($update->submitted_at),
-            'updated_at'    => $this->formatDate($update->updated_at)
+            'submittedAt'  => $this->formatDate($update->submitted_at),
+            'updatedAt'    => $this->formatDate($update->updated_at)
         ];
     }
 

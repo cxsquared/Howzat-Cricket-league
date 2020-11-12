@@ -13,7 +13,7 @@ class PlayerSerializer extends AbstractSerializer
 
     protected function getDefaultAttributes($player)
     {
-        if (! ($player instanceof Player)) {
+       if (! ($player instanceof Player)) {
             throw new InvalidArgumentException(
                 get_class($this).' can only serialize instances of '.Player::class
             );
@@ -21,32 +21,32 @@ class PlayerSerializer extends AbstractSerializer
 
         return [
             'id'            => $player->id,
-            'first_name'    => $player->first_name,
-            'last_name'     => $player->last_name,
+            'firstName'     => $player->first_name,
+            'lastName'      => $player->last_name,
             'age'           => $player->age,
             'height'        => $player->height,
             'weight'        => $player->weight,
             'nationality'   => $player->nationality,
-            'bowling_style' => $player->bowling_style,
+            'bowlingStyle'  => $player->bowling_style,
             'running'       => $player->running,
             'defense'       => $player->defense,
             'attacking'     => $player->attacking,
             'lofted'        => $player->lofted,
-            'vs_spin'       => $player->vs_spin,
-            'vs_pace'       => $player->vs_pace,
+            'vsSpin'        => $player->vs_spin,
+            'vsPace'        => $player->vs_pace,
             'footwork'      => $player->footwork,
             'timing'        => $player->timing,
             'control'       => $player->control,
             'pace'          => $player->pace,
             'switg'         => $player->swing,
-            'slower_ball'   => $player->slower_ball,
+            'slowerBall'    => $player->slower_ball,
             'seam'          => $player->seam,
             'accuracy'      => $player->accuracy,
             'discipline'    => $player->discipline,
             'bouncer'       => $player->bouncer,
             'yorker'        => $player->yorker,
             'tpe'           => $player->tpe,
-            'banked_tpe'    => $player->banked_tpe,
+            'bankedTpe'     => $player->banked_tpe,
             'createdAt'     => $this->formatDate($player->created_at),
             'updatedAt'     => $this->formatDate($player->updated_at)
         ];

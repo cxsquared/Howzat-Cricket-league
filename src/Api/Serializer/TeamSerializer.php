@@ -22,7 +22,7 @@ class TeamSerializer extends AbstractSerializer
         return [
             'id'            => $team->id,
             'name'          => $team->name,
-            'logo_link'     => $team->logo_link,
+            'logoLink'     => $team->logo_link,
             'createdAt'     => $this->formatDate($team->created_at),
             'updatedAt'     => $this->formatDate($team->updated_at)
         ];
