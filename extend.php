@@ -14,8 +14,6 @@ namespace Cxsquared\HowzatCricketLeague;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;
-use Flarum\Api\Serializer\UserSerializer;
-use Flarum\Event\GetApiRelationship;
 use Flarum\Extend;
 use Flarum\User\User;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -32,10 +30,9 @@ return [
         ->hasOne('player', Player::class)
         ->hasOne('gm_team', Team::class)
         ->hasOne('agm_team', Team::class)
-        ->hasMany('submitted_updates', Update::class)
-        ->hasMany('approved_updates', Update::class),
+        ->hasMany('submitted_updates', Update::class),
 
     function (Dispatcher $events) {
-        $events->subscribe(Listener\AddPlayerRelationships::class);
+        $events->subscribe(Listener\AddRelationships::class);
     }
 ];
