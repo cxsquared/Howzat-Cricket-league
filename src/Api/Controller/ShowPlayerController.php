@@ -4,11 +4,12 @@ namespace Cxsquared\HowzatCricketLeague\Api\Controller;
 
 use Cxsquared\HowzatCricketLeague\Api\Serializer\PlayerSerializer;
 use Cxsquared\HowzatCricketLeague\Player\Player;
-use Flarum\Api\Controller\AbstractListController;
+use Flarum\Api\Controller\AbstractShowController;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Tobscure\JsonApi\Document;
 
-class ListPlayersController extends AbstractListController
+class ShowPlayerController extends AbstractShowController
 {
     public $serializer = PlayerSerializer::class;
 
@@ -16,6 +17,8 @@ class ListPlayersController extends AbstractListController
 
     protected function data(Request $request, Document $document)
     {
-        return Player::all();
+        $id = Arr::get($request->getQueryParams(), 'id');
+
+        return Player::findOrFail($id);
     }
 }
