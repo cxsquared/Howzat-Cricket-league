@@ -22,26 +22,46 @@ Object.assign(Player.prototype, {
     timing: Model.attribute('timing'),
     control: Model.attribute('control'),
 
-    pace: Model.attribute('pace'),
-    swing: Model.attribute('swing'),
-    slowerBall: Model.attribute('slowerBall'),
-    seam: Model.attribute('seam'),
+    pace: Model.attribute('paceFlight'),
+    swing: Model.attribute('swingLegSpin'),
+    slowerBall: Model.attribute('slowerBallOffSpin'),
+    seam: Model.attribute('seamDrift'),
     accuracy: Model.attribute('accuracy'),
     discipline: Model.attribute('discipline'),
-    bouncer: Model.attribute('bouncer'),
-    yorker: Model.attribute('yorker'),
+    bouncer: Model.attribute('bouncerBounce'),
+    yorker: Model.attribute('yorkerArmBall'),
 
     tpe: Model.attribute('tpe'),
     bankedTpe: Model.attribute('bankedTpe'),
     tpa: computed('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace',
-                   'footwork', 'timing', 'control', 'pace', 'swing', 'slowerBall',
-                   'seam', 'accuracy', 'discipline', 'bouncer', 'yorker',
+                   'footwork', 'timing', 'control', 'paceFlight', 'swingLegSpin',
+                   'slowerBallOffSpin', 'seamDrift', 'accuracy', 'discipline',
+                   'bouncerBounce', 'yorkerArmBall',
                    (...stats) => stats.reduce((t, n) => {
-                       if (Number.isInteger(n)) {
-                           return t + n;
-                       }
+                        if (Number.isInteger(n)) {
+                            var tpa = n - 40;
+                            var totalTpa = 0;
 
-                       return t;
+                            while (tpa > 0) {
+                                if (tpa > 50) {
+                                    totalTpa += 10;                                
+                                } else if (tpa > 40) {
+                                    totalTpa += 5;
+                                } else if (tpa > 35) {
+                                    totalTpa += 3;
+                                } else if (tpa > 30) {
+                                    totalTpa += 2;
+                                } else {
+                                    totalTpa += 1;
+                                }
+
+                                tpa--;
+                            }
+
+                            return t + totalTpa;
+                        }
+
+                        return t;
                    }, 0)),
 
     createdAt: Model.attribute('createdAt', Model.transformDate),

@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 class UpdateSerializer extends AbstractSerializer
 {
-    protected $type = 'update';
+    protected $type = 'updates';
 
     protected function getDefaultAttributes($update)
     {

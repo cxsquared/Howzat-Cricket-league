@@ -10,7 +10,7 @@ use Flarum\Foundation\DispatchEventsTrait;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
-class CreatePlayer
+class CreatePlayerHandler
 {
     use DispatchEventsTrait;
 
@@ -38,13 +38,23 @@ class CreatePlayer
             Arr::get($data, 'attributes.bowlingStyle')
         );
 
+        // Starting Banked TPE is 30
+        $player = $player->updateTpe(0, 30);
+
+        // Default TPE is 40.
+        // Not sure why we can't just use the defaults from the DB schema
+        $player = $player->updateBattingSkills(40, 40, 40, 40, 40, 40, 40, 40, 40);
+        $player = $player->updateBowlingSkills(40, 40, 40, 40, 40, 40, 40, 40);
+
         $player->created_at = Carbon::now();
         $player->updated_at = Carbon::now();
 
-        $this->event->dispatch(
+        $this->events->dispatch(
             new Saving($player, $actor, $data)
         );
 
+        $this->validator->setFirstName($player->first_name);
+        $this->validator->setFirstName($player->last_name);
         $this->validator->assertValid($player->getAttributes());
 
         $player->save();

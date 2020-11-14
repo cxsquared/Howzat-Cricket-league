@@ -2,32 +2,32 @@
 
 namespace Cxsquared\HowzatCricketLeague\Player;
 
-class TpeHelp
+class TpeHelper
 {
     public static function calcuateTpa($player)
     {
         $totalTpe = 0;
 
         // Batting
-        $totalTpe += TpeHelp::getSingleTpaCost($player->running);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->defense);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->attacking);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->lofted);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->vs_spin);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->vs_pace);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->footwork);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->timing);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->control);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->running);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->defense);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->attacking);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->lofted);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->vs_spin);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->vs_pace);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->footwork);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->timing);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->control);
 
         // Bowling
-        $totalTpe += TpeHelp::getSingleTpaCost($player->pace);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->swing);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->slower_ball);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->seam);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->accuracy);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->discipline);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->bouncer);
-        $totalTpe += TpeHelp::getSingleTpaCost($player->yorker);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->pace_flight);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->swing_leg_spin);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->slower_ball_off_spin);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->seam_drift);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->accuracy);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->discipline);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->bouncer_bounce);
+        $totalTpe += TpeHelper::getSingleTpaCost($player->yorker_arm_ball);
 
         return $totalTpe;
     }

@@ -35,6 +35,8 @@ class Player extends AbstractModel
     public function updateUpdatedAt()
     {
         $this->updated_at = Carbon::now();
+
+        return $this;
     }
 
     public static function createBase($user_id, $first_name, $last_name, $age,
@@ -42,7 +44,7 @@ class Player extends AbstractModel
     {
         $player = new static;
 
-        $player->$user_id;
+        $player->user_id = $user_id;
         $player->first_name = $first_name;
         $player->last_name = $last_name;
         $player->age = $age;
@@ -54,7 +56,7 @@ class Player extends AbstractModel
         return $player;
     }
 
-    private function updateBattingSkills($running, $defense, $attacking, $lofted,
+    public function updateBattingSkills($running, $defense, $attacking, $lofted,
                                         $vs_spin, $vs_pace, $footwork, $timing, $control)
     {
         $this->running = $running;
@@ -70,17 +72,19 @@ class Player extends AbstractModel
         return $this;
     }
 
-    private function updateBowlingSkills($pace, $swing, $slower_ball, $seam,
-                                        $accuracy, $discipline, $bouncer, $yorker)
+    public function updateBowlingSkills($pace_flight, $swing_leg_spin,
+                                        $slower_ball_off_spin, $seam_drift,
+                                        $accuracy, $discipline,
+                                        $bouncer_bounce, $yorker_arm_ball)
     {
-        $this->pace = $pace;
-        $this->swing = $swing;
-        $this->slower_ball = $slower_ball;
-        $this->seam = $seam;
+        $this->pace_flight = $pace_flight;
+        $this->swing_leg_spin = $swing_leg_spin;
+        $this->slower_ball_off_spin = $slower_ball_off_spin;
+        $this->seam_drift = $seam_drift;
         $this->accuracy = $accuracy;
         $this->discipline = $discipline;
-        $this->bouncer = $bouncer;
-        $this->yorker = $yorker;
+        $this->bouncer_bounce = $bouncer_bounce;
+        $this->yorker_arm_ball = $yorker_arm_ball;
 
         return $this;
     }

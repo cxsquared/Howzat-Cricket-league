@@ -36,14 +36,14 @@ return Migration::createTable(
 
         // Bowling Skills
         $table->string('bowling_style', 50);
-        $table->unsignedTinyInteger('pace')->default(40);
-        $table->unsignedTinyInteger('swing')->default(40);
-        $table->unsignedTinyInteger('slower_ball')->default(40);
-        $table->unsignedTinyInteger('seam')->default(40);
+        $table->unsignedTinyInteger('pace_flight')->default(40);
+        $table->unsignedTinyInteger('swing_leg_spin')->default(40);
+        $table->unsignedTinyInteger('slower_ball_off_spin')->default(40);
+        $table->unsignedTinyInteger('seam_drift')->default(40);
         $table->unsignedTinyInteger('accuracy')->default(40);
         $table->unsignedTinyInteger('discipline')->default(40);
-        $table->unsignedTinyInteger('bouncer')->default(40);
-        $table->unsignedTinyInteger('yorker')->default(40);
+        $table->unsignedTinyInteger('bouncer_bounce')->default(40);
+        $table->unsignedTinyInteger('yorker_arm_ball')->default(40);
 
         // Audit Trail
         $table->dateTime('created_at')->nullable();

@@ -4,6 +4,6 @@ import User from 'flarum/models/User';
 import Player from './models/Player';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
-  app.store.models.player = Player;
-  User.prototype.player = Model.hasOne('player');
+  app.store.models.players = Player;
+  User.prototype.player = Model.hasOne('players');
 });

@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Illuminate\Support\Arr;
 use Tobscure\JsonApi\Document;
 
-class CreatePlayerController extends AbstractCreateController
+class UpdatePlayerController extends AbstractCreateController
 {
     public $serializer = PlayerSerializer::class;
 

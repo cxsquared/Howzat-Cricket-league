@@ -170,8 +170,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/howzat-cricket-league', function () {
-  flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.store.models.player = _models_Player__WEBPACK_IMPORTED_MODULE_3__["default"];
-  flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.player = flarum_Model__WEBPACK_IMPORTED_MODULE_1___default.a.hasOne('player');
+  flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.store.models.players = _models_Player__WEBPACK_IMPORTED_MODULE_3__["default"];
+  flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.player = flarum_Model__WEBPACK_IMPORTED_MODULE_1___default.a.hasOne('players');
 });
 
 /***/ }),
@@ -226,24 +226,43 @@ Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"
   footwork: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('footwork'),
   timing: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('timing'),
   control: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('control'),
-  pace: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('pace'),
-  swing: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('swing'),
-  slowerBall: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('slowerBall'),
-  seam: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('seam'),
+  pace: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('paceFlight'),
+  swing: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('swingLegSpin'),
+  slowerBall: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('slowerBallOffSpin'),
+  seam: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('seamDrift'),
   accuracy: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('accuracy'),
   discipline: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('discipline'),
-  bouncer: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('bouncer'),
-  yorker: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('yorker'),
+  bouncer: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('bouncerBounce'),
+  yorker: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('yorkerArmBall'),
   tpe: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('tpe'),
   bankedTpe: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('bankedTpe'),
-  tpa: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace', 'footwork', 'timing', 'control', 'pace', 'swing', 'slowerBall', 'seam', 'accuracy', 'discipline', 'bouncer', 'yorker', function () {
+  tpa: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace', 'footwork', 'timing', 'control', 'paceFlight', 'swingLegSpin', 'slowerBallOffSpin', 'seamDrift', 'accuracy', 'discipline', 'bouncerBounce', 'yorkerArmBall', function () {
     for (var _len = arguments.length, stats = new Array(_len), _key = 0; _key < _len; _key++) {
       stats[_key] = arguments[_key];
     }
 
     return stats.reduce(function (t, n) {
       if (Number.isInteger(n)) {
-        return t + n;
+        var tpa = n - 40;
+        var totalTpa = 0;
+
+        while (tpa > 0) {
+          if (tpa > 50) {
+            totalTpa += 10;
+          } else if (tpa > 40) {
+            totalTpa += 5;
+          } else if (tpa > 35) {
+            totalTpa += 3;
+          } else if (tpa > 30) {
+            totalTpa += 2;
+          } else {
+            totalTpa += 1;
+          }
+
+          tpa--;
+        }
+
+        return t + totalTpa;
       }
 
       return t;

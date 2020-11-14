@@ -14,6 +14,8 @@ class CreatePlayerController extends AbstractCreateController
 {
     public $serializer = PlayerSerializer::class;
 
+    public $inlcude = ['user'];
+
     protected $bus;
 
     public function __construct(Dispatcher $bus)

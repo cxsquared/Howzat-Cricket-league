@@ -6,13 +6,13 @@ use Cxsquared\HowzatCricketLeague\Player\Event\Saving;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerRepository;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
-use Cxsquared\HowzatCricketLeague\Player\TpeHelp;
+use Cxsquared\HowzatCricketLeague\Player\TpeHelper;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Foundation\ValidationException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
-class UpdatePlayer 
+class UpdatePlayerHandler 
 {
     use DispatchEventsTrait;
 
@@ -34,7 +34,7 @@ class UpdatePlayer
 
         $player = Player::findOrFail($command->playerId);
         $canEdit = $actor->can('hclEditPlayers', $player);
-        $isActorsPlayer = $actor->id === $player->user->id;
+        $isActorsPlayer = $actor->id === $player->user_id;
 
         $attributes = Arr::get($data, 'attributes', []);
 
@@ -42,12 +42,12 @@ class UpdatePlayer
             $actor->assertPermission($canEdit);
         }
 
-        $originalTpa = TpeHelp::calcuateTpa($player);
+        $originalTpa = TpeHelper::calcuateTpa($player);
 
         $player = $this->updateBattingSkills($player, $attributes);
         $player = $this->updateBowlingSkills($player, $attributes);
 
-        $newTpa = TpeHelp::calcuateTpa($player);
+        $newTpa = TpeHelper::calcuateTpa($player);
 
         $tpaThisUpdate = $newTpa - $originalTpa;
 
@@ -56,13 +56,16 @@ class UpdatePlayer
             throw new ValidationException(['player' => "Player does not have enough banked TPE for this update."]);
         }
 
-        $player->tpe = $player->tpe + $tpaThisUpdate ;
-        $player->banked_tpe = $player->banked_tpe - $tpaThisUpdate;
+        $tpe = $player->tpe + $tpaThisUpdate ;
+        $banked_tpe = $player->banked_tpe - $tpaThisUpdate;
+        $player = $player->updateTpe($tpe, $banked_tpe);
+        $player = $player->updateUpdatedAt();
 
-        $this->event->dispatch(
+        $this->events->dispatch(
             new Saving($player, $actor, $data)
         );
 
+        $this->validator->setPlayer($player);
         $this->validator->assertValid($player->getDirty());
 
         $player->save();
@@ -107,17 +110,17 @@ class UpdatePlayer
 
     private function updateBowlingSkills(Player $player, array $attributes)
     {
-        if (isset($attributes['pace'])) {
-            $player->pace = $attributes['pace'];
+        if (isset($attributes['paceFlight'])) {
+            $player->pace_flight = $attributes['paceFlight'];
         }
-        if (isset($attributes['swing'])) {
-            $player->swing = $attributes['swing'];
+        if (isset($attributes['swingLegSpin'])) {
+            $player->swing_leg_spin = $attributes['swingLegSpin'];
         }
-        if (isset($attributes['slowerBall'])) {
-            $player->slower_ball = $attributes['slowerBall'];
+        if (isset($attributes['slowerBallOffSpin'])) {
+            $player->slower_ball_off_spin = $attributes['slowerBallOffSpin'];
         }
-        if (isset($attributes['seam'])) {
-            $player->seam = $attributes['seam'];
+        if (isset($attributes['seamDrift'])) {
+            $player->seam_drift = $attributes['seamDrift'];
         }
         if (isset($attributes['accuracy'])) {
             $player->accuracy = $attributes['accuracy'];
@@ -125,11 +128,11 @@ class UpdatePlayer
         if (isset($attributes['discipline'])) {
             $player->discipline = $attributes['discipline'];
         }
-        if (isset($attributes['bouncer'])) {
-            $player->bouncer = $attributes['bouncer'];
+        if (isset($attributes['bouncerBounce'])) {
+            $player->bouncer_bounce = $attributes['bouncerBounce'];
         }
-        if (isset($attributes['yorker'])) {
-            $player->yorker = $attributes['yorker'];
+        if (isset($attributes['yorkerArmBall'])) {
+            $player->yorker_arm_ball = $attributes['yorkerArmBall'];
         }
 
         return $player;

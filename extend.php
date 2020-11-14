@@ -14,6 +14,7 @@ namespace Cxsquared\HowzatCricketLeague;
 use Cxsquared\HowzatCricketLeague\Api\Controller\CreatePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\UpdatePlayerController;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;

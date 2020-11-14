@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class PlayerMovementSerializer extends AbstractSerializer
 {
-    protected $type = 'player_movement';
+    protected $type = 'playerMovements';
 
     protected function getDefaultAttributes($player_movement)
     {

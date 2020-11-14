@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 class PlayerSerializer extends AbstractSerializer
 {
-    protected $type = 'player';
+    protected $type = 'players';
 
     protected function getDefaultAttributes($player)
     {
@@ -20,35 +20,35 @@ class PlayerSerializer extends AbstractSerializer
         }
 
         return [
-            'id'            => $player->id,
-            'firstName'     => $player->first_name,
-            'lastName'      => $player->last_name,
-            'age'           => $player->age,
-            'height'        => $player->height,
-            'weight'        => $player->weight,
-            'nationality'   => $player->nationality,
-            'bowlingStyle'  => $player->bowling_style,
-            'running'       => $player->running,
-            'defense'       => $player->defense,
-            'attacking'     => $player->attacking,
-            'lofted'        => $player->lofted,
-            'vsSpin'        => $player->vs_spin,
-            'vsPace'        => $player->vs_pace,
-            'footwork'      => $player->footwork,
-            'timing'        => $player->timing,
-            'control'       => $player->control,
-            'pace'          => $player->pace,
-            'switg'         => $player->swing,
-            'slowerBall'    => $player->slower_ball,
-            'seam'          => $player->seam,
-            'accuracy'      => $player->accuracy,
-            'discipline'    => $player->discipline,
-            'bouncer'       => $player->bouncer,
-            'yorker'        => $player->yorker,
-            'tpe'           => $player->tpe,
-            'bankedTpe'     => $player->banked_tpe,
-            'createdAt'     => $this->formatDate($player->created_at),
-            'updatedAt'     => $this->formatDate($player->updated_at)
+            'id'                => $player->id,
+            'firstName'         => $player->first_name,
+            'lastName'          => $player->last_name,
+            'age'               => $player->age,
+            'height'            => $player->height,
+            'weight'            => $player->weight,
+            'nationality'       => $player->nationality,
+            'bowlingStyle'      => $player->bowling_style,
+            'running'           => $player->running,
+            'defense'           => $player->defense,
+            'attacking'         => $player->attacking,
+            'lofted'            => $player->lofted,
+            'vsSpin'            => $player->vs_spin,
+            'vsPace'            => $player->vs_pace,
+            'footwork'          => $player->footwork,
+            'timing'            => $player->timing,
+            'control'           => $player->control,
+            'paceFlight'        => $player->pace_flight,
+            'swingLegSpin'      => $player->swing_leg_spin,
+            'slowerBallOffSpin' => $player->slower_ball_off_spin,
+            'seamDrift'         => $player->seam_drift,
+            'accuracy'          => $player->accuracy,
+            'discipline'        => $player->discipline,
+            'bouncerBounce'     => $player->bouncer_bounce,
+            'yorkerArmBall'     => $player->yorker_arm_ball,
+            'tpe'               => $player->tpe,
+            'bankedTpe'         => $player->banked_tpe,
+            'createdAt'         => $this->formatDate($player->created_at),
+            'updatedAt'         => $this->formatDate($player->updated_at)
         ];
     }
 

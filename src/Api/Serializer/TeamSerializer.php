@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 class TeamSerializer extends AbstractSerializer
 {
-    protected $type = "team";
+    protected $type = "teams";
 
     protected function getDefaultAttributes($team)
     {
