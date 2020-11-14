@@ -38,7 +38,7 @@ class UpdatePlayerHandler
 
         $attributes = Arr::get($data, 'attributes', []);
 
-        if (!$isActorsPlayer) {
+        if (!$isActorsPlayer || $this->isLoweringSkill($player, $attributes)) {
             $actor->assertPermission($canEdit);
         }
 
@@ -73,6 +73,65 @@ class UpdatePlayerHandler
         $this->dispatchEventsFor($player, $actor);
 
         return $player;
+    }
+
+    private function isLoweringSkill(Player $player, array $attributes) {
+        $isLowering = false;
+
+        if (isset($attributes['running'])) {
+            $isLowering = $isLowering || $player->running < $attributes['running'];
+        }
+        if (isset($attributes['defense'])) {
+            $isLowering = $isLowering || $player->defense < $attributes['defense'];
+        }
+        if (isset($attributes['attacking'])) {
+            $isLowering = $isLowering || $player->attacking < $attributes['attacking'];
+        }
+        if (isset($attributes['lofted'])) {
+            $isLowering = $isLowering || $player->lofted < $attributes['lofted'];
+        }
+        if (isset($attributes['vsSpin'])) {
+            $isLowering = $isLowering || $player->vs_spin < $attributes['vsSpin'];
+        }
+        if (isset($attributes['vsPace'])) {
+            $isLowering = $isLowering || $player->vs_pace < $attributes['vsPace'];
+        }
+        if (isset($attributes['footwork'])) {
+            $isLowering = $isLowering || $player->footwork < $attributes['footwork'];
+        }
+        if (isset($attributes['timing'])) {
+            $isLowering = $isLowering || $player->timing < $attributes['timing'];
+        }
+        if (isset($attributes['control'])) {
+            $isLowering = $isLowering || $player->control < $attributes['control'];
+        }
+
+        if (isset($attributes['paceFlight'])) {
+            $isLowering = $isLowering || $player->pace_flight < $attributes['paceFlight'];
+        }
+        if (isset($attributes['swingLegSpin'])) {
+            $isLowering = $isLowering || $player->swing_leg_spin < $attributes['swingLegSpin'];
+        }
+        if (isset($attributes['slowerBallOffSpin'])) {
+            $isLowering = $isLowering || $player->slower_ball_off_spin < $attributes['slowerBallOffSpin'];
+        }
+        if (isset($attributes['seamDrift'])) {
+            $isLowering = $isLowering || $player->seam_drift < $attributes['seamDrift'];
+        }
+        if (isset($attributes['accuracy'])) {
+            $isLowering = $isLowering || $player->accuracy < $attributes['accuracy'];
+        }
+        if (isset($attributes['discipline'])) {
+            $isLowering = $isLowering || $player->discipline < $attributes['discipline'];
+        }
+        if (isset($attributes['bouncerBounce'])) {
+            $isLowering = $isLowering || $player->bouncer_bounce < $attributes['bouncerBounce'];
+        }
+        if (isset($attributes['yorkerArmBall'])) {
+            $isLowering = $isLowering || $player->yorker_arm_ball < $attributes['yorkerArmBall'];
+        }
+
+        return $isLowering;
     }
 
     private function updateBattingSkills(Player $player, array $attributes)
