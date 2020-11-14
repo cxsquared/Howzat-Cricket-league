@@ -54,7 +54,7 @@ class Player extends AbstractModel
         return $player;
     }
 
-    public function updateBattingSkills($running, $defense, $attacking, $lofted,
+    private function updateBattingSkills($running, $defense, $attacking, $lofted,
                                         $vs_spin, $vs_pace, $footwork, $timing, $control)
     {
         $this->running = $running;
@@ -70,11 +70,11 @@ class Player extends AbstractModel
         return $this;
     }
 
-    public function updateBowlingSkills($pace, $swing, $slower_ball, $seam,
+    private function updateBowlingSkills($pace, $swing, $slower_ball, $seam,
                                         $accuracy, $discipline, $bouncer, $yorker)
     {
         $this->pace = $pace;
-        $this->switg = $swing;
+        $this->swing = $swing;
         $this->slower_ball = $slower_ball;
         $this->seam = $seam;
         $this->accuracy = $accuracy;
@@ -89,6 +89,13 @@ class Player extends AbstractModel
     {
         $this->tpe = $tpe;
         $this->banked_tpe = $banked_tpe;
+
+        return $this;
+    }
+
+    public function assignTeam($team_id)
+    {
+        $this->team_id = $team_id;
 
         return $this;
     }
