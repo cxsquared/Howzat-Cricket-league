@@ -11,7 +11,9 @@
 
 namespace Cxsquared\HowzatCricketLeague;
 
+use Cxsquared\HowzatCricketLeague\Api\Controller\CreatePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;
@@ -27,13 +29,18 @@ return [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/resources/less/admin.less'),
     new Extend\Locales(__DIR__ . '/resources/locale'),
+
     (new Extend\Model(User::class))
         ->hasOne('player', Player::class)
         ->hasOne('gm_team', Team::class, 'gm_user_id')
         ->hasOne('agm_team', Team::class, 'agm_user_id')
         ->hasMany('submitted_updates', Update::class, 'submitted_user_id'),
+
     (new Extend\Routes('api'))
-        ->get('/players', 'players.index', ListPlayersController::class),
+        ->get('/players', 'players.index', ListPlayersController::class)
+        ->get('/players/{id}', 'players.show', ShowPlayerController::class)
+        ->post('/players', 'players', CreatePlayerController::class)
+        ->patch('/players/{id}', 'players.update', UpdatePlayerController::class),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);

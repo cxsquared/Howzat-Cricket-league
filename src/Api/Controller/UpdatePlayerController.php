@@ -3,7 +3,7 @@
 namespace Cxsquared\HowzatCricketLeague\Api\Controller;
 
 use Cxsquared\HowzatCricketLeague\Api\Serializer\PlayerSerializer;
-use Cxsquared\HowzatCricketLeague\Player\Command\CreatePlayer;
+use Cxsquared\HowzatCricketLeague\Player\Command\UpdatePlayer;
 use Flarum\Api\Controller\AbstractCreateController;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,6 +14,8 @@ class CreatePlayerController extends AbstractCreateController
 {
     public $serializer = PlayerSerializer::class;
 
+    public $inlcude = ['user'];
+
     protected $bus;
 
     public function __construct(Dispatcher $bus)
@@ -23,8 +25,12 @@ class CreatePlayerController extends AbstractCreateController
 
     public function data(ServerRequestInterface $request, Document $document)
     {
+        $id = Arr::get($request->getQueryParams(), 'id');
+        $actor = $request->getAttribute('actor');
+        $data = Arr::get($request->getParsedBody(), 'data', []);
+
         return $this->bus->dispatch(
-            new CreatePlayer($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
+            new UpdatePlayer($id, $actor, $data)
         );
     }
 }
