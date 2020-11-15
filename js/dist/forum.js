@@ -172,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/howzat-cricket-league', function () {
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.store.models.players = _models_Player__WEBPACK_IMPORTED_MODULE_3__["default"];
   flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.player = flarum_Model__WEBPACK_IMPORTED_MODULE_1___default.a.hasOne('players');
+  flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.submittedUpdates = flarum_Model__WEBPACK_IMPORTED_MODULE_1___default.a.hasMany('updates');
 });
 
 /***/ }),

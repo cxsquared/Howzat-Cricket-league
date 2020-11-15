@@ -2,12 +2,12 @@ import Model from 'flarum/Model';
 
 export default class Team extends Model {}
 
-Object.assign(Player.prototype, {
+Object.assign(Team.prototype, {
     createdAt: Model.attribute('createdAt', Model.transformDate),
     updatedAt: Model.attribute('updatedAt', Model.transaformDate),
 
-    gm_user: Model.hasOne('gm_user'),
-    agm_user: Model.hasOne('agm_user'),
+    gmUser: Model.hasOne('gmUser'),
+    agmUser: Model.hasOne('agmUser'),
     players: Model.hasMany('players')
 });
 

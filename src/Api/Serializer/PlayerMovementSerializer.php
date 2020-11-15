@@ -32,12 +32,12 @@ class PlayerMovementSerializer extends AbstractSerializer
         return $this->hasOne($player_movement, PlayerSerializer::class);
     }
 
-    protected function from_team($player_movement)
+    protected function fromTeam($player_movement)
     { 
         return $this->hasOne($player_movement, TeamSerializer::class);
     }
 
-    protected function to_team($player_movement)
+    protected function toTeam($player_movement)
     { 
         return $this->hasOne($player_movement, TeamSerializer::class);
     }

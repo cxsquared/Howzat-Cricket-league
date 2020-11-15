@@ -28,12 +28,12 @@ class TeamSerializer extends AbstractSerializer
         ];
     }
 
-    protected function gm_user($team)
+    protected function gmUser($team)
     {
         return $this->hasOne($team, BasicUserSerializer::class);
     }
 
-    protected function agm_user($team)
+    protected function agmUser($team)
     {
         return $this->hasOne($team, BasicUserSerializer::class);
     }
@@ -43,12 +43,12 @@ class TeamSerializer extends AbstractSerializer
         return $this->hasMany($team, PlayerSerializer::class);
     }
 
-    protected function to_movements($team)
+    protected function toMovements($team)
     {
         return $this->hasMany($team, PlayerMovementSerializer::class);
     }
 
-    protected function from_movements($team)
+    protected function fromMovements($team)
     {
         return $this->hasMany($team, PlayerMovementSerializer::class);
     }
