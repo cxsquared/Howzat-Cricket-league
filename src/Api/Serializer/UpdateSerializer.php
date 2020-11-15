@@ -24,6 +24,7 @@ class UpdateSerializer extends AbstractSerializer
             'date'          => $this->formatDate($update->date),
             'link'          => $update->link,
             'type'          => $update->type,
+            'comment'       => $update->comment,
             'tpe'           => $update->tpe,
             'status'        => $update->status,
             'submittedAt'  => $this->formatDate($update->submitted_at),

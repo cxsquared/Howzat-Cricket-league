@@ -27,6 +27,8 @@ class CreatePlayerHandler
         $actor = $command->actor;
         $data = $command->data;
 
+        $actor->assertRegistered();
+
         $player = Player::createBase(
             $actor->id,
             Arr::get($data, 'attributes.firstName'),

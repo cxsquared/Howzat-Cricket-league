@@ -24,7 +24,8 @@ class Update extends AbstractModel
         return $this->belongsTo(User::class);
     }
 
-    public static function createUpdate($date, $submitted_user_id, $link, $type, $tpe)
+    public static function createUpdate($date, $submitted_user_id, $link,
+                                        $type, $comment, $tpe)
     {
         $update = new static;
 
@@ -33,6 +34,7 @@ class Update extends AbstractModel
         $update->date = $date;
         $update->link = $link;
         $update->type = $type;
+        $update->comment = $comment;
         $update->tpe = $tpe;
 
         return $update;
@@ -45,7 +47,7 @@ class Update extends AbstractModel
 
     public function deny($updater_user_id)
     {
-        return $this->update_update($updater_user_id, "deny");
+        return $this->update_update($updater_user_id, "denied");
     }
 
     protected function update_update($updater_user_id, string $status)

@@ -25,8 +25,11 @@ class CreatePlayerController extends AbstractCreateController
 
     public function data(ServerRequestInterface $request, Document $document)
     {
+        $actor = $request->getAttribute('actor');
+        $data = Arr::get($request->getParsedBody(), 'data', []);
+
         return $this->bus->dispatch(
-            new CreatePlayer($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
+            new CreatePlayer($actor, $data)
         );
     }
 }

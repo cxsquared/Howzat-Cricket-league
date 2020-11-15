@@ -10,6 +10,7 @@ return Migration::CreateTable(
         $table->date('date');
         $table->string('link');
         $table->string('type');
+        $table->string('comment');
         $table->unsignedTinyInteger('tpe');
 
         $table->dateTime('submitted_at')->nullable();
