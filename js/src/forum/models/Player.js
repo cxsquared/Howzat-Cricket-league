@@ -22,14 +22,14 @@ Object.assign(Player.prototype, {
     timing: Model.attribute('timing'),
     control: Model.attribute('control'),
 
-    pace: Model.attribute('paceFlight'),
-    swing: Model.attribute('swingLegSpin'),
-    slowerBall: Model.attribute('slowerBallOffSpin'),
-    seam: Model.attribute('seamDrift'),
+    paceFlight: Model.attribute('paceFlight'),
+    swingLegSpin: Model.attribute('swingLegSpin'),
+    slowerBallOffSpin: Model.attribute('slowerBallOffSpin'),
+    seamDrift: Model.attribute('seamDrift'),
     accuracy: Model.attribute('accuracy'),
     discipline: Model.attribute('discipline'),
-    bouncer: Model.attribute('bouncerBounce'),
-    yorker: Model.attribute('yorkerArmBall'),
+    bouncerBounce: Model.attribute('bouncerBounce'),
+    yorkerArmBall: Model.attribute('yorkerArmBall'),
 
     tpe: Model.attribute('tpe'),
     bankedTpe: Model.attribute('bankedTpe'),
@@ -67,6 +67,10 @@ Object.assign(Player.prototype, {
     createdAt: Model.attribute('createdAt', Model.transformDate),
     updatedAt: Model.attribute('updatedAt', Model.transaformDate),
 
+    canEdit: Model.attribute('canEdit'),
+
     user: Model.hasOne('user'),
-    team: Model.hasOne('team')
+    team: Model.hasOne('team'),
+
+    isPaceBowler: computed('bowlingStyle', (bs) => bs.toLowerCase() === "pace") 
 });

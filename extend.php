@@ -14,6 +14,7 @@ namespace Cxsquared\HowzatCricketLeague;
 use Cxsquared\HowzatCricketLeague\Api\Controller\CreatePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdatePlayerController;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
@@ -38,6 +39,7 @@ return [
         ->hasMany('submitted_updates', Update::class, 'submitted_user_id'),
 
     (new Extend\Routes('api'))
+        ->get('/users/{id}/player', 'users.player', ShowUserPlayerController::class)
         ->get('/players', 'players.index', ListPlayersController::class)
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)

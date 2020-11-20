@@ -9,8 +9,10 @@ class AddApiAttributes
 {
     public function handle(Serializing $event)
     {
+        /*
         if ($event->isSerializer(CurrentUserSerializer::class)) {
-            $event->attributes['hclCanUpdate'] = $event->actor->can('hclUpdate', $event->model);
+            $event->attributes['hclCanPlayerUpdate'] = $event->actor->can('hclUpdate', $event->model);
         }
+        */
     }
 }

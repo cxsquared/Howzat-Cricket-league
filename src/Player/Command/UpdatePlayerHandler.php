@@ -33,7 +33,7 @@ class UpdatePlayerHandler
         $data = $command->data;
 
         $player = Player::findOrFail($command->playerId);
-        $canEdit = $actor->can('update', $player);
+        $canEdit = $actor->can('edit', $player);
         $isActorsPlayer = $actor->id === $player->user_id;
 
         $attributes = Arr::get($data, 'attributes', []);

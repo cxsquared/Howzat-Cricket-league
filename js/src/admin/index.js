@@ -7,12 +7,12 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     items.add('updatePlayer', {
       icon: 'fas fa-running',
       label: "Update Players",
-      permission: 'player.update'
+      permission: 'player.edit'
     }, 75),
     items.add('updateUpdates', {
       icon: 'fas fa-pen-nib',
       label: "Manged Updates",
-      permission: 'update.update'
+      permission: 'update.edit'
     }, 80)
   });
 });
