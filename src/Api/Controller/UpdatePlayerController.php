@@ -14,7 +14,7 @@ class UpdatePlayerController extends AbstractCreateController
 {
     public $serializer = PlayerSerializer::class;
 
-    public $inlcude = ['user'];
+    public $inlcude = ['user', 'team'];
 
     protected $bus;
 

@@ -13,7 +13,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
   app.store.models.players = Player;
 
   // New Model Relationships
-  User.prototype.player = Model.hasOne('players');
+  User.prototype.player = Model.hasOne('player');
   User.prototype.submittedUpdates = Model.hasMany('updates');
 
   // New Routes
@@ -26,7 +26,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     const href = app.route('user.player', {username: this.user.username()});
 
     items.add('players',
-      <LinkButton href={href} icon="fas fa-hiking">
+      <LinkButton href={href} icon="fas fa-hiking" class="Button Button--link">
         {app.translator.trans('hcl.forum.user.player_link')}
       </LinkButton>,
       80
@@ -41,7 +41,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     let player = app.session.user.player();
 
     if (player) {
-      const href = app.route('user.player', {username: this.user.username()});
+      const href = app.route('user.player', {username: app.session.user.username()});
       items.add('view-players',
         <LinkButton href={href}>
           {app.translator.trans('hcl.forum.link.players_view')}

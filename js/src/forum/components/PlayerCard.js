@@ -164,11 +164,11 @@ export default class PlayerCard extends Component {
                         </div>
                         {seperator}
                         <div className="PlayerCard-data">
-                            {`${app.translator.trans('hcl.forum.player.tpe')}: ${player.tpe()}`}
+                            {`${app.translator.trans('hcl.forum.player.tpe')}: ${player.tpe()} (${app.translator.trans('hcl.forum.player.banked')} ${player.bankedTpe()})`}
                         </div>
                         {seperator}
                         <div className="PlayerCard-data">
-                            {`${app.translator.trans('hcl.forum.player.banked_tpe')}: ${player.bankedTpe()}`}
+                            {`${app.translator.trans('hcl.forum.player.tpa')}: ${player.tpa()}`}
                         </div>
                     </div>
                 </div>

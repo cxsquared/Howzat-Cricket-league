@@ -20,7 +20,7 @@ hcl:
       players: Players
       create: Create Player
       tpe: TPE
-      banked_tpe: Banked TPE
+      banked: Banked
       tpa: TPA 
       country: Country
       team: Team

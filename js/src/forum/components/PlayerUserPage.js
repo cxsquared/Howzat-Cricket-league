@@ -93,16 +93,25 @@ export default class PlayerUserPage extends UserPage {
     }
 
     loadPlayers() {
+        app.preloadedApiDocument();
+
+        app.store.all('players').some(player => {
+            if(player.user() === this.user) {
+                this.showPlayer(player);
+                return true;
+            }
+        });
+
         if (!this.player) {
             app.store.find('users', `${this.user.id()}/player`).then(p => {
                 this.showPlayer(p)
-                this.loading = false;
             });
         }
     }
 
     showPlayer(player) {
         this.player = player;
+        this.loading = false;
 
         m.redraw();
     }
