@@ -1,0 +1,60 @@
+hcl:
+  admin:
+    permissions:
+      update_players: Update Players
+  forum:
+    page:
+      nav: Players
+    link:
+      players_create: Create Player
+      players_view: Manager Player
+    user:
+      players_empty_text: It looks like there are no players here. 
+      player_link: Players
+    player:
+      identity: Identity 
+      first_name: First Name
+      last_name: Last Name
+      bowling_style: Bowling Style 
+      age: Age 
+      players: Players
+      create: Create Player
+      tpe: TPE
+      banked_tpe: Banked TPE
+      tpa: TPA 
+      country: Country
+      team: Team
+      style:
+        pace: Pace
+        spin: Spin
+      running: Running 
+      defense: Defense 
+      attacking: Attacking 
+      lofted: Lofted 
+      vsSpin: Vs Spin 
+      vsPace: Vs Pace 
+      footwork: Footwork 
+      timing: Timing 
+      control: Control 
+      paceFlight:
+        pace: Pace 
+        spin: Flight 
+      swingLegSpin:
+        pace: Swign 
+        spin: Leg Spin 
+      slowerBallOffSpin:
+        pace: Slower Ball 
+        spin: Off Spin 
+      seamDrift:
+        pace: Seam 
+        spin: Drift 
+      accuracy: Accuracy 
+      discipline: Discipline 
+      bouncerBounce:
+        pace: Bouncer 
+        spin: Bounce 
+      yorkerArmBall:
+        pace: Yorker 
+        spin: Arm Ball 
+      bowler_attributes: Bowling Skills
+      batting_attributes: Batting Skills 

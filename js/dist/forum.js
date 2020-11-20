@@ -305,10 +305,12 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
     }
 
     var countryCode = player.nationality().toLowerCase();
-    var nationality = m("img", {
+    var nationality = m("div", {
+      className: "PlayerCard-data-img"
+    }, m("img", {
       src: "" + flagUrl + countryCode + ".svg",
       alt: countryCode
-    });
+    }));
     return m("div", {
       className: "PlayerCard-header",
       style: color ? {
@@ -318,13 +320,15 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       className: "PlayerCard-info"
     }, m("div", {
       className: "PlayerCard-name"
-    }, player.firstName() + " " + player.lastName()), m("div", {
+    }, player.firstName() + " " + player.lastName()), nationality, m("div", {
       className: "PlayerCard-subheader"
     }, userLink, m("div", {
       className: "PlayerCard-data"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.age') + ": " + player.age()), seperator, m("div", {
+      className: "PlayerCard-data"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.tpe') + ": " + player.tpe()), seperator, m("div", {
       className: "PlayerCard-data"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.age') + ": " + player.age()), seperator, nationality)), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.banked_tpe') + ": " + player.bankedTpe()), seperator)), m("div", {
       className: "PlayerCard-update ButtonGroup"
     }, headerButtons));
   };
@@ -343,6 +347,10 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
     return m("div", {
       className: "PlayerCard-batter"
     }, m("div", {
+      className: "PlayerCard-attributes-header"
+    }, m("div", {
+      className: "PlayerCard-info"
+    }, m("b", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.batting_attributes')))), m("div", {
       className: "PlayerCard-batter-attributes"
     }, m("div", {
       className: "PlayerCard-skill-label"
@@ -493,7 +501,7 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       className: "PlayerCard-info"
     }, m("b", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.bowler_attributes'))), m("div", {
       className: "PlayerCard-info"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.style') + ": " + flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.player.style_" + style.toLowerCase()))), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.bowling_style') + ": " + flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.player.style." + style.toLowerCase()))), m("div", {
       className: "PlayerCard-bowler-attributes"
     }, m("div", {
       className: "PlayerCard-skill-label"

@@ -139,7 +139,10 @@ export default class PlayerCard extends Component {
         }
 
         const countryCode = player.nationality().toLowerCase();
-        const nationality = <img src={`${flagUrl}${countryCode}.svg`} alt={countryCode} />
+        const nationality =
+            <div className="PlayerCard-data-img">
+                <img src={`${flagUrl}${countryCode}.svg`} alt={countryCode} />
+            </div>;
 
         return (
             <div className="PlayerCard-header"
@@ -148,17 +151,21 @@ export default class PlayerCard extends Component {
                     <div className="PlayerCard-name">
                         {`${player.firstName()} ${player.lastName()}`}
                     </div>
+                    {nationality}
                     <div className="PlayerCard-subheader">
                         {userLink}
+                        <div className="PlayerCard-data">
+                            {`${app.translator.trans('hcl.forum.player.age')}: ${player.age()}`}
+                        </div>
+                        {seperator}
                         <div className="PlayerCard-data">
                             {`${app.translator.trans('hcl.forum.player.tpe')}: ${player.tpe()}`}
                         </div>
                         {seperator}
                         <div className="PlayerCard-data">
-                            {`${app.translator.trans('hcl.forum.player.age')}: ${player.age()}`}
+                            {`${app.translator.trans('hcl.forum.player.banked_tpe')}: ${player.bankedTpe()}`}
                         </div>
                         {seperator}
-                        {nationality}
                     </div>
                 </div>
                 <div className="PlayerCard-update ButtonGroup">
@@ -191,6 +198,13 @@ export default class PlayerCard extends Component {
     battingInfo(battingStats) {
         return (
             <div className="PlayerCard-batter">
+                <div className="PlayerCard-attributes-header">
+                    <div className="PlayerCard-info">
+                        <b>
+                            {app.translator.trans('hcl.forum.player.batting_attributes')}
+                        </b>
+                    </div>
+                </div>
                 <div className="PlayerCard-batter-attributes">
                     <div className="PlayerCard-skill-label">
                         {app.translator.trans('hcl.forum.player.running')}
@@ -338,7 +352,7 @@ export default class PlayerCard extends Component {
                         </b>
                     </div>
                     <div className="PlayerCard-info">
-                        {`${app.translator.trans('hcl.forum.player.style')}: ${app.translator.trans(`hcl.forum.player.style_${style.toLowerCase()}`)}`}
+                        {`${app.translator.trans('hcl.forum.player.bowling_style')}: ${app.translator.trans(`hcl.forum.player.style.${style.toLowerCase()}`)}`}
                     </div>
                 </div>
                 <div className="PlayerCard-bowler-attributes">
