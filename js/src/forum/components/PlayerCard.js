@@ -75,6 +75,11 @@ export default class PlayerCard extends Component {
             this.saving = false;
             this.player = p;
             m.redraw();
+        }).catch(e => {
+            this.saving = false;
+            this.player = this.originalState;
+            this.initPlayerUpdateSkills();
+            m.redraw();
         });
 
         this.toggleUpdating();
@@ -165,7 +170,6 @@ export default class PlayerCard extends Component {
                         <div className="PlayerCard-data">
                             {`${app.translator.trans('hcl.forum.player.banked_tpe')}: ${player.bankedTpe()}`}
                         </div>
-                        {seperator}
                     </div>
                 </div>
                 <div className="PlayerCard-update ButtonGroup">

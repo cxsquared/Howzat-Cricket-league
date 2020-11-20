@@ -249,6 +249,13 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       _this.saving = false;
       _this.player = p;
       m.redraw();
+    })["catch"](function (e) {
+      _this.saving = false;
+      _this.player = _this.originalState;
+
+      _this.initPlayerUpdateSkills();
+
+      m.redraw();
     });
     this.toggleUpdating();
   };
@@ -328,7 +335,7 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       className: "PlayerCard-data"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.tpe') + ": " + player.tpe()), seperator, m("div", {
       className: "PlayerCard-data"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.banked_tpe') + ": " + player.bankedTpe()), seperator)), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.banked_tpe') + ": " + player.bankedTpe()))), m("div", {
       className: "PlayerCard-update ButtonGroup"
     }, headerButtons));
   };
