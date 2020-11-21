@@ -17,6 +17,8 @@ hcl:
       last_name: Last Name
       bowling_style: Bowling Style 
       age: Age 
+      height: Height (cm)
+      weight: Weight (kg)
       players: Players
       create: Create Player
       tpe: TPE

@@ -36,7 +36,7 @@ export default class PlayerUserPage extends UserPage {
         if (!this.player && !this.loading) {
             let createNew = null;
             if (this.user === app.session.user) {
-                createNew = <LinkButton href={app.route("players.create")}
+                createNew = <LinkButton href={app.route("player.create")}
                                         className="Button PlayersCreate">
                                 Create Players
                             </LinkButton>;
@@ -103,8 +103,16 @@ export default class PlayerUserPage extends UserPage {
         });
 
         if (!this.player) {
-            app.store.find('users', `${this.user.id()}/player`).then(p => {
-                this.showPlayer(p)
+            app.store.find('users', `${this.user.id()}/player`, null, {
+                errorHandler() {
+                }
+            }).then(p => {
+                if (p)
+                    this.showPlayer(p);
+            }).catch(() => {
+                    this.loading = false;
+                    this.player = null;
+                    m.redraw();
             });
         }
     }

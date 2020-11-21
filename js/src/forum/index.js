@@ -7,6 +7,7 @@ import Model from 'flarum/Model';
 import User from 'flarum/models/User';
 import Player from './models/Player';
 import PlayerUserPage from './components/PlayerUserPage';
+import PlayerCreatePage from './components/PlayerCreatePage';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
@@ -18,7 +19,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
 
   // New Routes
   //app.routes['players'] = { path: '/players', component: PlayersPage.component() };
-  //app.routes['player.create'] = { path: '/players/create', component: PlayerCreatePage.component() };
+  app.routes['player.create'] = { path: '/player/create', component: PlayerCreatePage };
   app.routes['user.player'] = { path: '/u/:username/player', component: PlayerUserPage };
 
   // Adding player button to UserPage
@@ -48,8 +49,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
         </LinkButton>
         );
     } else {
-      //const href = app.route('player.create');
-      const href = app.route('user.player', {username: app.session.user.username()});
+      const href = app.route('player.create');
 
       items.add('create-players',
         <LinkButton href={href}>

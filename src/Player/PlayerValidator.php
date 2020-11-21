@@ -51,7 +51,25 @@ class PlayerValidator extends AbstractValidator
                 'min:3',
                 'max:50',
                 'unique:players,last_name,'.$idSuffix.',id,first_name,'.$first_name,
-            ]
+            ],
+            'nationality' => 'required',
+            'bowlingStyle' => 'required',
+            'age' => [
+                'required',
+                'gte:18',
+                'lte:99'
+            ],
+            'height' => [
+                'required',
+                'gte:120',
+                'lte:270'
+            ],
+            'weight' => [
+                'required',
+                'gte:50',
+                'lte:130'
+            ],
+            'bowling_style' => 'required'
         ];
     }
 }

@@ -34,8 +34,8 @@ class CreatePlayerHandler
             Arr::get($data, 'attributes.firstName'),
             Arr::get($data, 'attributes.lastName'),
             Arr::get($data, 'attributes.age'),
-            Arr::get($data, 'attributes.weight'),
             Arr::get($data, 'attributes.height'),
+            Arr::get($data, 'attributes.weight'),
             Arr::get($data, 'attributes.nationality'),
             Arr::get($data, 'attributes.bowlingStyle')
         );
@@ -56,7 +56,7 @@ class CreatePlayerHandler
         );
 
         $this->validator->setFirstName($player->first_name);
-        $this->validator->setFirstName($player->last_name);
+        $this->validator->setLastName($player->last_name);
         $this->validator->assertValid($player->getAttributes());
 
         $player->save();

@@ -44,6 +44,10 @@ return [
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class),
+    
+    (new Extend\Frontend('forum'))
+        ->route('/user/:id/player', 'user.player')
+        ->route('/player/create', 'player.create'),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);
