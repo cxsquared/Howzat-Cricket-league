@@ -118,7 +118,8 @@ export default class PlayerCard extends Component {
         }
 
         let headerButtons = [];
-        if (player.canEdit() && !this.saving) {
+        let canEdit = app.session.user === this.attrs.user || this.player.canEdit();
+        if (canEdit && !this.saving) {
             if (this.showUpdate) {
                 headerButtons.push(
                     <Button onclick={this.cancel.bind(this)}

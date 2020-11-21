@@ -370,8 +370,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
     }
 
     var headerButtons = [];
+    var canEdit = flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === this.attrs.user || this.player.canEdit();
 
-    if (player.canEdit() && !this.saving) {
+    if (canEdit && !this.saving) {
       if (this.showUpdate) {
         headerButtons.push(m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
           onclick: this.cancel.bind(this),
