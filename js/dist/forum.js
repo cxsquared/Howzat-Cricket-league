@@ -1380,29 +1380,41 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     var tpe = m("div", {
       className: "PlayerUpdate--tpe"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.banked_tpe') + ": " + (this.player.bankedTpe() - this.spentTpe));
-    var batter = m("div", {
-      className: "PlayerUpdate--batter"
+    var batting = m("div", {
+      className: "PlayerUpdate--batting"
     }, m("div", {
       className: "PlayerUpdate--header"
     }, m("div", {
       className: "PlayerUpdate--info"
     }, m("b", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.batting_attributes')))), m("div", {
-      className: "PlayerUpdate--Skills"
+      className: "PlayerUpdate--skills"
     }, m("div", {
-      className: "PlayerUpdate--columns"
-    }, m("div", {
-      className: "PlayerUpdate--column-header"
+      className: "PlayerUpdate--item PlayerUpdate--header"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.skill')), m("div", {
-      className: "PlayerUpdate--column-header"
+      className: "PlayerUpdate--item PlayerUpdate--header"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.tpe')), m("div", {
-      className: "PlayerUpdate--column-header"
+      className: "PlayerUpdate--item PlayerUpdate--header"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.cost')), m("div", {
-      className: "PlayerUpdate--column-header"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.update')), m("div", {
-      className: "PlayerUpdate--row"
+      className: "PlayerUpdate--item PlayerUpdate--header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.update')), this.skillRow("running"), this.skillRow("defense"), this.skillRow("attacking"), this.skillRow("lofted"), this.skillRow("vsSpin"), this.skillRow("vsPace"), this.skillRow("footwork"), this.skillRow("timing"), this.skillRow("control")));
+    var style = this.player.bowlingStyle();
+    var bowling = m("div", {
+      className: "PlayerUpdate--bowling"
     }, m("div", {
-      className: "PlayerUpdate--column"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.running')), this.currentTpe("running"), this.currentCost("running"), this.updateButtons("running")))));
+      className: "PlayerUpdate--header"
+    }, m("div", {
+      className: "PlayerUpdate--info"
+    }, m("b", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.bowler_attributes')))), m("div", {
+      className: "PlayerUpdate--skills"
+    }, m("div", {
+      className: "PlayerUpdate--item PlayerUpdate--header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.skill')), m("div", {
+      className: "PlayerUpdate--item PlayerUpdate--header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.tpe')), m("div", {
+      className: "PlayerUpdate--item PlayerUpdate--header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.cost')), m("div", {
+      className: "PlayerUpdate--item PlayerUpdate--header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.update')), this.skillRow("paceFlight", style), this.skillRow("swingLegSpin", style), this.skillRow("slowerBallOffSpin", style), this.skillRow("seamDrift", style), this.skillRow("accuracy"), this.skillRow("discipline"), this.skillRow("bouncerBounce", style), this.skillRow("yorkerArmBall", style)));
     var save = m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
       type: "submit",
       className: "Button Button--primary",
@@ -1411,13 +1423,21 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.save'));
     return m("div", {
       classname: "PlayerUpdate"
-    }, tpe, batter, save);
+    }, tpe, batting, bowling, save);
+  };
+
+  _proto.skillRow = function skillRow(skill, style) {
+    var name = skill;
+    if (!!style) name += "." + style;
+    return [m("div", {
+      className: "PlayerUpdate--item PlayerUpdate--skill"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.player." + name)), this.currentTpe(skill), this.currentCost(skill), this.updateButtons(skill)];
   };
 
   _proto.currentTpe = function currentTpe(skill) {
     var originalValue = this.player.data.attributes[skill];
     var newValue = this.playerSkillUpdates[skill];
-    var className = "PlayerUpdate--column PlayerUpdate--tpe";
+    var className = "PlayerUpdate--item PlayerUpdate--tpe";
     if (originalValue != newValue) className += " PlayerUpdate--updated";
     return m("div", {
       className: className
@@ -1426,7 +1446,7 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
 
   _proto.currentCost = function currentCost(skill) {
     var cost = _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].cost(this.playerSkillUpdates[skill]);
-    var className = "PlayerUpdate--column PlayerUpdate--cost";
+    var className = "PlayerUpdate--item PlayerUpdate--cost";
     if (cost > this.tpeLeft()) className = "PlayerUpdate--warning";
     return m("div", {
       className: className
@@ -1440,7 +1460,7 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     var increaseDisabled = _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].cost(currentTpe) > this.tpeLeft();
     var decreaseDisabled = currentTpe <= this.player.data.attributes[skill] || currentTpe === 40;
     return m("div", {
-      className: "PlayerUpdate--column"
+      className: "PlayerUpdate--item PlayerUpdate--buttons"
     }, m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
       type: "button",
       className: "Button PlayerUpdate--decrease",
