@@ -61,9 +61,7 @@ export default class PlayerUserPage extends UserPage {
                 <ul className="PlayersUserPage-list">
                     <li>
                         <PlayerCard player={this.player}
-                                    user={this.user}
-                                    showUser={false}
-                                    color={this.user.color()} /> 
+                                    showUser={false} /> 
                     </li>
                 </ul>
             </div>

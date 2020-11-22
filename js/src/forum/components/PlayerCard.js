@@ -2,10 +2,16 @@ import app from 'flarum/app';
 import Component from 'flarum/Component'
 import Button from 'flarum/components/Button';
 import username from 'flarum/helpers/username';
+import PlayerUpdateModal from './PlayerUpdateModal';
 
 const seperator = <div className="PlayerCard-seperator">|</div>;
 const flagUrl = "https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/svg/"; 
 
+/*
+ * Attr
+ * player
+ * showUser
+ */
 export default class PlayerCard extends Component {
     oninit(vnode) {
         super.oninit(vnode);
@@ -101,7 +107,10 @@ export default class PlayerCard extends Component {
     }
 
     buildHeader(player) {
-        const color = this.attrs.color ? this.attrs.color : '#675555';
+        const color = this.player.user().color() ?
+            this.player.user().color() :
+            '#675555';
+
         const user = this.player.user();
         const usernameSpan = username(user);
 
@@ -118,7 +127,7 @@ export default class PlayerCard extends Component {
         }
 
         let headerButtons = [];
-        let canEdit = app.session.user === this.attrs.user || this.player.canEdit();
+        let canEdit = app.session.user === this.player.user() || this.player.canEdit();
         if (canEdit && !this.saving) {
             if (this.showUpdate) {
                 headerButtons.push(

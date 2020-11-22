@@ -1,10 +1,23 @@
 hcl:
+  lib:
+    sort:
+      default: Default
+      first_name_az: First Name (a-z)
+      first_name_za: First Name (z-a)
+      last_name_az: Last Name (a-z)
+      last_name_za: Last Name (z-a)
+      newest: Newest 
+      oldest: Oldest 
+      newest_update: Most Recent Update 
+      oldest_update: Least Recent Update 
   admin:
     permissions:
       update_players: Update Players
   forum:
     page:
+      player_directory: Player Directory
       nav: Players
+      refresh_tooltip: Refresh
     link:
       players_create: Create Player
       players_view: Manager Player
@@ -12,6 +25,36 @@ hcl:
       players_empty_text: It looks like there are no players here. 
       player_link: Players
     player:
+      tooltip:
+        running: The speed in which you run between wickets, higher skill more runs
+        defense: The ability you have to protect yourself from getting out, higher skill means less likely to get out
+        attacking: The ability you have to play scoring shots, higher skill means more runs
+        lofted: The ability you have to clear the boundary, higher skill means more 4's & 6's
+        vs_spin: The ability you have to play against spin bowlers, higher skill means less likely to get out
+        vs_pace: The ability you have to play against pace bowlers, higher skill means less likely to get out
+        footwork: The ability you have to get in the right position to play the ball
+        timing: The ability to time your shots better letting you hit the ball more powerfully
+        control: The ability to place your shots in gaps and avoid getting caught
+        discipline: This reduces your inaccuracy and extras (wides & no balls)
+        accuracy: The ability to land the ball on the pitch where you want it to go
+        paceFlight:
+          pace: This ability changes how fast you can bowl 
+          spin: The more flight a ball has the more it will turn 
+        swingLegSpin:
+          pace: This is the ability to make the ball move sideways in the air  
+          spin: Leg spin is when a ball spins from right to left to a right handed batter 
+        slowerBallOffSpin:
+          pace: This ball is bowled slower to trick the batter 
+          spin: Off spin is when a ball spins from left to right to a right handed batter 
+        seamDrift:
+          pace: The is the ability to make the ball move sideways when it bounces 
+          spin: Drift is how a ball moves sideways in the air 
+        bouncerBounce:
+          pace: This is a ball that is pitched short and will bounce up towards the battsmans head
+          spin: This helps your ability to fool the batsman making a ball bounce more than expected
+        yorkerArmBall:
+          pace: This is a ball that is pitched up around the batsmans toes, to try and get them bowled
+          spin: This is a surprise ball where the ball doesn't spin sometimes fooling the batsman
       identity: Identity 
       first_name: First Name
       last_name: Last Name
@@ -42,7 +85,7 @@ hcl:
         pace: Pace 
         spin: Flight 
       swingLegSpin:
-        pace: Swign 
+        pace: Swing 
         spin: Leg Spin 
       slowerBallOffSpin:
         pace: Slower Ball 

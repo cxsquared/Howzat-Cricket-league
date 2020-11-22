@@ -47,7 +47,8 @@ return [
     
     (new Extend\Frontend('forum'))
         ->route('/user/:id/player', 'user.player')
-        ->route('/player/create', 'player.create'),
+        ->route('/player/create', 'player.create')
+        ->route('/players', 'players'),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);

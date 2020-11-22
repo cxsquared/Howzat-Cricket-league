@@ -8,6 +8,7 @@ import User from 'flarum/models/User';
 import Player from './models/Player';
 import PlayerUserPage from './components/PlayerUserPage';
 import PlayerCreatePage from './components/PlayerCreatePage';
+import PlayerDirectoryPage from './components/PlayerDirectoryPage';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
@@ -18,7 +19,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
   User.prototype.submittedUpdates = Model.hasMany('updates');
 
   // New Routes
-  //app.routes['players'] = { path: '/players', component: PlayersPage.component() };
+  app.routes['players'] = { path: '/players', component: PlayerDirectoryPage};
   app.routes['player.create'] = { path: '/player/create', component: PlayerCreatePage };
   app.routes['user.player'] = { path: '/u/:username/player', component: PlayerUserPage };
 
