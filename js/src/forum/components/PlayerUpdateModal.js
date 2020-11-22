@@ -1,6 +1,7 @@
 import app from 'flarum/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
+import TpeUtils from '../../common/utils/TpeUtils';
 
 // Player
 // OnSave
@@ -10,9 +11,10 @@ export default class PlayerUpdateModal extends Modal {
         super.oninit(vnode);
         this.player = this.attrs.player;
         this.originalState = this.player;
-        this.save = false;
+        this.saving = false;
 
         this.playerSkillUpdates = {};
+        this.spentTpe = 0;
 
         this.initPlayerUpdateSkills();
 
@@ -28,6 +30,43 @@ export default class PlayerUpdateModal extends Modal {
     }
 
     content() {
+        const tpe = <div className="PlayerUpdate--tpe">
+            {`${app.translator.trans('hcl.forum.player.update.banked_tpe')}: ${this.player.bankedTpe() - this.spentTpe}`}
+        </div>;
+        const batter = <div className="PlayerUpdate--batter">
+            <div className="PlayerUpdate--header">
+                <div className="PlayerUpdate--info">
+                    <b>
+                        {app.translator.trans('hcl.forum.player.batting_attributes')}
+                    </b>
+                </div>
+            </div>
+            <div className="PlayerUpdate--Skills">
+                <div className="PlayerUpdate--columns">
+                    <div className="PlayerUpdate--column-header">
+                        {app.translator.trans('hcl.forum.player.update.skill')}
+                    </div>
+                    <div className="PlayerUpdate--column-header">
+                        {app.translator.trans('hcl.forum.player.update.tpe')}
+                    </div>
+                    <div className="PlayerUpdate--column-header">
+                        {app.translator.trans('hcl.forum.player.update.cost')}
+                    </div>
+                    <div className="PlayerUpdate--column-header">
+                        {app.translator.trans('hcl.forum.player.update.update')}
+                    </div>
+                    <div className="PlayerUpdate--row">
+                        <div className="PlayerUpdate--column">
+                            {app.translator.trans('hcl.forum.player.running')}
+                        </div>
+                        {this.currentTpe("running")}
+                        {this.currentCost("running")}
+                        {this.updateButtons("running")}
+                    </div>
+                </div>
+            </div>
+        </div>;
+
         const save = <Button type="submit"
                              className="Button Button--primary"
                              loading={this.saving}
@@ -35,7 +74,55 @@ export default class PlayerUpdateModal extends Modal {
             {app.translator.trans('hcl.forum.basics.save')}
         </Button>
 
-        return save;
+        return <div classname="PlayerUpdate">
+            {tpe}
+            {batter}
+            {save}
+        </div>;
+    }
+
+    currentTpe(skill) {
+        const originalValue = this.player.data.attributes[skill];
+        const newValue = this.playerSkillUpdates[skill];
+
+        let className = "PlayerUpdate--column PlayerUpdate--tpe";
+        if (originalValue != newValue)
+            className += " PlayerUpdate--updated";
+
+        return <div className={className}>
+            {newValue}
+        </div>;
+    }
+
+    currentCost(skill) {
+        const cost = TpeUtils.cost(this.playerSkillUpdates[skill]);
+
+        let className = "PlayerUpdate--column PlayerUpdate--cost";
+        if (cost > this.tpeLeft())    
+            className = "PlayerUpdate--warning";
+
+        return <div className={className}>
+            {cost}
+        </div>;
+    }
+
+    updateButtons(skill) {
+        const currentTpe = this.playerSkillUpdates[skill];
+        const increaseDisabled = TpeUtils.cost(currentTpe) > this.tpeLeft();
+        const decreaseDisabled = currentTpe <= this.player.data.attributes[skill] || currentTpe === 40; 
+
+        return <div className="PlayerUpdate--column">
+            <Button type="button"
+                    className="Button PlayerUpdate--decrease"
+                    disabled={decreaseDisabled}
+                    icon="fas fa-minus"
+                    onclick={() => this.updateSkill(skill, TpeUtils.decrementCost(currentTpe))} />
+            <Button type="button"
+                    className="Button PlayerUpdate--increase"
+                    disabled={increaseDisabled}
+                    icon="fas fa-plus"
+                    onclick={() => this.updateSkill(skill, TpeUtils.cost(currentTpe))} />
+        </div>
     }
 
     onsubmit(e) {
@@ -78,18 +165,17 @@ export default class PlayerUpdateModal extends Modal {
     }
 
     updateSkill(skill, tpe) {
-        let intTpe = parseInt(tpe);
-        if (this.validTpeLimit(skill, intTpe)) {
-            this.playerSkillUpdates[skill] = intTpe;
-        }
+        const currentTpe = this.playerSkillUpdates[skill];
+        const newTpe = currentTpe + tpe;
+
+        if (newTpe > 99 || newTpe < 40 || this.tpeLeft() - tpe < 0)
+            return;
+
+        this.spentTpe += tpe;
+        this.playerSkillUpdates[skill] = newTpe;
     }
 
-    validTpeLimit(tpe) {
-        // No skill over 15 tpe or under 0
-        if (tpe > 99 || tpe < 40) {
-            return false;
-        }
-
-        return true;
+    tpeLeft() {
+        return this.player.bankedTpe() - this.spentTpe;
     }
 };

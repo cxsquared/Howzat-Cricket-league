@@ -29,6 +29,11 @@ hcl:
     player:
       update:
         title: Update Player
+        banked_tpe: Banked TPE
+        tpe: TPE
+        cost: Cost
+        skill: Skill
+        update: Update
       tooltip:
         running: The speed in which you run between wickets, higher skill more runs
         defense: The ability you have to protect yourself from getting out, higher skill means less likely to get out

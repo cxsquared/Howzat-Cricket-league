@@ -267,6 +267,42 @@ var PlayerSortMap = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./src/common/utils/TpeUtils.js":
+/*!**************************************!*\
+  !*** ./src/common/utils/TpeUtils.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TpeUtils; });
+var TpeUtils = /*#__PURE__*/function () {
+  function TpeUtils() {}
+
+  TpeUtils.cost = function cost(tpe) {
+    if (tpe < 70) return 1;
+    if (tpe < 75) return 2;
+    if (tpe < 80) return 3;
+    if (tpe < 90) return 5;
+    return 10;
+  };
+
+  TpeUtils.decrementCost = function decrementCost(tpe) {
+    if (tpe > 90) return -10;
+    if (tpe > 80) return -5;
+    if (tpe > 75) return -3;
+    if (tpe > 70) return -2;
+    return -1;
+  };
+
+  return TpeUtils;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/forum/components/PlayerCard.js":
 /*!********************************************!*\
   !*** ./src/forum/components/PlayerCard.js ***!
@@ -1303,6 +1339,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_components_Modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Modal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/components/Button */ "flarum/components/Button");
 /* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/utils/TpeUtils */ "./src/common/utils/TpeUtils.js");
+
 
 
 
@@ -1323,8 +1361,9 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
 
     this.player = this.attrs.player;
     this.originalState = this.player;
-    this.save = false;
+    this.saving = false;
     this.playerSkillUpdates = {};
+    this.spentTpe = 0;
     this.initPlayerUpdateSkills();
     this.errors = [];
   };
@@ -1338,33 +1377,107 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.content = function content() {
+    var tpe = m("div", {
+      className: "PlayerUpdate--tpe"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.banked_tpe') + ": " + (this.player.bankedTpe() - this.spentTpe));
+    var batter = m("div", {
+      className: "PlayerUpdate--batter"
+    }, m("div", {
+      className: "PlayerUpdate--header"
+    }, m("div", {
+      className: "PlayerUpdate--info"
+    }, m("b", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.batting_attributes')))), m("div", {
+      className: "PlayerUpdate--Skills"
+    }, m("div", {
+      className: "PlayerUpdate--columns"
+    }, m("div", {
+      className: "PlayerUpdate--column-header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.skill')), m("div", {
+      className: "PlayerUpdate--column-header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.tpe')), m("div", {
+      className: "PlayerUpdate--column-header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.cost')), m("div", {
+      className: "PlayerUpdate--column-header"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.update.update')), m("div", {
+      className: "PlayerUpdate--row"
+    }, m("div", {
+      className: "PlayerUpdate--column"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.player.running')), this.currentTpe("running"), this.currentCost("running"), this.updateButtons("running")))));
     var save = m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
       type: "submit",
       className: "Button Button--primary",
       loading: this.saving,
       disabled: this.saving
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.save'));
-    return save;
+    return m("div", {
+      classname: "PlayerUpdate"
+    }, tpe, batter, save);
+  };
+
+  _proto.currentTpe = function currentTpe(skill) {
+    var originalValue = this.player.data.attributes[skill];
+    var newValue = this.playerSkillUpdates[skill];
+    var className = "PlayerUpdate--column PlayerUpdate--tpe";
+    if (originalValue != newValue) className += " PlayerUpdate--updated";
+    return m("div", {
+      className: className
+    }, newValue);
+  };
+
+  _proto.currentCost = function currentCost(skill) {
+    var cost = _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].cost(this.playerSkillUpdates[skill]);
+    var className = "PlayerUpdate--column PlayerUpdate--cost";
+    if (cost > this.tpeLeft()) className = "PlayerUpdate--warning";
+    return m("div", {
+      className: className
+    }, cost);
+  };
+
+  _proto.updateButtons = function updateButtons(skill) {
+    var _this = this;
+
+    var currentTpe = this.playerSkillUpdates[skill];
+    var increaseDisabled = _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].cost(currentTpe) > this.tpeLeft();
+    var decreaseDisabled = currentTpe <= this.player.data.attributes[skill] || currentTpe === 40;
+    return m("div", {
+      className: "PlayerUpdate--column"
+    }, m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      type: "button",
+      className: "Button PlayerUpdate--decrease",
+      disabled: decreaseDisabled,
+      icon: "fas fa-minus",
+      onclick: function onclick() {
+        return _this.updateSkill(skill, _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].decrementCost(currentTpe));
+      }
+    }), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      type: "button",
+      className: "Button PlayerUpdate--increase",
+      disabled: increaseDisabled,
+      icon: "fas fa-plus",
+      onclick: function onclick() {
+        return _this.updateSkill(skill, _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].cost(currentTpe));
+      }
+    }));
   };
 
   _proto.onsubmit = function onsubmit(e) {
-    var _this = this;
+    var _this2 = this;
 
     e.preventDefault();
     this.saving = true;
     this.player.save(this.playerSkillUpdates).then(function (p) {
-      _this.saving = false;
+      _this2.saving = false;
 
-      _this.attrs.onsave(p);
+      _this2.attrs.onsave(p);
 
-      _this.hide();
+      _this2.hide();
     })["catch"](function (e) {
-      _this.saving = false;
-      _this.player = _this.originalState;
+      _this2.saving = false;
+      _this2.player = _this2.originalState;
 
-      _this.initPlayerUpdateSkills();
+      _this2.initPlayerUpdateSkills();
 
-      _this.onerror(e); // calls redraw
+      _this2.onerror(e); // calls redraw
 
     });
   };
@@ -1391,20 +1504,15 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.updateSkill = function updateSkill(skill, tpe) {
-    var intTpe = parseInt(tpe);
-
-    if (this.validTpeLimit(skill, intTpe)) {
-      this.playerSkillUpdates[skill] = intTpe;
-    }
+    var currentTpe = this.playerSkillUpdates[skill];
+    var newTpe = currentTpe + tpe;
+    if (newTpe > 99 || newTpe < 40 || this.tpeLeft() - tpe < 0) return;
+    this.spentTpe += tpe;
+    this.playerSkillUpdates[skill] = newTpe;
   };
 
-  _proto.validTpeLimit = function validTpeLimit(tpe) {
-    // No skill over 15 tpe or under 0
-    if (tpe > 99 || tpe < 40) {
-      return false;
-    }
-
-    return true;
+  _proto.tpeLeft = function tpeLeft() {
+    return this.player.bankedTpe() - this.spentTpe;
   };
 
   return PlayerUpdateModal;
