@@ -14,6 +14,8 @@ hcl:
     permissions:
       update_players: Update Players
   forum:
+    basics:
+      save: Save
     page:
       player_directory: Player Directory
       nav: Players
@@ -25,6 +27,8 @@ hcl:
       players_empty_text: It looks like there are no players here. 
       player_link: Players
     player:
+      update:
+        title: Update Player
       tooltip:
         running: The speed in which you run between wickets, higher skill more runs
         defense: The ability you have to protect yourself from getting out, higher skill means less likely to get out

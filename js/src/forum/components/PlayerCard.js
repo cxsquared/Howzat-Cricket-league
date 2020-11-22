@@ -18,92 +18,25 @@ export default class PlayerCard extends Component {
         this.player = this.attrs.player;
         this.originalState = this.player;
         this.saving = false;
-
-        this.showUpdate = false;
-        this.playerSkillUpdates = {};
-
-        this.save = this.save.bind(this);
-        this.initPlayerUpdateSkills = this.initPlayerUpdateSkills.bind(this);
-        this.updateSkill = this.updateSkill.bind(this);
-        this.validTpeLimit = this.validTpeLimit.bind(this);
-
-        this.initPlayerUpdateSkills();
-
-        this.errors = [];
-    }
-
-    initPlayerUpdateSkills() {
-        // Batter
-        this.playerSkillUpdates["running"] = this.player.running();
-        this.playerSkillUpdates["defense"] = this.player.defense();
-        this.playerSkillUpdates["attacking"] = this.player.attacking();
-        this.playerSkillUpdates["lofted"] = this.player.lofted();
-        this.playerSkillUpdates["vsSpin"] = this.player.vsSpin();
-        this.playerSkillUpdates["vsPace"] = this.player.vsPace();
-        this.playerSkillUpdates["footwork"] = this.player.footwork();
-        this.playerSkillUpdates["timing"] = this.player.timing();
-        this.playerSkillUpdates["control"] = this.player.control();
-
-        this.playerSkillUpdates["paceFlight"] = this.player.paceFlight();
-        this.playerSkillUpdates["swingLegSpin"] = this.player.swingLegSpin();
-        this.playerSkillUpdates["slowerBallOffSpin"] = this.player.slowerBallOffSpin();
-        this.playerSkillUpdates["seamDrift"] = this.player.seamDrift();
-        this.playerSkillUpdates["accuracy"] = this.player.accuracy();
-        this.playerSkillUpdates["discipline"] = this.player.discipline();
-        this.playerSkillUpdates["bouncerBounce"] = this.player.bouncerBounce();
-        this.playerSkillUpdates["yorkerArmBall"] = this.player.yorkerArmBall();
     }
 
     view() {
-        const player = this.attrs.player;
-
         return (
             <div className="PlayerCard">
-                {this.buildHeader(player)}
-                {this.buildInfo(player)}
+                {this.buildHeader(this.player)}
+                {this.buildInfo(this.player)}
             </div>
         )
+
     }
 
     toggleUpdating() {
-        this.showUpdate = !this.showUpdate;
-        if (this.showUpdate) {
-            this.originalState = this.attrs.player;
-        }
-
-        m.redraw();
+        app.modal.show(PlayerUpdateModal, {player: this.player, onsave: this.onsave.bind(this)});
     }
 
-    save() {
-        this.saving = true;
-
-        this.player.save(this.playerSkillUpdates).then(p => {
-            this.saving = false;
-            this.player = p;
-            m.redraw();
-        }).catch(e => {
-            this.saving = false;
-            this.player = this.originalState;
-            this.initPlayerUpdateSkills();
-            m.redraw();
-        });
-
-        this.toggleUpdating();
-    }
-
-    cancel() {
-        this.player = this.originalState;
-
-        this.showUpdate = false;
-
-        m.redraw();
-    }
-
-    updateSkill(skill, tpe) {
-        let intTpe = parseInt(tpe);
-        if (this.validTpeLimit(skill, intTpe)) {
-            this.playerSkillUpdates[skill] = intTpe;
-        }
+    onsave(player) {
+        this.player = player;
+        m.redraw(); 
     }
 
     buildHeader(player) {
@@ -129,28 +62,13 @@ export default class PlayerCard extends Component {
         let headerButtons = [];
         let canEdit = app.session.user === this.player.user() || this.player.canEdit();
         if (canEdit && !this.saving) {
-            if (this.showUpdate) {
-                headerButtons.push(
-                    <Button onclick={this.cancel.bind(this)}
-                            className="Button">
-                        Cancel
-                    </Button>
-                );
-                headerButtons.push(
-                    <Button onclick={this.save.bind(this)}
-                            className="Button Save">
-                        Save 
-                    </Button>
-                );
-            } else {
-                headerButtons.push(
-                    <Button onclick={this.toggleUpdating.bind(this)}
-                            icon="fas fa-cog"
-                            className="Button">
-                        Update
-                    </Button>
-                );
-            }
+            headerButtons.push(
+                <Button onclick={this.toggleUpdating.bind(this)}
+                        icon="fas fa-cog"
+                        className="Button">
+                    Update
+                </Button>
+            );
         }
 
         const countryCode = player.nationality().toLowerCase();
@@ -189,16 +107,10 @@ export default class PlayerCard extends Component {
     }
 
     buildInfo(player) {
-        const battingStats = this.showUpdate
-            ? this.updateBattingStats() 
-            : this.showBattingStats(player);
-
+        const battingStats = this.showBattingStats(player);
         const batting = this.battingInfo(battingStats);
 
-        const bowlingStats = this.showUpdate
-            ? this.updateBowlingStats() 
-            : this.showBowlingStats(player);
-
+        const bowlingStats = this.showBowlingStats(player);
         const bowling = this.bowlingInfo(player, bowlingStats);
 
         return (
@@ -488,14 +400,5 @@ export default class PlayerCard extends Component {
             </div>
 
         ];
-    }
-
-    validTpeLimit(tpe) {
-        // No skill over 15 tpe or under 0
-        if (tpe > 99 || tpe < 40) {
-            return false;
-        }
-
-        return true;
     }
 }
