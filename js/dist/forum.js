@@ -3501,7 +3501,8 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     var className = "PlayerUpdate--item PlayerUpdate--skill";
     if (updated) className += " PlayerUpdate--updated";
     return [m("div", {
-      className: className
+      className: className,
+      title: flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.player.tooltip." + name)
     }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.player." + name)), this.currentTpe(skill, updated), this.currentCost(skill), this.updateButtons(skill)];
   };
 

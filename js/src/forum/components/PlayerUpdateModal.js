@@ -142,7 +142,8 @@ export default class PlayerUpdateModal extends Modal {
             className += " PlayerUpdate--updated";
 
         return [
-            <div className={className}>
+            <div className={className}
+                 title={app.translator.trans(`hcl.forum.player.tooltip.${name}`)}>
                 {app.translator.trans(`hcl.forum.player.${name}`)}
             </div>,
             this.currentTpe(skill, updated),
