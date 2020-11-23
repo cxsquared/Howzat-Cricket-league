@@ -3549,6 +3549,12 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     }));
   };
 
+  _proto.reset = function reset() {
+    this.player = this.originalState;
+    this.initPlayerUpdateSkills();
+    m.redraw();
+  };
+
   _proto.onsubmit = function onsubmit(e) {
     var _this3 = this;
 
@@ -3572,7 +3578,8 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.initPlayerUpdateSkills = function initPlayerUpdateSkills() {
-    // Batter
+    this.spentTpe = 0; // Batter
+
     this.playerSkillUpdates["running"] = this.player.running();
     this.playerSkillUpdates["defense"] = this.player.defense();
     this.playerSkillUpdates["attacking"] = this.player.attacking();

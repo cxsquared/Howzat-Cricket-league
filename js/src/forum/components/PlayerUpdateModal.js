@@ -192,6 +192,13 @@ export default class PlayerUpdateModal extends Modal {
         </div>
     }
 
+    reset() {
+        this.player = this.originalState;
+        this.initPlayerUpdateSkills();
+
+        m.redraw();
+    }
+
     onsubmit(e) {
         e.preventDefault();
 
@@ -210,6 +217,8 @@ export default class PlayerUpdateModal extends Modal {
     }
 
     initPlayerUpdateSkills() {
+        this.spentTpe = 0;
+        
         // Batter
         this.playerSkillUpdates["running"] = this.player.running();
         this.playerSkillUpdates["defense"] = this.player.defense();

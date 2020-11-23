@@ -194,6 +194,10 @@
 
     .Modal-body {
         padding-top: 0px;
+
+        @media @phone {
+           padding: 0; 
+        }
     }
 
     .PlayerUpdate--tpebanked {
@@ -209,7 +213,7 @@
 
     .PlayerUpdate--skills {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
     }
 
     .PlayerUpdate--header {
