@@ -6,9 +6,12 @@ use Flarum\Database\AbstractModel;
 use Flarum\User\User;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerMovement;
+use Flarum\Foundation\EventGeneratorTrait;
 
 class Team extends AbstractModel
 {
+    use EventGeneratorTrait;
+
     protected $dates = [
         'created_at',
         'updated_at'

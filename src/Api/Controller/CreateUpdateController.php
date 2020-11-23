@@ -5,7 +5,7 @@ namespace Cxsquared\HowzatCricketLeague\Api\Controller;
 use Cxsquared\HowzatCricketLeague\Api\Serializer\UpdateSerializer;
 use Cxsquared\HowzatCricketLeague\Update\Command\CreateUpdate;
 use Flarum\Api\Controller\AbstractCreateController;
-use Illuminate\contracts\bus\Dispatcher;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;

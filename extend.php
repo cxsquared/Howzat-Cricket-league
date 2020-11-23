@@ -12,6 +12,7 @@
 namespace Cxsquared\HowzatCricketLeague;
 
 use Cxsquared\HowzatCricketLeague\Api\Controller\CreatePlayerController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\CreateUpdateController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
@@ -43,7 +44,8 @@ return [
         ->get('/players', 'players.index', ListPlayersController::class)
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)
-        ->patch('/players/{id}', 'players.update', UpdatePlayerController::class),
+        ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
+        ->post('/updates', 'updates', CreateUpdateController::class),
     
     (new Extend\Frontend('forum'))
         ->route('/user/:id/player', 'user.player')
@@ -52,5 +54,6 @@ return [
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);
+        $events->subscribe(Listener\AddSettings::class);
     }
 ];

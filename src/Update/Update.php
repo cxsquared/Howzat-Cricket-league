@@ -4,10 +4,13 @@ namespace Cxsquared\HowzatCricketLeague\Update;
 
 use Carbon\Carbon;
 use Flarum\Database\AbstractModel;
+use Flarum\Foundation\EventGeneratorTrait;
 use Flarum\User\User;
 
 class Update extends AbstractModel
 {
+    use EventGeneratorTrait;
+
     protected $dates = [
         'date',
         'submitted_at',
@@ -25,7 +28,7 @@ class Update extends AbstractModel
     }
 
     public static function createUpdate($date, $submitted_user_id, $link,
-                                        $type, $comment, $tpe)
+                                        $type, $comment, $tpe, $is_capped)
     {
         $update = new static;
 
@@ -36,6 +39,7 @@ class Update extends AbstractModel
         $update->type = $type;
         $update->comment = $comment;
         $update->tpe = $tpe;
+        $update->is_capped = $is_capped;
 
         return $update;
     }

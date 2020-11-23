@@ -8,10 +8,11 @@ return Migration::CreateTable(
     function(Blueprint $table) {
         $table->increments('id');
         $table->date('date');
-        $table->string('link');
+        $table->string('link')->nullable();
         $table->string('type');
-        $table->string('comment');
+        $table->string('comment')->nullable();
         $table->unsignedTinyInteger('tpe');
+        $table->boolean('is_capped')->default(0);
 
         $table->dateTime('submitted_at')->nullable();
         $table->unsignedInteger('submitted_user_id');

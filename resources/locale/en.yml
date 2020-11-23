@@ -15,10 +15,30 @@ hcl:
       update_players: Update Players
   forum:
     basics:
+      claim_tpe: Claim for TPE
       save_skills: Save Skills
       reset: Reset
       update: Spend Availabe TPE
       no_tpe: No Availabe TPE
+      submitt: Submitt
+      tpe: TPE 
+    updates:
+      title: Claim TPE
+      week_ending: Week Ending
+      success: Update Submitted
+      type: Type
+      link: Link
+      comment: Comment
+      types:
+        pointTask: Point Task
+        minorPointTask: Minor Point Task
+        welfare: Welfare
+        affiliate: Affiliate
+        pressConference: Press Conference
+        activityCheck: Acitvity Check 
+        job: Job 
+        predictions: Predictions 
+        other: Other 
     page:
       player_directory: Player Directory
       nav: Players
