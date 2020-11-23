@@ -1,14 +1,17 @@
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
-import HeaderPrimary from 'flarum/components/HeaderPrimary';
-import LinkButton from 'flarum/components/LinkButton';
-import UserPage from 'flarum/components/UserPage';
 import Model from 'flarum/Model';
 import User from 'flarum/models/User';
 import Player from './models/Player';
+import PostControls from 'flarum/utils/PostControls';
+import Button from 'flarum/components/Button';
+import HeaderPrimary from 'flarum/components/HeaderPrimary';
+import LinkButton from 'flarum/components/LinkButton';
+import UserPage from 'flarum/components/UserPage';
 import PlayerUserPage from './components/PlayerUserPage';
 import PlayerCreatePage from './components/PlayerCreatePage';
 import PlayerDirectoryPage from './components/PlayerDirectoryPage';
+import UpdateCreateModal from './components/UpdateCreateModal';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
@@ -58,5 +61,14 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
         </LinkButton>
         );
     }
-  })
+  });
+
+  // Claim Comment
+  extend(PostControls, 'userControls', function(items, post) {
+    items.add('claimTpe',
+      <Button icon="fas fa-certificate"
+              onclick={() => app.modal.show(UpdateCreateModal, { post: post })}>
+        {app.translator.trans('hcl.forum.basics.claim_tpe')}
+      </Button>, 4);
+  });
 });
