@@ -8,6 +8,9 @@ export default class UpdateCreateModal extends Modal {
     oninit(vnode) {
         super.oninit(vnode);
         this.dpInit = false;
+        this.saving = false;
+
+        this.update = {};
     }
 
     className() {
@@ -20,9 +23,15 @@ export default class UpdateCreateModal extends Modal {
 
     content() {
         return <div className="Modal-body">
-            <label for="Update--datepicker">Date</label>
+            <label for="Update--datepicker">{app.translator.trans("hcl.forum.updates.week_ending")}</label>
             <input id="Update--datepicker"
                    type="text"/>
+            <Button type="submit"
+                             className="Button Button--primary"
+                             loading={this.saving}
+                             disabled={this.saving}>
+                {app.translator.trans('hcl.forum.basics.submitt')}
+            </Button>
         </div>;
     }
 
@@ -46,6 +55,10 @@ export default class UpdateCreateModal extends Modal {
                 disabler: date => date.getDay() != 0
             });
         }
+    }
+
+    onsubmit(e) {
+        e.preventDefault();
     }
 
 }

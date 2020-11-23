@@ -3920,6 +3920,8 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
     _Modal.prototype.oninit.call(this, vnode);
 
     this.dpInit = false;
+    this.saving = false;
+    this.update = {};
   };
 
   _proto.className = function className() {
@@ -3935,10 +3937,15 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       className: "Modal-body"
     }, m("label", {
       "for": "Update--datepicker"
-    }, "Date"), m("input", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.week_ending")), m("input", {
       id: "Update--datepicker",
       type: "text"
-    }));
+    }), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      type: "submit",
+      className: "Button Button--primary",
+      loading: this.saving,
+      disabled: this.saving
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.submitt')));
   };
 
   _proto.onupdate = function onupdate(vnode) {
@@ -3965,6 +3972,10 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
         }
       });
     }
+  };
+
+  _proto.onsubmit = function onsubmit(e) {
+    e.preventDefault();
   };
 
   return UpdateCreateModal;
