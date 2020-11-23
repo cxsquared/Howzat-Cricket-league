@@ -15,7 +15,8 @@ hcl:
       update_players: Update Players
   forum:
     basics:
-      save: Save
+      save_skills: Save Skills
+      reset: Reset
     page:
       player_directory: Player Directory
       nav: Players
@@ -29,7 +30,7 @@ hcl:
     player:
       update:
         title: Update Player
-        banked_tpe: Banked TPE
+        banked_tpe: TPE Remaining
         tpe: TPE
         cost: Cost
         skill: Skill

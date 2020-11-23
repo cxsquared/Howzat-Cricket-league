@@ -1,3 +1,4 @@
+import Color from 'color';
 import app from 'flarum/app';
 import Component from 'flarum/Component'
 import Button from 'flarum/components/Button';
@@ -40,9 +41,12 @@ export default class PlayerCard extends Component {
     }
 
     buildHeader(player) {
-        const color = this.player.user().color() ?
+        const colorString = this.player.user().color() ?
             this.player.user().color() :
-            '#675555';
+            '#675555'
+        
+        const bgColor = Color(colorString);
+        const textColor = bgColor.isLight() ? '#111' : '#fff';
 
         const user = this.player.user();
         const usernameSpan = username(user);
@@ -51,7 +55,8 @@ export default class PlayerCard extends Component {
         if (this.attrs.showUser && user && usernameSpan[0] !== '[deleted]') {
             userLink = [ 
                 <div className="PlayerCard-username">
-                    <a href={app.route('user', { username: user.username() })}>
+                    <a href={app.route('user', { username: user.username() })}
+                       style={{color: textColor}}>
                         {usernameSpan}
                     </a>
                 </div>,
@@ -79,7 +84,7 @@ export default class PlayerCard extends Component {
 
         return (
             <div className="PlayerCard-header"
-                style={ color ? {backgroundColor: color} : ''}>
+                style={ {backgroundColor: bgColor, color: textColor}}>
                 <div className="PlayerCard-info">
                     <div className="PlayerCard-name">
                         {`${player.firstName()} ${player.lastName()}`}

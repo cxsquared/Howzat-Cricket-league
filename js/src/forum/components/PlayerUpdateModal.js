@@ -1,3 +1,4 @@
+import Color from 'color';
 import app from 'flarum/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
@@ -22,7 +23,7 @@ export default class PlayerUpdateModal extends Modal {
     }
 
     className() {
-        return 'PlayerUpdateModal';
+        return 'PlayerUpdateModal Modal';
     }
 
     title() {
@@ -30,28 +31,34 @@ export default class PlayerUpdateModal extends Modal {
     }
 
     content() {
-        const tpe = <div className="PlayerUpdate--tpe">
+        const colorString = this.player.user().color() ?
+            this.player.user().color() :
+            '#675555'
+        
+        const bgColor = Color(colorString);
+        const textColor = bgColor.isLight() ? '#111' : '#fff';
+            
+        const tpe = <div className="PlayerUpdate--tpebanked"
+                         style={ {backgroundColor: bgColor, color: textColor}}>
             {`${app.translator.trans('hcl.forum.player.update.banked_tpe')}: ${this.player.bankedTpe() - this.spentTpe}`}
         </div>;
         const batting = <div className="PlayerUpdate--batting">
-            <div className="PlayerUpdate--header">
-                <div className="PlayerUpdate--info">
-                    <b>
-                        {app.translator.trans('hcl.forum.player.batting_attributes')}
-                    </b>
-                </div>
+            <div className="PlayerUpdate--info">
+                <h2>
+                    <b>{app.translator.trans('hcl.forum.player.batting_attributes')}</b>
+                </h2>
             </div>
             <div className="PlayerUpdate--skills">
                 <div className="PlayerUpdate--item PlayerUpdate--header">
                     {app.translator.trans('hcl.forum.player.update.skill')}
                 </div>
-                <div className="PlayerUpdate--item PlayerUpdate--header">
+                <div className="PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center">
                     {app.translator.trans('hcl.forum.player.update.tpe')}
                 </div>
-                <div className="PlayerUpdate--item PlayerUpdate--header">
+                <div className="PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center">
                     {app.translator.trans('hcl.forum.player.update.cost')}
                 </div>
-                <div className="PlayerUpdate--item PlayerUpdate--header">
+                <div className="PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center">
                     {app.translator.trans('hcl.forum.player.update.update')}
                 </div>
                 {this.skillRow("running")}
@@ -69,24 +76,22 @@ export default class PlayerUpdateModal extends Modal {
         const style = this.player.bowlingStyle();
 
         const bowling = <div className="PlayerUpdate--bowling">
-            <div className="PlayerUpdate--header">
-                <div className="PlayerUpdate--info">
-                    <b>
-                        {app.translator.trans('hcl.forum.player.bowler_attributes')}
-                    </b>
-                </div>
+            <div className="PlayerUpdate--info">
+                <h2>
+                    <b>{app.translator.trans('hcl.forum.player.bowler_attributes')}</b>
+                </h2>
             </div>
             <div className="PlayerUpdate--skills">
                 <div className="PlayerUpdate--item PlayerUpdate--header">
                     {app.translator.trans('hcl.forum.player.update.skill')}
                 </div>
-                <div className="PlayerUpdate--item PlayerUpdate--header">
+                <div className="PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center">
                     {app.translator.trans('hcl.forum.player.update.tpe')}
                 </div>
-                <div className="PlayerUpdate--item PlayerUpdate--header">
+                <div className="PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center">
                     {app.translator.trans('hcl.forum.player.update.cost')}
                 </div>
-                <div className="PlayerUpdate--item PlayerUpdate--header">
+                <div className="PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center">
                     {app.translator.trans('hcl.forum.player.update.update')}
                 </div>
                 {this.skillRow("paceFlight", style)}
@@ -104,14 +109,23 @@ export default class PlayerUpdateModal extends Modal {
                              className="Button Button--primary"
                              loading={this.saving}
                              disabled={this.saving}>
-            {app.translator.trans('hcl.forum.basics.save')}
+            {app.translator.trans('hcl.forum.basics.save_skills')}
         </Button>
 
-        return <div classname="PlayerUpdate">
+        const reset = <Button type="button"
+                              className="Button Button--danger"
+                              onclick={() => this.reset()} >
+            {app.translator.trans('hcl.forum.basics.reset')}
+        </Button>;
+
+        return <div className="PlayerUpdate--body Modal-body">
             {tpe}
             {batting}
             {bowling}
-            {save}
+            <div className="PlayerUpdate--footer ButtonGroup">
+                {reset}
+                {save}
+            </div>
         </div>;
     }
 
@@ -120,35 +134,39 @@ export default class PlayerUpdateModal extends Modal {
         if (!!style)
             name += `.${style}`;
 
+        const originalValue = this.player.data.attributes[skill];
+        const newValue = this.playerSkillUpdates[skill];
+        const updated = originalValue != newValue;
+        let className = "PlayerUpdate--item PlayerUpdate--skill";
+        if (updated)
+            className += " PlayerUpdate--updated";
+
         return [
-            <div className="PlayerUpdate--item PlayerUpdate--skill">
+            <div className={className}>
                 {app.translator.trans(`hcl.forum.player.${name}`)}
             </div>,
-            this.currentTpe(skill),
+            this.currentTpe(skill, updated),
             this.currentCost(skill),
             this.updateButtons(skill)
         ];
     }
 
-    currentTpe(skill) {
-        const originalValue = this.player.data.attributes[skill];
-        const newValue = this.playerSkillUpdates[skill];
-
-        let className = "PlayerUpdate--item PlayerUpdate--tpe";
-        if (originalValue != newValue)
+    currentTpe(skill, updated) {
+        let className = "PlayerUpdate--item PlayerUpdate--tpe PlayerUpdate--center";
+        if (updated)
             className += " PlayerUpdate--updated";
 
         return <div className={className}>
-            {newValue}
+            {this.playerSkillUpdates[skill]}
         </div>;
     }
 
     currentCost(skill) {
         const cost = TpeUtils.cost(this.playerSkillUpdates[skill]);
 
-        let className = "PlayerUpdate--item PlayerUpdate--cost";
+        let className = "PlayerUpdate--item PlayerUpdate--cost PlayerUpdate--center";
         if (cost > this.tpeLeft())    
-            className = "PlayerUpdate--warning";
+            className = "PlayerUpdate--item PlayerUpdate--warning PlayerUpdate--center";
 
         return <div className={className}>
             {cost}
@@ -160,14 +178,14 @@ export default class PlayerUpdateModal extends Modal {
         const increaseDisabled = TpeUtils.cost(currentTpe) > this.tpeLeft();
         const decreaseDisabled = currentTpe <= this.player.data.attributes[skill] || currentTpe === 40; 
 
-        return <div className="PlayerUpdate--item PlayerUpdate--buttons">
+        return <div className="PlayerUpdate--item PlayerUpdate--buttons PlayerUpdate--center ButtonGroup">
             <Button type="button"
-                    className="Button PlayerUpdate--decrease"
+                    className="Button PlayerUpdate--decrease Button--icon Button--rounded"
                     disabled={decreaseDisabled}
                     icon="fas fa-minus"
                     onclick={() => this.updateSkill(skill, TpeUtils.decrementCost(currentTpe))} />
             <Button type="button"
-                    className="Button PlayerUpdate--increase"
+                    className="Button PlayerUpdate--increase Button--icon Button--rounded"
                     disabled={increaseDisabled}
                     icon="fas fa-plus"
                     onclick={() => this.updateSkill(skill, TpeUtils.cost(currentTpe))} />

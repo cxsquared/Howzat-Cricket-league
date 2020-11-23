@@ -23,10 +23,6 @@
 }
 
 .PlayerCard {
-    span.username {
-        color: white;
-    }
-
     .PlayerCard-seperator {
         color: #6c757d !important
     }
@@ -191,7 +187,67 @@
     }
 }
 
-.PlayerUpdate--skills {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
- }
+.PlayerUpdateModal {
+    .Modal-header {
+        padding: 10px;
+    }
+
+    .Modal-body {
+        padding-top: 0px;
+    }
+
+    .PlayerUpdate--tpebanked {
+        font-size: 25px;
+        text-align: center;
+        padding: 5px;
+        margin: 0px -30px
+    }
+
+    .PlayerUpdate--info {
+        text-align: center;
+    }
+
+    .PlayerUpdate--skills {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+
+    .PlayerUpdate--header {
+        background-color: #111;
+        color: #fff;
+    }
+
+    .PlayerUpdate--item {
+        padding: 2.5px;
+    }
+
+    .PlayerUpdate--center {
+        text-align: center;
+    }
+
+    .PlayerUpdate--updated {
+        color: #000;
+    }
+
+    .PlayerUpdate--cost {
+        color: #28a745
+    }
+
+    .PlayerUpdate--warning {
+        color: #d66;
+    }
+
+    .PlayerUpdate--buttons {
+        margin: auto;
+
+        .PlayerUpdate--decrease {
+            background-color: #ddd;    
+        }
+
+        .PlayerUpdate--increase {
+            background-color: lightgray;    
+        }
+
+    }
+}
+
