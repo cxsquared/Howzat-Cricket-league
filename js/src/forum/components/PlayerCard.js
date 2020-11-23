@@ -67,11 +67,21 @@ export default class PlayerCard extends Component {
         let headerButtons = [];
         let canEdit = app.session.user === this.player.user() || this.player.canEdit();
         if (canEdit && !this.saving) {
+            let hasTpe = this.player.bankedTpe() > 0;
+            let text = app.translator.trans("hcl.forum.basics.no_tpe");
+            let className = "Button";
+
+            if (hasTpe) {
+                text = app.translator.trans("hcl.forum.basics.update");
+                className += " Button--important";
+            }
+
             headerButtons.push(
                 <Button onclick={this.toggleUpdating.bind(this)}
                         icon="fas fa-cog"
-                        className="Button">
-                    Update
+                        disabled={!hasTpe}
+                        className={className}>
+                    {text}
                 </Button>
             );
         }

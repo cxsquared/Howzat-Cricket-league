@@ -2442,11 +2442,21 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
     var canEdit = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.session.user === this.player.user() || this.player.canEdit();
 
     if (canEdit && !this.saving) {
+      var hasTpe = this.player.bankedTpe() > 0;
+      var text = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.basics.no_tpe");
+      var className = "Button";
+
+      if (hasTpe) {
+        text = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.basics.update");
+        className += " Button--important";
+      }
+
       headerButtons.push(m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
         onclick: this.toggleUpdating.bind(this),
         icon: "fas fa-cog",
-        className: "Button"
-      }, "Update"));
+        disabled: !hasTpe,
+        className: className
+      }, text));
     }
 
     var countryCode = player.nationality().toLowerCase();

@@ -17,6 +17,8 @@ hcl:
     basics:
       save_skills: Save Skills
       reset: Reset
+      update: Spend Availabe TPE
+      no_tpe: No Availabe TPE
     page:
       player_directory: Player Directory
       nav: Players

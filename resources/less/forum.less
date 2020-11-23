@@ -23,6 +23,11 @@
 }
 
 .PlayerCard {
+    .Button--important {
+        background-color: green;
+        color: #fff;
+    }
+
     .PlayerCard-seperator {
         color: #6c757d !important
     }
@@ -56,6 +61,7 @@
                     width: 15%;
                     @media @phone {
                         width: 30%;
+                        margin-left: 22px;
                     }
                 }
             }
@@ -252,6 +258,12 @@
             background-color: lightgray;    
         }
 
+    }
+}
+
+.UserDirectoryList {
+    .PlayerCard {
+        padding: 10px 0;
     }
 }
 
