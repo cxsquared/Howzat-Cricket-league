@@ -2,12 +2,15 @@ import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import Model from 'flarum/Model';
 import User from 'flarum/models/User';
-import Player from './models/Player';
 import PostControls from 'flarum/utils/PostControls';
 import Button from 'flarum/components/Button';
 import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import LinkButton from 'flarum/components/LinkButton';
 import UserPage from 'flarum/components/UserPage';
+import Player from './models/Player';
+import Update from './models/Update';
+import Team from './models/Team';
+import PlayerMovement from './models/PlayerMovement';
 import PlayerUserPage from './components/PlayerUserPage';
 import PlayerCreatePage from './components/PlayerCreatePage';
 import PlayerDirectoryPage from './components/PlayerDirectoryPage';
@@ -16,10 +19,13 @@ import UpdateCreateModal from './components/UpdateCreateModal';
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
   app.store.models.players = Player;
+  app.store.models.updates = Update;
+  app.store.models.teams = Team;
+  app.store.models.playerMovements = PlayerMovement;
 
   // New Model Relationships
   User.prototype.player = Model.hasOne('player');
-  User.prototype.submittedUpdates = Model.hasMany('updates');
+  User.prototype.submittedUpdates = Model.hasMany('submittedUpdates');
 
   // New Routes
   app.routes['players'] = { path: '/players', component: PlayerDirectoryPage};
@@ -65,6 +71,9 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
 
   // Claim Comment
   extend(PostControls, 'userControls', function(items, post) {
+    if (app.session.user == null)
+      return;
+
     items.add('claimTpe',
       <Button icon="fas fa-certificate"
               onclick={() => app.modal.show(UpdateCreateModal, { post: post })}>
