@@ -11,7 +11,7 @@ class PlayerRepository
         return Player::query();
     }
 
-    public function findOrFaile($id)
+    public function findOrFail($id)
     {
         $query = Player::where('id', $id);
 
