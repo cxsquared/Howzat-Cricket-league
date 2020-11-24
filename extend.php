@@ -22,6 +22,7 @@ use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Extend;
+use Flarum\Search\SearchServiceProvider;
 use Flarum\User\User;
 use Illuminate\Contracts\Events\Dispatcher;
 
