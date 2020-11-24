@@ -34,6 +34,10 @@ export default class UpdateDirectoryState {
         };
     }
 
+    statusMap() {
+        
+    }
+
     getParams() {
         return this.params;
     }

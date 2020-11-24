@@ -4365,8 +4365,12 @@ var UpdateDirectoryPage = /*#__PURE__*/function (_Page) {
       m.route.set(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('index'));
     }
 
-    this.state = new _states_UpdateDirectoryState__WEBPACK_IMPORTED_MODULE_8__["default"]({});
-    this.state.refreshParams(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.search.params());
+    this.state = new _states_UpdateDirectoryState__WEBPACK_IMPORTED_MODULE_8__["default"]({
+      q: "status:pending"
+    });
+    this.state.refreshParams({
+      q: "status:pending"
+    });
     this.bodyClass = 'User--directory Update--directory';
   };
 
@@ -4402,6 +4406,11 @@ var UpdateDirectoryPage = /*#__PURE__*/function (_Page) {
     }
 
     items.add('sort', flarum_components_Select__WEBPACK_IMPORTED_MODULE_6___default.a.component({
+      options: sortOptions,
+      value: this.params().sort || 'oldest',
+      onchange: this.changeSort.bind(this)
+    }));
+    items.add('filter', flarum_components_Select__WEBPACK_IMPORTED_MODULE_6___default.a.component({
       options: sortOptions,
       value: this.params().sort || 'oldest',
       onchange: this.changeSort.bind(this)
@@ -5118,6 +5127,8 @@ var UpdateDirectoryState = /*#__PURE__*/function () {
       "default": ''
     }, new _common_utils_UpdateSortMap__WEBPACK_IMPORTED_MODULE_1__["default"]().sortMap());
   };
+
+  _proto.statusMap = function statusMap() {};
 
   _proto.getParams = function getParams() {
     return this.params;

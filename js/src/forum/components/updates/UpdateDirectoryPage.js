@@ -16,8 +16,8 @@ export default class UpdateDirectoryPage extends Page {
             m.route.set(app.route('index'));
         }
 
-        this.state = new UserDirecotryState({});
-        this.state.refreshParams(app.search.params());
+        this.state = new UserDirecotryState({ q: "status:pending" });
+        this.state.refreshParams({ q: "status:pending" });
 
         this.bodyClass = 'User--directory Update--directory';
     }
@@ -62,6 +62,15 @@ export default class UpdateDirectoryPage extends Page {
             })
         );
 
+        items.add(
+            'filter',
+            Select.component({
+                options: sortOptions,
+                value: this.params().sort || 'oldest',
+                onchange: this.changeSort.bind(this),
+            })
+        );
+ 
         return items;
     }
 

@@ -17,7 +17,7 @@ class ListUpdatesController extends AbstractListController
 
     public $include = ['submittedUser', 'updaterUser'];
 
-    public $sort = ['sumbittedAt' => 'asc'];
+    public $sort = ['submittedAt' => 'asc'];
 
     public $sortFields = ['submittedAt'];
 
