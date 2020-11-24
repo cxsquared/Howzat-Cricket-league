@@ -2,7 +2,7 @@ import Color from 'color';
 import app from 'flarum/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-import TpeUtils from '../../common/utils/TpeUtils';
+import TpeUtils from '../../../common/utils/TpeUtils';
 
 // Player
 // OnSave

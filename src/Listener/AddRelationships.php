@@ -37,11 +37,11 @@ class AddRelationships
             return $event->serializer->hasOne($event->model, PlayerSerializer::class, 'player');
         }
 
-        if ($event->isRelationship(BasicUserSerializer::class, 'gm_team')) {
+        if ($event->isRelationship(BasicUserSerializer::class, 'gmTeam')) {
             return $event->serializer->hasOne($event->model, TeamSerializer::class, 'gm_team');
         }
 
-        if ($event->isRelationship(BasicUserSerializer::class, 'agm_team')) {
+        if ($event->isRelationship(BasicUserSerializer::class, 'agmTeam')) {
             return $event->serializer->hasOne($event->model, TeamSerializer::class, 'agm_team');
         }
 

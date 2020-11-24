@@ -32,13 +32,13 @@ class UpdateSerializer extends AbstractSerializer
         ];
     }
 
-    protected function submitted_user($update)
+    protected function submittedUser($update)
     {
-        return $this->hasOne($update, BasicUserSerializer::class); 
+        return $this->hasOne($update, BasicUserSerializer::class, 'submitted_user'); 
     }
 
-    protected function updater_user($update)
+    protected function updaterUser($update)
     {
-        return $this->hasOne($update, BasicUserSerializer::class); 
+        return $this->hasOne($update, BasicUserSerializer::class, 'updater_user'); 
     }
 }

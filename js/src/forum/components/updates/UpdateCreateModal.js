@@ -3,9 +3,9 @@ import app from 'flarum/app';
 import Stream from 'flarum/utils/Stream';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-import getNextDayOfWeek from '../../common/utils/getNextDayOfWeek';
-import UpdateTypeUtils from '../../common/utils/UpdateTypeUtils';
-import RequiredSelect from '../components/RequiredSelect';
+import getNextDayOfWeek from '../../../common/utils/getNextDayOfWeek';
+import UpdateTypeUtils from '../../../common/utils/UpdateTypeUtils';
+import RequiredSelect from '../RequiredSelect';
 
 export default class UpdateCreateModal extends Modal {
     oninit(vnode) {

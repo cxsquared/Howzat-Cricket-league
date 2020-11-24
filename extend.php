@@ -47,7 +47,7 @@ return [
         ->post('/players', 'players', CreatePlayerController::class)
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
         ->post('/updates', 'updates', CreateUpdateController::class)
-        ->get('/updates', 'updates', ListUpdatesController::class),
+        ->get('/updates', 'updates.index', ListUpdatesController::class),
     
     (new Extend\Frontend('forum'))
         ->route('/user/:id/player', 'user.player')

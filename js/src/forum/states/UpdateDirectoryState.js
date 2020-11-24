@@ -1,13 +1,13 @@
 /**
  * Based on Flarum's DiscussionListState
  */
-import SortMap from '../../common/utils/PlayerSortMap';
+import SortMap from '../../common/utils/UpdateSortMap';
 
-export default class PlayersDirectoryState {
+export default class UpdateDirectoryState {
     constructor(params = {}, app = window.app) {    
         this.params = params;
         this.app = app;
-        this.players = [];
+        this.updates = [];
 
         this.moreResults = false;
         this.loading = false;
@@ -16,7 +16,7 @@ export default class PlayersDirectoryState {
     requestParams() {
         const params = { include: [], filter: {} };
 
-        const sortKey = this.params.sort || 'newest';
+        const sortKey = this.params.sort || 'oldest';
 
         params.sort = this.sortMap()[sortKey];
 
@@ -39,13 +39,13 @@ export default class PlayersDirectoryState {
     }
 
     clear() {
-        this.players = [];
+        this.updates = [];
         m.redraw();
     }
 
     refreshParams(newParams) {
         const hasNewParams = Object.keys(newParams).some(key => this.getParams()[key] != newParams[key]);
-        if (!this.hasPlayers() || hasNewParams) {
+        if (!this.hasUpdates() || hasNewParams) {
             this.params = newParams;
 
             this.refresh();
@@ -69,27 +69,27 @@ export default class PlayersDirectoryState {
     }
 
     loadResults(offset) {
-        const preloadedPlayers = this.app.preloadedApiDocument();
+        const preloadedUpdates = this.app.preloadedApiDocument();
 
-        if (preloadedPlayers) {
-            return Promise.resolve(preloadedPlayers);
+        if (preloadedUpdates) {
+            return Promise.resolve(preloadedUpdates);
         }
 
         const params = this.requestParams();
         params.page = { offset };
         params.include = params.include.join(',');
 
-        return this.app.store.find('players', params);
+        return this.app.store.find('updates', params);
     }
 
     loadMore() {
         this.loading = true;
 
-        this.loadResults(this.players.length).then(this.parseResults.bind(this));
+        this.loadResults(this.updates.length).then(this.parseResults.bind(this));
     }
 
     parseResults(results) {
-        this.players.push(...results);
+        this.updates.push(...results);
 
         this.loading = false;
         this.moreResults = !!results.payload.links && !!results.payload.links.next;
@@ -99,8 +99,8 @@ export default class PlayersDirectoryState {
         return results;
     }
 
-    hasPlayers() {
-        return this.players.length > 0;
+    hasUpdates() {
+        return this.updates.length > 0;
     }
 
     isLoading() {
@@ -112,6 +112,6 @@ export default class PlayersDirectoryState {
     }
 
     empty() {
-        return !this.hasPlayers() && !this.isLoading();
+        return !this.hasUpdates() && !this.isLoading();
     }
 }

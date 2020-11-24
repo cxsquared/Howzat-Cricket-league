@@ -15,9 +15,11 @@ class ListUpdatesController extends AbstractListController
 {
     public $serializer = UpdateSerializer::class;
 
-    public $include = ['submitted_user', 'updater_user'];
+    public $include = ['submittedUser', 'updaterUser'];
 
-    public $sort = ['sumbitted_at' => 'asc'];
+    public $sort = ['sumbittedAt' => 'asc'];
+
+    public $sortFields = ['submittedAt'];
 
     protected $searcher;
 

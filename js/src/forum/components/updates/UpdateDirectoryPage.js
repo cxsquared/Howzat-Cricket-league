@@ -5,22 +5,21 @@ import listItems from 'flarum/helpers/listItems';
 import IndexPage from 'flarum/components/IndexPage';
 import Select from 'flarum/components/Select';
 import Button from 'flarum/components/Button';
-import LinkButton from 'flarum/components/LinkButton';
-import SelectDropdown from 'flarum/components/SelectDropdown';
-import PlayerDirectoryList from './PlayerDirectoryList';
-import PlayerDirectoryState from '../states/PlayerDirectoryState';
+import UserDirecotryState from '../../states/UpdateDirectoryState';
+import UpdateDirectoryList from './UpdateDirectoryList';
 
-/**
- * This page re-uses Flarum's IndexPage CSS classes
- */
-export default class PlayerDirectoryPage extends Page {
+export default class UpdateDirectoryPage extends Page {
     oninit(vnode) {
         super.oninit(vnode);
 
-        this.state = new PlayerDirectoryState({});
+        if (!app.forum.attribute('canEditUpdates')) {
+            m.route.set(app.route('index'));
+        }
+
+        this.state = new UserDirecotryState({});
         this.state.refreshParams(app.search.params());
 
-        this.bodyClass = 'User--directory';
+        this.bodyClass = 'User--directory Update--directory';
     }
 
     view() {
@@ -37,60 +36,12 @@ export default class PlayerDirectoryPage extends Page {
                                 <ul className="IndexPage-toolbar-view">{listItems(this.viewItems().toArray())}</ul>
                                 <ul className="IndexPage-toolbar-action">{listItems(this.actionItems().toArray())}</ul>
                             </div>
-                            <PlayerDirectoryList state={this.state} />
+                            <UpdateDirectoryList state={this.state} />
                         </div>
                     </div>
                 </div>
             </div>
         );
-    }
-
-    /**
-     * Our own sidebar. Re-uses Index.sidebarItems as the base
-     * Elements added here will only show up on the user directory page
-     *
-     * @return {ItemList}
-     */
-    sidebarItems() {
-        const items = IndexPage.prototype.sidebarItems();
-
-        items.replace(
-            'nav',
-            SelectDropdown.component(
-                {
-                    buttonClassName: 'Button',
-                    className: 'App-titleControl',
-                },
-                this.navItems().toArray()
-            )
-        );
-
-        return items;
-    }
-
-    /**
-     * Our own sidebar navigation. Re-uses Index.navItems as the base
-     * Elements added here will only show up on the user directory page
-     *
-     * @return {ItemList}
-     */
-    navItems() {
-        const items = IndexPage.prototype.navItems();
-        const params = this.stickyParams();
-
-        items.add(
-            'hcl-player-directory',
-            LinkButton.component(
-                {
-                    href: app.route('players', params),
-                    icon: 'far fa-address-book',
-                },
-                app.translator.trans('hcl.forum.page.player_directory')
-            ),
-            85
-        );
-
-        return items;
     }
 
     viewItems() {
@@ -106,7 +57,7 @@ export default class PlayerDirectoryPage extends Page {
             'sort',
             Select.component({
                 options: sortOptions,
-                value: this.params().sort || 'newest',
+                value: this.params().sort || 'oldest',
                 onchange: this.changeSort.bind(this),
             })
         );
@@ -125,10 +76,6 @@ export default class PlayerDirectoryPage extends Page {
                 className: 'Button Button--icon',
                 onclick: () => {
                     this.state.refresh();
-                    if (app.session.user.player()) {
-                        app.store.find('players', app.session.user.player().id());
-                        m.redraw();
-                    }
                 },
             })
         );
@@ -144,7 +91,7 @@ export default class PlayerDirectoryPage extends Page {
     changeSort(sort) {
         const params = this.params();
 
-        if (sort === 'newest') {
+        if (sort === 'oldest') {
             delete params.sort;
         } else {
             params.sort = sort;
@@ -163,4 +110,25 @@ export default class PlayerDirectoryPage extends Page {
     params() {
         return this.stickyParams();
     }
+
+    /**
+     * Our own sidebar. Re-uses Index.sidebarItems as the base
+     * Elements added here will only show up on the user directory page
+     *
+     * @return {ItemList}
+     */
+    sidebarItems() {
+        return IndexPage.prototype.sidebarItems();
+    }
+
+    /**
+     * Our own sidebar navigation. Re-uses Index.navItems as the base
+     * Elements added here will only show up on the user directory page
+     *
+     * @return {ItemList}
+     */
+    navItems() {
+        return IndexPage.prototype.navItems();
+    }
 }
+

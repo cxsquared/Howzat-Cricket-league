@@ -14,6 +14,8 @@ hcl:
     permissions:
       update_players: Update Players
   forum:
+    header:
+      update_button: Updates
     basics:
       claim_tpe: Claim for TPE
       save_skills: Save Skills
@@ -40,6 +42,7 @@ hcl:
         predictions: Predictions 
         other: Other 
     page:
+      empty_text: There's no items to show
       player_directory: Player Directory
       nav: Players
       refresh_tooltip: Refresh

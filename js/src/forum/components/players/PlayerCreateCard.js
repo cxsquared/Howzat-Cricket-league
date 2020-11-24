@@ -2,7 +2,7 @@ import Component from 'flarum/Component';
 import FieldSet from 'flarum/components/FieldSet';
 import ItemList from 'flarum/utils/ItemList';
 import { getNames, getCode } from 'country-list';
-import RequiredSelect from './RequiredSelect';
+import RequiredSelect from '../RequiredSelect';
 
 export default class  PlayerCreateCard extends Component {
     oninit(vnode) {

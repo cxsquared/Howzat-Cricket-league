@@ -7,14 +7,16 @@ import Button from 'flarum/components/Button';
 import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import LinkButton from 'flarum/components/LinkButton';
 import UserPage from 'flarum/components/UserPage';
+import SessionDropdown from 'flarum/components/SessionDropdown';
 import Player from './models/Player';
 import Update from './models/Update';
 import Team from './models/Team';
 import PlayerMovement from './models/PlayerMovement';
-import PlayerUserPage from './components/PlayerUserPage';
-import PlayerCreatePage from './components/PlayerCreatePage';
-import PlayerDirectoryPage from './components/PlayerDirectoryPage';
-import UpdateCreateModal from './components/UpdateCreateModal';
+import PlayerUserPage from './components/players/PlayerUserPage';
+import PlayerCreatePage from './components/players/PlayerCreatePage';
+import PlayerDirectoryPage from './components/players/PlayerDirectoryPage';
+import UpdateCreateModal from './components/updates/UpdateCreateModal';
+import UpdateDirectoryPage from './components/updates/UpdateDirectoryPage';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
@@ -26,11 +28,13 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Model Relationships
   User.prototype.player = Model.hasOne('player');
   User.prototype.submittedUpdates = Model.hasMany('submittedUpdates');
+  User.prototype.gmTeam = Model.hasOne('gmTeam');
 
   // New Routes
   app.routes['players'] = { path: '/players', component: PlayerDirectoryPage};
   app.routes['player.create'] = { path: '/player/create', component: PlayerCreatePage };
   app.routes['user.player'] = { path: '/u/:username/player', component: PlayerUserPage };
+  app.routes['updates'] = { path: '/updates', component: UpdateDirectoryPage};
 
   // Adding player button to UserPage
   extend(UserPage.prototype, 'navItems', function (items) {
@@ -80,4 +84,21 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
         {app.translator.trans('hcl.forum.basics.claim_tpe')}
       </Button>, 4);
   });
+
+  // Update button
+  extend(SessionDropdown.prototype, 'items', items => {
+    if (app.forum.attribute('canEditUpdates')) {
+      items.add(
+        'updates',
+        LinkButton.component(
+          {
+            icon: 'fas fa-pen',
+            href: app.route('updates'),
+          },
+          app.translator.trans('hcl.forum.header.update_button')
+        ),
+        5 
+      );
+    }
+  })
 });
