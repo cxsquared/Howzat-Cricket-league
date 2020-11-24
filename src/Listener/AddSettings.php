@@ -24,6 +24,7 @@ class AddSettings
     public function attachSettings(Serializing $event)
     {
         if ($event->isSerializer(ForumSerializer::class)) {
+            $event->attributes['canEditUpdates'] = $event->actor->hasPermissionLike('update.edit');
             $event->attributes['hcl.maxWeeklyCapped'] = (int) $this->settings->get('hcl.max-weekly-capped', 9);
         }
     }
