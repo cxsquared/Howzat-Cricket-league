@@ -4666,7 +4666,7 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
       disabled: this.update.isDenied() || this.saving
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.updates.deny')), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
       className: "Button Button--under-review",
-      disabled: this.saving,
+      disabled: this.update.isUnderReview() || this.saving,
       onclick: function onclick() {
         return _this.underReview();
       }
@@ -4680,22 +4680,44 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
     this.update.save({
       status: 'approved'
     }).then(function () {
+      flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.alerts.show({
+        type: "success"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.alerts.approved"));
+    })["finally"](function () {
       _this2.saving = false;
     });
   };
 
   _proto.deny = function deny() {
+    var _this3 = this;
+
     this.saving = true;
     this.update.save({
-      status: 'deny'
+      status: 'denied'
+    }).then(function () {
+      flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.alerts.show({
+        type: "success"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.alerts.denied"));
+    })["finally"](function () {
+      _this3.saving = false;
     });
+    ;
   };
 
   _proto.underReview = function underReview() {
+    var _this4 = this;
+
     this.saving = true;
     this.update.save({
-      status: 'underReview'
+      status: 'under_review'
+    }).then(function () {
+      flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.alerts.show({
+        type: "success"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.alerts.underReview"));
+    })["finally"](function () {
+      _this4.saving = false;
     });
+    ;
   };
 
   return UpdateEditCard;
@@ -5081,6 +5103,9 @@ Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"
   }),
   isDenied: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('status', function (status) {
     return status.toLowerCase() === "denied";
+  }),
+  isUnderReview: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('status', function (status) {
+    return status.toLowerCase() === "under_review";
   })
 });
 

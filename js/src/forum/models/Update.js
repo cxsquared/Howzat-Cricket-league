@@ -18,5 +18,6 @@ Object.assign(Update.prototype, {
     updaterComment: Model.attribute('updaterComment'),
 
     isApproved: computed('status', (status) => status.toLowerCase() === "approved"),
-    isDenied: computed('status', (status) => status.toLowerCase() === "denied") 
+    isDenied: computed('status', (status) => status.toLowerCase() === "denied"),
+    isUnderReview: computed('status', (status) => status.toLowerCase() === "under_review"),
 });

@@ -111,7 +111,7 @@ export default class UpdateEditCard extends Component {
                         {app.translator.trans('hcl.forum.updates.deny')}
                     </Button>
                     <Button className="Button Button--under-review"
-                            disabled={this.saving}
+                            disabled={this.update.isUnderReview() || this.saving}
                             onclick={() => this.underReview()} >
                         {app.translator.trans('hcl.forum.updates.under_review')}
                     </Button>
@@ -126,23 +126,42 @@ export default class UpdateEditCard extends Component {
         this.update.save({
             status: 'approved'
         }).then(() => {
+            app.alerts.show(
+                { type: "success" },
+                app.translator.trans("hcl.forum.alerts.approved")
+            );
+        }).finally(() => {
             this.saving = false;
-        })
+        });
     }
 
     deny() {
         this.saving = true;
 
         this.update.save({
-            status: 'deny'
-        });
+            status: 'denied'
+        }).then(() => {
+            app.alerts.show(
+                { type: "success" },
+                app.translator.trans("hcl.forum.alerts.denied")
+            );
+        }).finally(() => {
+            this.saving = false;
+        });;
     }
 
     underReview() {
         this.saving = true;
 
         this.update.save({
-            status: 'underReview'
-        });
+            status: 'under_review'
+        }).then(() => {
+            app.alerts.show(
+                { type: "success" },
+                app.translator.trans("hcl.forum.alerts.underReview")
+            );
+        }).finally(() => {
+            this.saving = false;
+        });;
     }
 }

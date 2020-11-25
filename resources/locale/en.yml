@@ -20,6 +20,10 @@ hcl:
     permissions:
       update_players: Update Players
   forum:
+    alerts:
+      approved: Update Approved
+      denied: Update Denied 
+      underReview: Update put Under Review 
     header:
       update_button: Updates
     basics:

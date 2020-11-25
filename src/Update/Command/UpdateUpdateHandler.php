@@ -56,14 +56,14 @@ class UpdateUpdateHandler
                         new Approved($update, $actor, $data)
                     );
                     break;
-                case 'denined':
+                case 'denied':
                     $update = $update->deny($actor->id);
                     $this->apply_player_tpe($player, $update, $previousStatus);
                     $this->events->dispatch(
                         new Denied($update, $actor, $data)
                     );
                     break;
-                case 'underReview':
+                case 'under_review':
                     $update = $update->under_review($actor->id);
                     $this->events->dispatch(
                         new UnderReview($update, $actor, $data)
