@@ -20,15 +20,16 @@ class UpdateSerializer extends AbstractSerializer
         }
 
         return [
-            'id'            => $update->id,
-            'date'          => $this->formatDate($update->date),
-            'link'          => $update->link,
-            'type'          => $update->type,
-            'comment'       => $update->comment,
-            'tpe'           => $update->tpe,
-            'status'        => $update->status,
-            'submittedAt'  => $this->formatDate($update->submitted_at),
-            'updatedAt'    => $this->formatDate($update->updated_at)
+            'id'                => $update->id,
+            'date'              => $this->formatDate($update->date),
+            'link'              => $update->link,
+            'type'              => $update->type,
+            'comment'           => $update->comment,
+            'tpe'               => $update->tpe,
+            'status'            => $update->status,
+            'submittedAt'       => $this->formatDate($update->submitted_at),
+            'updatedAt'         => $this->formatDate($update->updated_at),
+            'updaterComment'    => $this->actor->hasPermissionLike('update.edit') ? $update->updater_comment : ''
         ];
     }
 

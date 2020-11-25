@@ -72,5 +72,8 @@ Object.assign(Player.prototype, {
     user: Model.hasOne('user'),
     team: Model.hasOne('team'),
 
-    isPaceBowler: computed('bowlingStyle', (bs) => bs.toLowerCase() === "pace") 
+    isPaceBowler: computed('bowlingStyle', (bs) => bs.toLowerCase() === "pace"),
+
+    name: computed('firstName', 'lastName', (fn, ln) => `${fn} ${ln}`)
+
 });

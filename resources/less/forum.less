@@ -1,10 +1,12 @@
-Gg.Players-page {
+.Players-page,
+.Update--directory {
     ul {
         padding: 0;
         list-style: none;
     }
     
-    .PlayerCard {
+    .PlayerCard,
+    .UpdateEditCard {
         width: 75%;
         margin-right: auto;
         margin-left: auto;
@@ -270,5 +272,13 @@ Gg.Players-page {
 .Update {
     .Modal-body .FormControl {
         background-color: #ddd;
+    }
+}
+
+.UpdateEditCard {
+    .UpdateEditCard-header,
+    .UpdateEditCard-body {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(0, 10fr));
     }
 }

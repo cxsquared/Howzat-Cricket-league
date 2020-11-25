@@ -1,4 +1,5 @@
 import Model from 'flarum/Model';
+import computed from 'flarum/utils/computed';
 
 export default class Update extends Model {}
 
@@ -13,6 +14,9 @@ Object.assign(Update.prototype, {
     updatedAt: Model.attribute('aubmittedAt', Model.updatedAt),
 
     submittedUser: Model.hasOne('submittedUser'),
-    updaterUser: Model.hasOne('updaterUser')
+    updaterUser: Model.hasOne('updaterUser'),
+    updaterComment: Model.attribute('updaterComment'),
 
-})
+    isApproved: computed('status', (status) => status.toLowerCase() === "approved"),
+    isDenied: computed('status', (status) => status.toLowerCase() === "denied") 
+});

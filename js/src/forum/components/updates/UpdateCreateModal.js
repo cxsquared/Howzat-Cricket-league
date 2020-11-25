@@ -15,7 +15,13 @@ export default class UpdateCreateModal extends Modal {
 
         const linkPost = window.location.origin + app.route.post(this.attrs.post);
 
-        this.date = Stream();
+        const today = new Date();
+        let nextSunday = today;
+        if (today.getDay() != 0) {
+            nextSunday = getNextDayOfWeek(today, 0);
+        }    
+
+        this.date = Stream(nextSunday);
         this.type = Stream();
         this.link = Stream(linkPost);
         this.comment = Stream();
@@ -31,14 +37,16 @@ export default class UpdateCreateModal extends Modal {
     }
 
     content() {
+        // Using a hidden input to avoid autofocussing the first date input"
         return <div className="Modal-body">
+            <input type="hidden" autofocus="true" tabindex={-1}/>;
             <div className="Update--datepicker Form-group">
                 <label for="datepicker">{app.translator.trans("hcl.forum.updates.week_ending")}</label>
                 <input id="datepicker"
                        className="FormControl"
                        type="text"
                        required
-                       bidi={this.date}/>
+                       autocomplete="off" />
             </div>
             <div className="Update--type Form-group">
                 <label for="type">{app.translator.trans("hcl.forum.updates.type")}</label>
@@ -88,31 +96,31 @@ export default class UpdateCreateModal extends Modal {
     }
 
     onupdate(vnode) {
-        const today = new Date();
-        let nextSunday = today;
-        if (today.getDay() != 0) {
-            nextSunday = getNextDayOfWeek(today, 0);
-        }    
-
-        let maxDate = nextSunday;
-        if (nextSunday === today) {
+        let maxDate = this.date();
+        if (this.date().getDate() === new Date().getDate()) {
             maxDate.setDate(nextSunday.getDate() + 7);
         }
 
         if(!this.dpInit) {
             this.dpInit = true;
-            this.date(nextSunday);
             this.datepicker = datepicker('#datepicker', {
-                dateSelected: nextSunday,
+                dateSelected: this.date(),
                 maxDate: maxDate,
-                disabler: date => date.getDay() != 0
+                disabler: date => date.getDay() != 0,
+                onSelect: (instance, date) => {
+                    this.date(date);
+                },
+                formatter: (input, date, instance) => {
+                    const value = date.toLocaleDateString();
+                    input.value = value;
+                }
             });
         }
     }
 
     data() {
         return {
-            date: this.date(),
+            date: this.date().toUTCString(),
             type: this.type(),
             link: this.link(),
             comment: this.comment(),

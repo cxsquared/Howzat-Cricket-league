@@ -14,6 +14,7 @@ export default class UpdateSortMap {
         return {
             pending: 'status:pending',
             all: 'all',
+            under_review: 'status:under_review',
             approved: 'status:approved',
             denied: 'status:denied'
         }

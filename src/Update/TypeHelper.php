@@ -39,7 +39,7 @@ class TypeHelper
                 throw new ValidationException(['update' => "You've already claimed an Affiliate Task this week."]);
             }
 
-            if ($update->is_capped && $cappedTpeThisWeek + $newUpdate->tpe > $maxCapped) {
+            if ($newUpdate->is_capped && $cappedTpeThisWeek + $newUpdate->tpe > $maxCapped) {
                 // TODO: Update this to use the translator
                 throw new ValidationException(['update' => "You've already claimed max capped TPE this week."]);
             }
@@ -52,6 +52,8 @@ class TypeHelper
 
         if (($type == 'affiliate') && $tpe >= 6)
             return true;
+
+        return false;
     }
 
     public static function isAffiliate($type) {

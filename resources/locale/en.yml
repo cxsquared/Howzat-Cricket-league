@@ -15,6 +15,7 @@ hcl:
       denied: Denied
       pending: Pending 
       all: All 
+      under_review: Under Review
   admin:
     permissions:
       update_players: Update Players
@@ -36,6 +37,9 @@ hcl:
       type: Type
       link: Link
       comment: Comment
+      approve: Approve
+      deny: Deny
+      under_review: Under Review
       types:
         pointTask: Point Task
         minorPointTask: Minor Point Task

@@ -11,6 +11,7 @@ return Migration::CreateTable(
         $table->string('link')->nullable();
         $table->string('type');
         $table->string('comment')->nullable();
+        $table->string('updater_comment')->nullable();
         $table->unsignedTinyInteger('tpe');
         $table->boolean('is_capped')->default(0);
 

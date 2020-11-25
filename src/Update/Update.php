@@ -3,6 +3,7 @@
 namespace Cxsquared\HowzatCricketLeague\Update;
 
 use Carbon\Carbon;
+use Egulias\EmailValidator\Warning\Comment;
 use Flarum\Database\AbstractModel;
 use Flarum\Foundation\EventGeneratorTrait;
 use Flarum\User\User;
@@ -38,8 +39,8 @@ class Update extends AbstractModel
         $update->link = $link;
         $update->type = $type;
         $update->comment = $comment;
-        $update->tpe = $tpe;
-        $update->is_capped = $is_capped;
+        $update->tpe = (int) $tpe;
+        $update->is_capped = (bool) $is_capped;
 
         return $update;
     }
@@ -52,6 +53,11 @@ class Update extends AbstractModel
     public function deny($updater_user_id)
     {
         return $this->update_update($updater_user_id, "denied");
+    }
+
+    public function under_review($updater_user_id)
+    {
+        return $this->update_update($updater_user_id, "under_review");
     }
 
     protected function update_update($updater_user_id, string $status)
