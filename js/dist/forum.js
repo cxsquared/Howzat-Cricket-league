@@ -2380,6 +2380,15 @@ var UpdateSortMap = /*#__PURE__*/function () {
     };
   };
 
+  _proto.statusMap = function statusMap() {
+    return {
+      pending: 'status:pending',
+      all: 'all',
+      approved: 'status:approved',
+      denied: 'status:denied'
+    };
+  };
+
   return UpdateSortMap;
 }();
 
@@ -4365,12 +4374,8 @@ var UpdateDirectoryPage = /*#__PURE__*/function (_Page) {
       m.route.set(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('index'));
     }
 
-    this.state = new _states_UpdateDirectoryState__WEBPACK_IMPORTED_MODULE_8__["default"]({
-      q: "status:pending"
-    });
-    this.state.refreshParams({
-      q: "status:pending"
-    });
+    this.state = new _states_UpdateDirectoryState__WEBPACK_IMPORTED_MODULE_8__["default"]({});
+    this.state.refreshParams(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.search.params());
     this.bodyClass = 'User--directory Update--directory';
   };
 
@@ -4407,13 +4412,20 @@ var UpdateDirectoryPage = /*#__PURE__*/function (_Page) {
 
     items.add('sort', flarum_components_Select__WEBPACK_IMPORTED_MODULE_6___default.a.component({
       options: sortOptions,
-      value: this.params().sort || 'oldest',
+      value: this.params().sort || 'default',
       onchange: this.changeSort.bind(this)
     }));
-    items.add('filter', flarum_components_Select__WEBPACK_IMPORTED_MODULE_6___default.a.component({
-      options: sortOptions,
-      value: this.params().sort || 'oldest',
-      onchange: this.changeSort.bind(this)
+    var statusMap = this.state.statusMap();
+    var statusOptions = {};
+
+    for (var _i in statusMap) {
+      statusOptions[_i] = flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.lib.update_status.' + _i);
+    }
+
+    items.add('status', flarum_components_Select__WEBPACK_IMPORTED_MODULE_6___default.a.component({
+      options: statusOptions,
+      value: this.params().q || 'pending',
+      onchange: this.changeStatus.bind(this)
     }));
     return items;
   };
@@ -4442,10 +4454,28 @@ var UpdateDirectoryPage = /*#__PURE__*/function (_Page) {
   _proto.changeSort = function changeSort(sort) {
     var params = this.params();
 
-    if (sort === 'oldest') {
+    if (sort === 'default') {
       delete params.sort;
     } else {
       params.sort = sort;
+    }
+
+    m.route.set(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route(this.attrs.routeName, params));
+  }
+  /**
+   * Redirect to the index page using the given status parameter.
+   *
+   * @param {String} status 
+   */
+  ;
+
+  _proto.changeStatus = function changeStatus(status) {
+    var params = this.params();
+
+    if (status === 'default') {
+      delete params.q;
+    } else {
+      params.q = status;
     }
 
     m.route.set(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route(this.attrs.routeName, params));
@@ -5113,10 +5143,13 @@ var UpdateDirectoryState = /*#__PURE__*/function () {
       filter: {}
     };
     var sortKey = this.params.sort || 'oldest';
-    params.sort = this.sortMap()[sortKey];
+    params.sort = this.sortMap()[sortKey]; // don't send anything is all is selected
+    // and default to pending if nothing is set
 
     if (this.params.q) {
-      params.filter.q = this.params.q;
+      if (this.params.q != 'all') params.filter.q = this.statusMap()[this.params.q];
+    } else {
+      params.filter.q = this.statusMap()['pending'];
     }
 
     return params;
@@ -5128,7 +5161,9 @@ var UpdateDirectoryState = /*#__PURE__*/function () {
     }, new _common_utils_UpdateSortMap__WEBPACK_IMPORTED_MODULE_1__["default"]().sortMap());
   };
 
-  _proto.statusMap = function statusMap() {};
+  _proto.statusMap = function statusMap() {
+    return new _common_utils_UpdateSortMap__WEBPACK_IMPORTED_MODULE_1__["default"]().statusMap();
+  };
 
   _proto.getParams = function getParams() {
     return this.params;

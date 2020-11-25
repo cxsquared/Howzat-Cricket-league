@@ -10,6 +10,11 @@ hcl:
       oldest: Oldest 
       newest_update: Most Recent Update 
       oldest_update: Least Recent Update 
+    update_status:
+      approved: Approved
+      denied: Denied
+      pending: Pending 
+      all: All 
   admin:
     permissions:
       update_players: Update Players

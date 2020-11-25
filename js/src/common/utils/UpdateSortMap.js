@@ -9,4 +9,13 @@ export default class UpdateSortMap {
             oldest: 'submittedAt'
         };
     }
+
+    statusMap() {
+        return {
+            pending: 'status:pending',
+            all: 'all',
+            approved: 'status:approved',
+            denied: 'status:denied'
+        }
+    }
 }

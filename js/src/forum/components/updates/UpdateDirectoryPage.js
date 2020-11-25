@@ -16,8 +16,8 @@ export default class UpdateDirectoryPage extends Page {
             m.route.set(app.route('index'));
         }
 
-        this.state = new UserDirecotryState({ q: "status:pending" });
-        this.state.refreshParams({ q: "status:pending" });
+        this.state = new UserDirecotryState({});
+        this.state.refreshParams(app.search.params());
 
         this.bodyClass = 'User--directory Update--directory';
     }
@@ -46,8 +46,8 @@ export default class UpdateDirectoryPage extends Page {
 
     viewItems() {
         const items = new ItemList();
-        const sortMap = this.state.sortMap();
 
+        const sortMap = this.state.sortMap();
         const sortOptions = {};
         for (const i in sortMap) {
             sortOptions[i] = app.translator.trans('hcl.lib.sort.' + i);
@@ -57,17 +57,22 @@ export default class UpdateDirectoryPage extends Page {
             'sort',
             Select.component({
                 options: sortOptions,
-                value: this.params().sort || 'oldest',
+                value: this.params().sort || 'default',
                 onchange: this.changeSort.bind(this),
             })
         );
 
+        const statusMap = this.state.statusMap();
+        const statusOptions = {};
+        for (const i in statusMap) {
+            statusOptions[i] = app.translator.trans('hcl.lib.update_status.' + i);
+        }
         items.add(
-            'filter',
+            'status',
             Select.component({
-                options: sortOptions,
-                value: this.params().sort || 'oldest',
-                onchange: this.changeSort.bind(this),
+                options: statusOptions,
+                value: this.params().q || 'pending',
+                onchange: this.changeStatus.bind(this),
             })
         );
  
@@ -100,7 +105,7 @@ export default class UpdateDirectoryPage extends Page {
     changeSort(sort) {
         const params = this.params();
 
-        if (sort === 'oldest') {
+        if (sort === 'default') {
             delete params.sort;
         } else {
             params.sort = sort;
@@ -109,10 +114,27 @@ export default class UpdateDirectoryPage extends Page {
         m.route.set(app.route(this.attrs.routeName, params));
     }
 
+    /**
+     * Redirect to the index page using the given status parameter.
+     *
+     * @param {String} status 
+     */
+    changeStatus(status) {
+        const params = this.params();
+
+        if (status === 'default') {
+            delete params.q;
+        } else {
+            params.q = status;
+        }
+
+        m.route.set(app.route(this.attrs.routeName, params));
+    }
+
     stickyParams() {
         return {
             sort: m.route.param('sort'),
-            q: m.route.param('q'),
+            q: m.route.param('q')
         };
     }
 

@@ -17,11 +17,15 @@ export default class UpdateDirectoryState {
         const params = { include: [], filter: {} };
 
         const sortKey = this.params.sort || 'oldest';
-
         params.sort = this.sortMap()[sortKey];
 
+        // don't send anything is all is selected
+        // and default to pending if nothing is set
         if (this.params.q) {
-            params.filter.q = this.params.q;
+            if (this.params.q != 'all')
+                params.filter.q = this.statusMap()[this.params.q];
+        } else {
+            params.filter.q = this.statusMap()['pending'];
         }
 
         return params;
@@ -35,7 +39,7 @@ export default class UpdateDirectoryState {
     }
 
     statusMap() {
-        
+        return new SortMap().statusMap();
     }
 
     getParams() {
