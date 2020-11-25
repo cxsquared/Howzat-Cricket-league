@@ -6,7 +6,7 @@ export default class UpdateDirectoryListItem extends Component {
         const { update } = this.attrs;
 
         return (
-            <div className="User">
+            <div className="UpdateEditCardItem">
                 {UpdateEditCard.component({
                     update
                 })}

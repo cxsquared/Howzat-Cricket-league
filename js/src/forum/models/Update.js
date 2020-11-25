@@ -10,8 +10,8 @@ Object.assign(Update.prototype, {
     comment: Model.attribute('comment'),
     tpe: Model.attribute('tpe'),
     status: Model.attribute('status'),
-    submittedAt: Model.attribute('aubmittedAt', Model.transformDate),
-    updatedAt: Model.attribute('aubmittedAt', Model.updatedAt),
+    submittedAt: Model.attribute('submittedAt', Model.transformDate),
+    updatedAt: Model.attribute('updatedAt', Model.transformDate),
 
     submittedUser: Model.hasOne('submittedUser'),
     updaterUser: Model.hasOne('updaterUser'),

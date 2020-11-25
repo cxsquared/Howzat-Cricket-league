@@ -3,7 +3,6 @@
 namespace Cxsquared\HowzatCricketLeague\Update;
 
 use Carbon\Carbon;
-use Egulias\EmailValidator\Warning\Comment;
 use Flarum\Database\AbstractModel;
 use Flarum\Foundation\EventGeneratorTrait;
 use Flarum\User\User;

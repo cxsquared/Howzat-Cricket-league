@@ -13,7 +13,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use LogicException;
 
-class CreateUpdateHandler
+class UpdateUpdateHandler
 {
     use DispatchEventsTrait;
 
@@ -25,13 +25,12 @@ class CreateUpdateHandler
        $this->players = $players;
     }
 
-    public function handle(CreateUpdate $command)
+    public function handle(UpdateUpdate $command)
     {
-        // TODO: Make sure to not allow changes if the update already has an updater
         $actor = $command->actor;
         $data = $command->data;
         $update = Update::findOrFail($command->updateId);
-        $player = $this->players->findOrFailByUserId($update->submitted_by_user()->id);
+        $player = $this->players->findOrFailByUserId($update->submitted_user->id);
 
         $actor->assertCan('update', $update);
 

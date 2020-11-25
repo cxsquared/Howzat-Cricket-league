@@ -5,8 +5,7 @@
         list-style: none;
     }
     
-    .PlayerCard,
-    .UpdateEditCard {
+    .PlayerCard {
         width: 75%;
         margin-right: auto;
         margin-left: auto;
@@ -275,10 +274,42 @@
     }
 }
 
+.UpdateEditCardItem {
+    padding: 5px;
+}
+
 .UpdateEditCard {
-    .UpdateEditCard-header,
-    .UpdateEditCard-body {
-        display: grid;
-        grid-template-columns: repeat(9, minmax(0, 10fr));
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 10px;
+
+    border-radius: 10px;
+
+    .Button-group {
+        padding: 5px;
+
+        .Button {
+            margin-right: 5px;
+        }
+    }
+
+    .UpdateEditCard-info,
+    .UpdateEditCard-meta {
+        display: flex;
+        padding: 5px;
+    }
+
+    .UpdateEditCard-item  {
+        margin: 2px 0;
+        border-right: white 1px solid;
+        padding: 0 5px;
+
+        input {
+            width: 75%;
+        }
+    }
+
+    .UpdateEditCard-tpe {
+        width: 50px;
     }
 }

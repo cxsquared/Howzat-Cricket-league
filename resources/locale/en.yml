@@ -28,8 +28,18 @@ hcl:
       reset: Reset
       update: Spend Availabe TPE
       no_tpe: No Availabe TPE
-      submitt: Submitt
+      submitt: Submit
       tpe: TPE 
+      player: Player
+      for_week: For Week
+      type: Type
+      link: Link 
+      comment: Comment 
+      submitted_at: Submitted at Time 
+      current_status: Status
+      last_updated: Last Updated Time 
+      updater: Updater 
+      updater_comment: Updater Comment 
     updates:
       title: Claim TPE
       week_ending: Week Ending

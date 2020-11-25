@@ -4271,7 +4271,9 @@ var UpdateDirectoryList = /*#__PURE__*/function (_Component) {
       className: 'UserDirectoryList' + (state.isSearchResults() ? ' UserDirectoryList--searchResults' : '')
     }, m("ul", {
       className: "UserDirectoryList-users"
-    }, state.updates.map(function (update) {
+    }, state.updates.filter(function (u) {
+      return !state.getParams().q || state.getParams().q === 'all' || u.status() === state.getParams().q;
+    }).map(function (update) {
       return m("li", {
         key: update.id(),
         "data-id": update.id()
@@ -4321,7 +4323,7 @@ var UpdateDirectoryListItem = /*#__PURE__*/function (_Component) {
   _proto.view = function view() {
     var update = this.attrs.update;
     return m("div", {
-      className: "User"
+      className: "UpdateEditCardItem"
     }, _UpdateEditCard__WEBPACK_IMPORTED_MODULE_2__["default"].component({
       update: update
     }));
@@ -4554,10 +4556,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var flarum_helpers_username__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flarum/helpers/username */ "flarum/helpers/username");
 /* harmony import */ var flarum_helpers_username__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flarum_helpers_username__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var flarum_helpers_humanTime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! flarum/helpers/humanTime */ "flarum/helpers/humanTime");
-/* harmony import */ var flarum_helpers_humanTime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(flarum_helpers_humanTime__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../common/utils/getNextDayOfWeek */ "./src/common/utils/getNextDayOfWeek.js");
-
+/* harmony import */ var _common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../common/utils/getNextDayOfWeek */ "./src/common/utils/getNextDayOfWeek.js");
 
 
 
@@ -4588,6 +4587,9 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
   };
 
   _proto.view = function view() {
+    var _m,
+        _this = this;
+
     var updater = null;
 
     if (this.update.updaterUser()) {
@@ -4596,65 +4598,104 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
 
     var player = this.update.submittedUser().player();
     return m("div", {
-      className: "UpdateEditCard"
+      className: "UpdateEditCard",
+      style: {
+        backgroundColor: this.update.submittedUser().color()
+      }
     }, m("div", {
-      className: "UpdateEditCard-header"
+      className: "UpdateEditCard-info"
     }, m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.player')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.for_week')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.submitted_at')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.type')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.tpe')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.link')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.comment')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.current_status')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.last_updated')), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.updater'))), m("div", {
-      className: "UpdateEditCard-body"
-    }, m("div", {
-      className: "UpdateEditCard-player"
-    }, player.name(), " (", flarum_helpers_username__WEBPACK_IMPORTED_MODULE_4___default()(this.update.submittedUser()), ")"), m("div", {
-      className: "UpdateEditCard-week"
-    }, Object(_common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_6__["default"])(this.update.date(), 0).toLocaleDateString()), m("div", {
-      className: "UpdateEditCard-label"
-    }, this.update.submittedAt()), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.updates.types." + this.update.type())), m("div", {
-      className: "UpdateEditCard-label"
-    }, m("input", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.player')), player.name(), " (", m("a", {
+      href: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('user', {
+        username: this.update.submittedUser().username()
+      })
+    }, flarum_helpers_username__WEBPACK_IMPORTED_MODULE_4___default()(this.update.submittedUser())), ")"), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.for_week')), Object(_common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_5__["default"])(this.update.date(), 0).toLocaleDateString()), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.type')), flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.updates.types." + this.update.type())), m("div", {
+      className: "UpdateEditCard-item UpdateEditCard-tpe"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.tpe')), m("input", (_m = {
       type: "number",
-      value: this.update.tpe()
-    })), m("div", {
-      className: "UpdateEditCard-label"
-    }, this.update.link()), m("div", {
-      className: "UpdateEditCard-label"
-    }, this.update.comment()), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.lib.update_status." + this.update.status())), m("div", {
-      className: "UpdateEditCard-label"
-    }, flarum_helpers_humanTime__WEBPACK_IMPORTED_MODULE_5___default()(this.update.updatedAt())), m("div", {
-      className: "UpdateEditCard-label"
+      min: 1
+    }, _m["min"] = 30, _m.className = "UpdateEditCard-tpe", _m.value = this.update.tpe(), _m))), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.link')), m("div", {
+      className: "UpdateEditCard-link"
+    }, m("a", {
+      href: this.update.link(),
+      target: "_blank"
+    }, this.update.link()))), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.comment')), m("div", {
+      className: "UpdateEditCard-comment"
+    }, this.update.comment()))), m("div", {
+      className: "UpdateEditCard-meta"
+    }, m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.current_status')), m("div", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.lib.update_status." + this.update.status()))), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.submitted_at')), m("div", {
+      className: "UpdateEditCard-date"
+    }, this.update.submittedAt().toLocaleString())), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.last_updated')), m("div", {
+      className: "UpdateEditCard-date"
+    }, this.update.updatedAt() ? this.update.updatedAt().toLocaleString() : 'Never Updated')), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.updater')), m("div", {
+      className: "UpdateEditCard-user"
     }, updater)), m("div", {
+      className: "UpdateEditCard-item"
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.updater_comment')), m("div", {
+      className: "UpdateEditCard-text"
+    }, this.update.updaterComment()))), m("div", {
       className: "Button-group"
     }, m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      className: "Button Button--approve",
-      disabled: this.update.isApproved()
+      className: "Button Button--approve Button--primary",
+      onclick: function onclick() {
+        return _this.approve();
+      },
+      disabled: this.update.isApproved() || this.saving
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.updates.approve')), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      className: "Button Button--deny",
-      disabled: this.update.isDenied()
+      className: "Button Button--deny Button--danger",
+      onclick: function onclick() {
+        return _this.deny();
+      },
+      disabled: this.update.isDenied() || this.saving
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.updates.deny')), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      className: "Button Button--under-review"
+      className: "Button Button--under-review",
+      disabled: this.saving,
+      onclick: function onclick() {
+        return _this.underReview();
+      }
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.updates.under_review'))));
+  };
+
+  _proto.approve = function approve() {
+    var _this2 = this;
+
+    this.saving = true;
+    this.update.save({
+      status: 'approved'
+    }).then(function () {
+      _this2.saving = false;
+    });
+  };
+
+  _proto.deny = function deny() {
+    this.saving = true;
+    this.update.save({
+      status: 'deny'
+    });
+  };
+
+  _proto.underReview = function underReview() {
+    this.saving = true;
+    this.update.save({
+      status: 'underReview'
+    });
   };
 
   return UpdateEditCard;
@@ -5030,8 +5071,8 @@ Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"
   comment: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('comment'),
   tpe: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('tpe'),
   status: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('status'),
-  submittedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('aubmittedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
-  updatedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('aubmittedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.updatedAt),
+  submittedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('submittedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
+  updatedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updatedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
   submittedUser: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('submittedUser'),
   updaterUser: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('updaterUser'),
   updaterComment: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updaterComment'),
@@ -5532,17 +5573,6 @@ module.exports = flarum.core.compat['components/UserPage'];
 /***/ (function(module, exports) {
 
 module.exports = flarum.core.compat['extend'];
-
-/***/ }),
-
-/***/ "flarum/helpers/humanTime":
-/*!**********************************************************!*\
-  !*** external "flarum.core.compat['helpers/humanTime']" ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = flarum.core.compat['helpers/humanTime'];
 
 /***/ }),
 

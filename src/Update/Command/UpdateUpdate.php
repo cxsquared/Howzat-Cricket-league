@@ -4,7 +4,7 @@ namespace Cxsquared\HowzatCricketLeague\Update\Command;
 
 use Flarum\User\User;
 
-class CreateUpdate
+class UpdateUpdate 
 {
     public $updateId;
 

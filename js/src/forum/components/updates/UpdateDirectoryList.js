@@ -35,7 +35,8 @@ export default class UpdateDirectoryList extends Component {
         return (
             <div className={'UserDirectoryList' + (state.isSearchResults() ? ' UserDirectoryList--searchResults' : '')}>
                 <ul className="UserDirectoryList-users">
-                    {state.updates.map((update) => {
+                    {state.updates.filter(u => !state.getParams().q || state.getParams().q === 'all' || u.status() === state.getParams().q)
+                                  .map((update) => {
                         return (
                             <li key={update.id()} data-id={update.id()}>
                                 {UpdateDirectoryListItem.component({ update, params })}
