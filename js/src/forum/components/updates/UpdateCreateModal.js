@@ -13,7 +13,10 @@ export default class UpdateCreateModal extends Modal {
         this.dpInit = false;
         this.saving = false;
 
-        const linkPost = window.location.origin + app.route.post(this.attrs.post);
+        let linkPost = "";
+        if (this.attrs.post) {
+            linkPost = window.location.origin + app.route.post(this.attrs.post);
+        }
 
         const today = new Date();
         let nextSunday = today;

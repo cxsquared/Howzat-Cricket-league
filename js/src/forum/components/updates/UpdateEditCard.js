@@ -3,7 +3,6 @@ import Component from 'flarum/Component'
 import Button from 'flarum/components/Button';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import username from 'flarum/helpers/username';
-import getNextDayOfWeek from '../../../common/utils/getNextDayOfWeek';
 
 /*
  * Attr

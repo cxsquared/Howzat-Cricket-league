@@ -313,3 +313,26 @@
         width: 50px;
     }
 }
+
+.UpdatesUserPage {
+    .UpdatesUserPage-week {
+       color: #808080;
+       font-weight: bold; 
+       margin-bottom: 10px;
+       position: relative;
+       z-index: 1;
+    }
+}
+
+.UpdateGroupCard,
+.UpdateGroupCardOwn {
+    display: grid;
+}
+
+.UpdateGroupCardOwn {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.UpdateGroupCard {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}

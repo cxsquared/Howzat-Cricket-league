@@ -11,6 +11,7 @@ Object.assign(Update.prototype, {
     type: Model.attribute('type'),
     comment: Model.attribute('comment'),
     tpe: Model.attribute('tpe'),
+    isCapped: Model.attribute('isCapped'),
     status: Model.attribute('status'),
     submittedAt: Model.attribute('submittedAt', Model.transformDate),
     updatedAt: Model.attribute('updatedAt', Model.transformDate),

@@ -27,6 +27,7 @@ class UpdateSerializer extends AbstractSerializer
             'comment'           => $update->comment,
             'tpe'               => $update->tpe,
             'status'            => $update->status,
+            'isCapped'          => $update->is_capped,
             'submittedAt'       => $this->formatDate($update->submitted_at),
             'updatedAt'         => $this->formatDate($update->updated_at),
             'updaterComment'    => $this->actor->hasPermissionLike('update.edit') ? $update->updater_comment : ''

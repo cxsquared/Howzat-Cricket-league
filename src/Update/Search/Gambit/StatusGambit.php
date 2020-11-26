@@ -21,10 +21,6 @@ class StatusGambit extends AbstractRegexGambit
 
     public function apply(AbstractSearch $search, $bit)
     {
-        if (! $search->getActor()->hasPermissionLike('update.edit')) {
-            return false;
-        }
-
         return parent::apply($search, $bit);
     }
 

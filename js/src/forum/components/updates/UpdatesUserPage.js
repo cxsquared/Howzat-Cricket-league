@@ -1,8 +1,14 @@
 import app from 'flarum/app';
+import ItemList from 'flarum/utils/ItemList';
+import listItems from 'flarum/helpers/listItems';
 import UserPage from 'flarum/components/UserPage';
 import Placeholder from 'flarum/components/Placeholder';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
+import Select from 'flarum/components/Select';
 import Button from 'flarum/components/Button';
+import UpdateGroupCard from './UpdateGroupCard';
+import UpdateSortMap from '../../../common/utils/UpdateSortMap';
+import UpdateCreateModal from './UpdateCreateModal';
 
 /**
  * The `UpdatesUserPage` component shows a user's updates inside
@@ -16,9 +22,10 @@ export default class UpdatesUserPage extends UserPage {
         this.moreResults = false;
 
         this.updates = [];
+        this.sortMap = new UpdateSortMap();
+        this.status = 'all';
 
         this.loadLimit = 20;
-
 
         this.loadUser(m.route.param('username'));
     }
@@ -28,15 +35,27 @@ export default class UpdatesUserPage extends UserPage {
     }
 
     content() {
+        let header;
+
+        if (app.session.user === this.user) {
+            header = (
+                <div className="IndexPage-toolbar">
+                    <ul className="IndexPage-toolbar-view">{listItems(this.viewItems().toArray())}</ul>
+                    <ul className="IndexPage-toolbar-action">{listItems(this.actionItems().toArray())}</ul>
+                </div>
+            )
+        }
+
         if (this.updates.length === 0 && !this.loading) {
             return (
                 <div className="PostsUserPage UpdatesUserPage">
+                    {header}
                     <Placeholder text={app.translator.trans('hcl.forum.user.updates_empty_text')} />
                 </div>
             );
         }
 
-        let footer
+        let footer;
 
         if (this.loading) {
             footer = <LoadingIndicator />;
@@ -63,15 +82,17 @@ export default class UpdatesUserPage extends UserPage {
 
         return (
             <div className="PostsUserPage UpdatesUserPage">
+                {header}
                 <ul className="PostsUserPage-list UpdatesUserPage-list">
-                    {Object.keys(updatesByWeek).map((weekEndingKey) => (
+                    {Object.keys(updatesByWeek).sort((a, b) => new Date(b) - new Date(a)).map((weekEndingKey) => (
                         <li>
-                            <div clasName="PostsUserPage-discussion UpdatesUserPage-week">
+                            <div className="PostsUserPage-discussion UpdatesUserPage-week">
                                 {app.translator.trans('hcl.forum.user.for_week', {
                                     week: weekEndingKey 
                                 })}
                             </div>
-                            {updatesByWeek[weekEndingKey].length}
+                            <UpdateGroupCard updates={updatesByWeek[weekEndingKey]}
+                                             user={this.user} />
                         </li>
                     ))}
                 </ul>
@@ -81,6 +102,46 @@ export default class UpdatesUserPage extends UserPage {
             </div>
         );
     }
+
+    viewItems() {
+        const items = new ItemList();
+
+        const statusMap = this.sortMap.statusMap();
+        const statusOptions = {};
+        for (const i in statusMap) {
+            statusOptions[i] = app.translator.trans('hcl.lib.update_status.' + i);
+        }
+        items.add(
+            'status',
+            Select.component({
+                options: statusOptions,
+                value: this.status || 'all',
+                onchange: (status) => {
+                    this.status = status;
+                    this.refresh();
+                },
+            })
+        );
+ 
+        return items;
+    }
+
+    actionItems() {
+        const items = new ItemList();
+
+        items.add(
+            'new-update',
+            <Button title={app.translator.trans('hcl.forum.page.new_update')}
+                    icon='fas fa-certificate'
+                    className='Button'
+                    onclick={() => app.modal.show(UpdateCreateModal, { })}>
+                {app.translator.trans('hcl.forum.page.new_update')}
+            </Button>
+        );
+
+        return items;
+    }
+
 
     /**
      * Initialize the component with a user, and trigger the loading
@@ -105,9 +166,16 @@ export default class UpdatesUserPage extends UserPage {
     }
 
     loadUpdates(offset) {
+        let q = `username:${this.user.username()}`;
+        if (app.session.user != this.user) {
+            q += ' status:approved';
+        } else {
+            q += ` ${this.sortMap.statusMap()[this.status]}`
+        }
+
         return app.store.find('updates', {
             filter: {
-                q: `username:${this.user.username()}`
+                q 
             },
             page: {offset, limit: this.loadLimit },
             sort: '-submittedAt'
