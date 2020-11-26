@@ -1,6 +1,7 @@
 import app from 'flarum/app';
 import Component from 'flarum/Component'
 import Button from 'flarum/components/Button';
+import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import username from 'flarum/helpers/username';
 import getNextDayOfWeek from '../../../common/utils/getNextDayOfWeek';
 
@@ -13,8 +14,10 @@ export default class UpdateEditCard extends Component {
     oninit(vnode) {
         super.oninit(vnode);
         this.update = this.attrs.update;
+        this.player = this.update.submittedUser().player();
         this.originalState = this.update;
         this.saving = false;
+        this.loadingPlayer = false;
     }
 
     view() {
@@ -23,14 +26,24 @@ export default class UpdateEditCard extends Component {
             updater = username(this.update.updaterUser());
         }
 
-        const player = this.update.submittedUser().player();
+        if (!this.player) {
+            this.loadPlayer();
+        }
+
+        if (this.loadingPlayer) {
+            return (<div className="UpdateEditCard"
+                         style={{ backgroundColor: this.update.submittedUser().color()}}>
+                <LoadingIndicator/>
+            </div>);
+        }
+
         return (
             <div className="UpdateEditCard"
                  style={{ backgroundColor: this.update.submittedUser().color()}}>
                 <div className="UpdateEditCard-info">
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.player')}</legend>
-                        {player.name()} (
+                        {this.player.name()} (
                         <a href={app.route('user', { username: this.update.submittedUser().username() })}>
                             {username(this.update.submittedUser())}
                         </a>)
@@ -118,6 +131,21 @@ export default class UpdateEditCard extends Component {
                 </div>
             </div>
         );
+    }
+
+    loadPlayer()
+    {
+        this.loadingPlayer = true;
+
+        app.store.find('users', `${this.update.submittedUser().id()}/player`, null, {
+            errorHandler() {
+            }
+        }).then(p => {
+            this.player = p;
+        }).finally(() => {
+            this.loadingPlayer = false;
+            m.redraw();
+        });
     }
 
     approve() {

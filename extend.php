@@ -62,5 +62,7 @@ return [
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);
         $events->subscribe(Listener\AddSettings::class);
+        $events->subscribe(Listener\SendUpdateNotifications::class);
+        $events->subscribe(Listener\AddNotifications::class);
     }
 ];

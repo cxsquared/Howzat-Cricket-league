@@ -16,6 +16,7 @@ Object.assign(Update.prototype, {
     submittedUser: Model.hasOne('submittedUser'),
     updaterUser: Model.hasOne('updaterUser'),
     updaterComment: Model.attribute('updaterComment'),
+    player: Model.hasOne('player'),
 
     isApproved: computed('status', (status) => status.toLowerCase() === "approved"),
     isDenied: computed('status', (status) => status.toLowerCase() === "denied"),

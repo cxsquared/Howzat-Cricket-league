@@ -8,6 +8,7 @@ import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import LinkButton from 'flarum/components/LinkButton';
 import UserPage from 'flarum/components/UserPage';
 import SessionDropdown from 'flarum/components/SessionDropdown';
+import NotificationGrid from 'flarum/components/NotificationGrid';
 import Player from './models/Player';
 import Update from './models/Update';
 import Team from './models/Team';
@@ -17,6 +18,7 @@ import PlayerCreatePage from './components/players/PlayerCreatePage';
 import PlayerDirectoryPage from './components/players/PlayerDirectoryPage';
 import UpdateCreateModal from './components/updates/UpdateCreateModal';
 import UpdateDirectoryPage from './components/updates/UpdateDirectoryPage';
+import UpdateApprovedNotification from './notifications/UpdateApprovedNotification';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
@@ -100,5 +102,16 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
         5 
       );
     }
+  });
+
+  // Notifications
+  app.notificationComponents.updateApproved = UpdateApprovedNotification;
+
+  extend(NotificationGrid.prototype, 'notificationTypes', function (items) {
+    items.add('updateApproved', {
+      name: 'updateApproved',
+      icon: 'fas fa-certificate',
+      label: app.translator.trans('hcl.forum.settings.notify_update_approved')
+    })
   })
 });

@@ -17,6 +17,10 @@ class Update extends AbstractModel
         'updated_at'
     ];
 
+    protected $casts = [
+        'is_capped' => 'boolean'
+    ];
+
     public function submitted_user()
     {
         return $this->belongsTo(User::class);
