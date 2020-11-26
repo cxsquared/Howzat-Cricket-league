@@ -24,19 +24,40 @@ class DownloadPlayersController implements RequestHandlerInterface
             'Pragma'                => 'public'
         ];
 
-        $players = Player::all()->toArray();
+        $csv_headers = [
+            'Player Name', 'Team',
+            'Running', 'Defence', 'Attacking', 'Lofted', 'Vs Spin', 'Vs Pace', 'Footwork', 'Timing', 'Control',
+            'Dedicated Bowler',
+            'Pace / Flight', 'Swing / Leg Spin', 'Discipline', 'Seam / Drift', 'Accuracy', 'Slower Ball / Off Spin', 'Bouncer / Bounce', 'Yorker / Arm Ball',
+            'Stamina', 'Pace or Spin'
+        ];
 
-        # add headers for each column in the CSV download
-        array_unshift($players, array_keys($players[0]));
+        $players = Player::all();
 
         $FH = fopen('php://temp', 'rw');
+        fputcsv($FH, $csv_headers);
         foreach($players as $row) {
-            fputcsv($FH, $row);
+            $this->write_player($FH, $row);
         }
         rewind($FH);
         $csv = stream_get_contents($FH);
         fclose($FH);
 
         return new TextResponse($csv, 200, $headers);
+    }
+
+    private function write_player($fh, $player)
+    {
+        $style = $player->bowling_style === 'pace' ? 'p' : 's';
+
+        $player_row = [
+            "$player->first_name $player->last_name", $player->team->name,
+            $player->running, $player->defense, $player->attacking, $player->lofted, $player->vs_spin, $player->vs_pace, $player->footwork, $player->timing, $player->control,
+            0,
+            $player->pace_flight, $player->swing_leg_spin, $player->discipline, $player->seam_drift, $player->accuracy, $player->slower_ball_off_spin, $player->bouncer_bounce, $player->yorker_arm_ball,
+            70, $style
+        ];
+
+        fputcsv($fh, $player_row);
     }
 }
