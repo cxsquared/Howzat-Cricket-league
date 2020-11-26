@@ -47,16 +47,16 @@ class TypeHelper
     }
 
     public static function isPt($type, $tpe) {
-        if ($type == 'pointTask' || $type == 'welfare')
+        if ($type === 'pointTask' || $type === 'welfare')
             return true;
 
-        if (($type == 'affiliate') && $tpe >= 6)
+        if (($type === 'affiliate') && $tpe >= 6)
             return true;
 
         return false;
     }
 
     public static function isAffiliate($type) {
-        return $type == 'affiliate';
+        return $type === 'affiliate';
     }
 }
