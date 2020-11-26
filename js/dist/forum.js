@@ -3549,6 +3549,18 @@ var PlayerDirectoryPage = /*#__PURE__*/function (_Page) {
         }
       }
     }));
+
+    if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.forum.attribute('adminUrl')) {
+      items.add('download', flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_8___default.a.component({
+        title: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.page.refresh_tooltip'),
+        icon: 'fas fa-download',
+        className: 'Button Button--icon',
+        href: "" + window.location.origin + flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.forum.attribute('basePath') + "/api/players/download",
+        force: false,
+        target: '_blank'
+      }));
+    }
+
     return items;
   }
   /**

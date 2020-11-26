@@ -13,6 +13,7 @@ namespace Cxsquared\HowzatCricketLeague;
 
 use Cxsquared\HowzatCricketLeague\Api\Controller\CreatePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\CreateUpdateController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\DownloadPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListUpdatesController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
@@ -45,6 +46,7 @@ return [
     (new Extend\Routes('api'))
         ->get('/users/{id}/player', 'users.player', ShowUserPlayerController::class)
         ->get('/players', 'players.index', ListPlayersController::class)
+        ->get('/players/download', 'players.download', DownloadPlayersController::class)
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
