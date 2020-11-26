@@ -50,7 +50,7 @@ export default class UpdateEditCard extends Component {
                     </div>
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.for_week')}</legend>
-                            {getNextDayOfWeek(this.update.date(), 0).toLocaleDateString()}
+                        {this.update.weekEnding()}
                     </div>
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.type')}</legend>

@@ -4,6 +4,7 @@ namespace Cxsquared\HowzatCricketLeague\Update\Search;
 
 use Cxsquared\HowzatCricketLeague\Update\Event\Searching;
 use Cxsquared\HowzatCricketLeague\Update\Search\Gambit\StatusGambit;
+use Cxsquared\HowzatCricketLeague\Update\Search\Gambit\UsernameGambit;
 use Cxsquared\HowzatCricketLeague\Update\UpdateRepository;
 use Flarum\Search\ApplySearchParametersTrait;
 use Flarum\Search\GambitManager;
@@ -24,6 +25,7 @@ class UpdateSearcher
        $this->updates = $updates; 
 
        $this->gambits->add(StatusGambit::class);
+       $this->gambits->add(UsernameGambit::class);
     }
 
     public function search(SearchCriteria $criteria, $limit = null, $offset = 0)

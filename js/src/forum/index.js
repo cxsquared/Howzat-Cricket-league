@@ -19,6 +19,7 @@ import PlayerDirectoryPage from './components/players/PlayerDirectoryPage';
 import UpdateCreateModal from './components/updates/UpdateCreateModal';
 import UpdateDirectoryPage from './components/updates/UpdateDirectoryPage';
 import UpdateApprovedNotification from './notifications/UpdateApprovedNotification';
+import UpdatesUserPage from './components/updates/UpdatesUserPage';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // New Models
@@ -36,18 +37,29 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
   app.routes['players'] = { path: '/players', component: PlayerDirectoryPage};
   app.routes['player.create'] = { path: '/player/create', component: PlayerCreatePage };
   app.routes['user.player'] = { path: '/u/:username/player', component: PlayerUserPage };
+  app.routes['user.updates'] = { path: '/u/:username/updates', component: UpdatesUserPage };
   app.routes['updates'] = { path: '/updates', component: UpdateDirectoryPage};
 
   // Adding player button to UserPage
   extend(UserPage.prototype, 'navItems', function (items) {
-    const href = app.route('user.player', {username: this.user.username()});
+    const playersHref = app.route('user.player', {username: this.user.username()});
 
     items.add('players',
-      <LinkButton href={href} icon="fas fa-hiking" class="Button Button--link">
+      <LinkButton href={playersHref} icon="fas fa-hiking" class="Button Button--link">
         {app.translator.trans('hcl.forum.user.player_link')}
       </LinkButton>,
       80
     );
+
+    const updatesHref = app.route('user.updates', {username: this.user.username()});
+
+    items.add('players',
+      <LinkButton href={updatesHref} icon="fas fa-certificate" class="Button Button--link">
+        {app.translator.trans('hcl.forum.user.updates_link')}
+      </LinkButton>,
+      85
+    );
+
   });
 
   // Adding Create/Manage button to header

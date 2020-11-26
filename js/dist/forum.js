@@ -4641,7 +4641,7 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
       })
     }, flarum_helpers_username__WEBPACK_IMPORTED_MODULE_5___default()(this.update.submittedUser())), ")"), m("div", {
       className: "UpdateEditCard-item"
-    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.for_week')), Object(_common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_6__["default"])(this.update.date(), 0).toLocaleDateString()), m("div", {
+    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.for_week')), this.update.weekEnding()), m("div", {
       className: "UpdateEditCard-item"
     }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.type')), flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.updates.types." + this.update.type())), m("div", {
       className: "UpdateEditCard-item UpdateEditCard-tpe"
@@ -4770,6 +4770,162 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/forum/components/updates/UpdatesUserPage.js":
+/*!*********************************************************!*\
+  !*** ./src/forum/components/updates/UpdatesUserPage.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UpdatesUserPage; });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/app */ "flarum/app");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_app__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_components_UserPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/components/UserPage */ "flarum/components/UserPage");
+/* harmony import */ var flarum_components_UserPage__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_components_UserPage__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var flarum_components_Placeholder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/components/Placeholder */ "flarum/components/Placeholder");
+/* harmony import */ var flarum_components_Placeholder__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Placeholder__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flarum/components/LoadingIndicator */ "flarum/components/LoadingIndicator");
+/* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! flarum/components/Button */ "flarum/components/Button");
+/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+/**
+ * The `UpdatesUserPage` component shows a user's updates inside
+ * of their profile.
+ */
+
+var UpdatesUserPage = /*#__PURE__*/function (_UserPage) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(UpdatesUserPage, _UserPage);
+
+  function UpdatesUserPage() {
+    return _UserPage.apply(this, arguments) || this;
+  }
+
+  var _proto = UpdatesUserPage.prototype;
+
+  _proto.oninit = function oninit(vnode) {
+    _UserPage.prototype.oninit.call(this, vnode);
+
+    this.loading = true;
+    this.moreResults = false;
+    this.updates = [];
+    this.loadLimit = 20;
+    this.loadUser(m.route.param('username'));
+  };
+
+  _proto.onremove = function onremove() {
+    this.updates = null;
+  };
+
+  _proto.content = function content() {
+    if (this.updates.length === 0 && !this.loading) {
+      return m("div", {
+        className: "PostsUserPage UpdatesUserPage"
+      }, m(flarum_components_Placeholder__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        text: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.user.updates_empty_text')
+      }));
+    }
+
+    var footer;
+
+    if (this.loading) {
+      footer = m(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_4___default.a, null);
+    } else if (this.moreResults) {
+      footer = m("div", {
+        className: "PostsUserPage-loadmore UpdatesUserPage-loadMore"
+      }, m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
+        className: "Button",
+        onclick: this.loadMore.bind(this)
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.user.updates_load_more_button')));
+    } // https://www.robinwieruch.de/javascript-groupby
+
+
+    var updatesByWeek = this.updates.reduce(function (groups, update) {
+      if (!groups[update.weekEnding()]) {
+        groups[update.weekEnding()] = [];
+      }
+
+      groups[update.weekEnding()].push(update);
+      return groups;
+    }, {});
+    return m("div", {
+      className: "PostsUserPage UpdatesUserPage"
+    }, m("ul", {
+      className: "PostsUserPage-list UpdatesUserPage-list"
+    }, Object.keys(updatesByWeek).map(function (weekEndingKey) {
+      return m("li", null, m("div", {
+        clasName: "PostsUserPage-discussion UpdatesUserPage-week"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.user.for_week', {
+        week: weekEndingKey
+      })), updatesByWeek[weekEndingKey].length);
+    })), m("div", {
+      className: "PostsUserPage-loadMore UdatesUserPage-loadMore"
+    }, footer));
+  }
+  /**
+   * Initialize the component with a user, and trigger the loading
+   * of their players.
+   */
+  ;
+
+  _proto.show = function show(user) {
+    _UserPage.prototype.show.call(this, user);
+
+    this.refresh();
+  }
+  /**
+   * Clear and reload the user's updates.
+   */
+  ;
+
+  _proto.refresh = function refresh() {
+    this.loading = true;
+    this.updates = [];
+    m.redraw();
+    this.loadUpdates().then(this.parseResults.bind(this));
+  };
+
+  _proto.loadUpdates = function loadUpdates(offset) {
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.store.find('updates', {
+      filter: {
+        q: "username:" + this.user.username()
+      },
+      page: {
+        offset: offset,
+        limit: this.loadLimit
+      },
+      sort: '-submittedAt'
+    });
+  };
+
+  _proto.loadMore = function loadMore() {
+    this.loading = true;
+    this.loadUpdates(this.updates.length).then(this.parseResults.bind(this));
+  };
+
+  _proto.parseResults = function parseResults(results) {
+    this.loading = false;
+    [].push.apply(this.updates, results);
+    this.moreResults = results.length >= this.loadLimit;
+    m.redraw();
+    return results;
+  };
+
+  return UpdatesUserPage;
+}(flarum_components_UserPage__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+
+
+/***/ }),
+
 /***/ "./src/forum/index.js":
 /*!****************************!*\
   !*** ./src/forum/index.js ***!
@@ -4811,6 +4967,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_updates_UpdateCreateModal__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/updates/UpdateCreateModal */ "./src/forum/components/updates/UpdateCreateModal.js");
 /* harmony import */ var _components_updates_UpdateDirectoryPage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/updates/UpdateDirectoryPage */ "./src/forum/components/updates/UpdateDirectoryPage.js");
 /* harmony import */ var _notifications_UpdateApprovedNotification__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./notifications/UpdateApprovedNotification */ "./src/forum/notifications/UpdateApprovedNotification.js");
+/* harmony import */ var _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/updates/UpdatesUserPage */ "./src/forum/components/updates/UpdatesUserPage.js");
+
 
 
 
@@ -4855,20 +5013,32 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
     path: '/u/:username/player',
     component: _components_players_PlayerUserPage__WEBPACK_IMPORTED_MODULE_15__["default"]
   };
+  flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['user.updates'] = {
+    path: '/u/:username/updates',
+    component: _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_21__["default"]
+  };
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['updates'] = {
     path: '/updates',
     component: _components_updates_UpdateDirectoryPage__WEBPACK_IMPORTED_MODULE_19__["default"]
   }; // Adding player button to UserPage
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_UserPage__WEBPACK_IMPORTED_MODULE_8___default.a.prototype, 'navItems', function (items) {
-    var href = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('user.player', {
+    var playersHref = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('user.player', {
       username: this.user.username()
     });
     items.add('players', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
-      href: href,
+      href: playersHref,
       icon: "fas fa-hiking",
       "class": "Button Button--link"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.user.player_link')), 80);
+    var updatesHref = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('user.updates', {
+      username: this.user.username()
+    });
+    items.add('players', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
+      href: updatesHref,
+      icon: "fas fa-certificate",
+      "class": "Button Button--link"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.user.updates_link')), 85);
   }); // Adding Create/Manage button to header
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_HeaderPrimary__WEBPACK_IMPORTED_MODULE_6___default.a.prototype, 'items', function (items) {
@@ -5126,6 +5296,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_Model__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_Model__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/utils/computed */ "flarum/utils/computed");
 /* harmony import */ var flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/utils/getNextDayOfWeek */ "./src/common/utils/getNextDayOfWeek.js");
+
 
 
 
@@ -5145,6 +5317,9 @@ var Update = /*#__PURE__*/function (_Model) {
 
 Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Update.prototype, {
   date: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('date', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
+  weekEnding: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('date', function (date) {
+    return Object(_common_utils_getNextDayOfWeek__WEBPACK_IMPORTED_MODULE_4__["default"])(date, 0).toLocaleDateString();
+  }),
   link: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('link'),
   type: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('type'),
   comment: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('comment'),
