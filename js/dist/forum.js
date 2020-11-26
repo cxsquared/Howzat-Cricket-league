@@ -5034,11 +5034,11 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
     var updatesHref = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('user.updates', {
       username: this.user.username()
     });
-    items.add('players', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
+    items.add('updates', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
       href: updatesHref,
       icon: "fas fa-certificate",
       "class": "Button Button--link"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.user.updates_link')), 85);
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.user.updates_link')), 80);
   }); // Adding Create/Manage button to header
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_HeaderPrimary__WEBPACK_IMPORTED_MODULE_6___default.a.prototype, 'items', function (items) {

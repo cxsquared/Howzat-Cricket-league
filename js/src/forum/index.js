@@ -53,11 +53,11 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
 
     const updatesHref = app.route('user.updates', {username: this.user.username()});
 
-    items.add('players',
+    items.add('updates',
       <LinkButton href={updatesHref} icon="fas fa-certificate" class="Button Button--link">
         {app.translator.trans('hcl.forum.user.updates_link')}
       </LinkButton>,
-      85
+      80 
     );
 
   });
