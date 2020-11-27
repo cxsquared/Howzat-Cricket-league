@@ -12,34 +12,52 @@ export default class UpdateGroupCard extends Component {
     }
 
     view() {
-        let status = null;
+        let legendStyle = { backgroundColor: this.user.color() };
+
         let className = "UpdateGroupCard";
+        let status = null;
         if (app.session.user === this.user) {
             className += "Own";
 
-            status = <legend>
-               {app.translator.trans('hcl.forum.basics.current_status')}
+            status = <legend style={legendStyle}
+                             className="UpdateGroupCard-end">
+                <div className="darkenBackground">
+                    {app.translator.trans('hcl.forum.basics.current_status')}
+                </div>
             </legend>;
         }
 
         return (
             <div className={className}>
-                <legend>
-                    {app.translator.trans('hcl.forum.basics.type')}
+                <legend style={legendStyle}>
+                    <div className="darkenBackground">
+                        {app.translator.trans('hcl.forum.basics.type')}
+                    </div>
                 </legend>
-                <legend>
-                    {app.translator.trans('hcl.forum.basics.tpe')}
+                <legend style={legendStyle}
+                        className="UpdateGroupCard-center">
+                    <div className="darkenBackground">
+                        {app.translator.trans('hcl.forum.basics.tpe')}
+                    </div>
                 </legend>
-                <legend>
-                    {app.translator.trans('hcl.forum.basics.capped')}
+                <legend style={legendStyle}
+                        className="UpdateGroupCard-center">
+                    <div className="darkenBackground">
+                        {app.translator.trans('hcl.forum.basics.capped')}
+                    </div>
                 </legend>
-                <legend>
-                    {app.translator.trans('hcl.forum.basics.comment')}
+                <legend style={legendStyle}>
+                    <div className="darkenBackground">
+                        {app.translator.trans('hcl.forum.basics.comment')}
+                    </div>
+                </legend>
+                <legend style={legendStyle}
+                        className="UpdateGroupCard-end">
+                    <div className="darkenBackground">
+                        {app.translator.trans('hcl.forum.basics.approved_by')}
+                    </div>
                 </legend>
                 {status}
-                <legend>
-                    {app.translator.trans('hcl.forum.basics.approved_by')}
-                </legend>
                 {this.updates.map(update => {
                     let type = !!update.link() 
                         ? <Link href={update.link()}>
@@ -61,23 +79,23 @@ export default class UpdateGroupCard extends Component {
                         <div>
                             {type}
                         </div>,
-                        <div>
+                        <div className="UpdateGroupCard-center">
                             {update.tpe()}
                         </div>,
-                        <div>
+                        <div className="UpdateGroupCard-center">
                             {update.isCapped() ? icon('fas fa-check') : null}
                         </div>,
                         <div>
                             {update.comment()}
                         </div>,
-                        <div>
+                        <div className="UpdateGroupCard-end">
                             {approvedBy}
                         </div>
                     ];
 
                     if (app.session.user === this.user) {
                         fields.push(
-                            <div>
+                            <div className="UpdateGroupCard-end">
                                 {app.translator.trans(`hcl.lib.update_status.${update.status()}`)}
                             </div>
                         );
@@ -85,6 +103,17 @@ export default class UpdateGroupCard extends Component {
                     
                     return fields;
                 })}
+                <div className="UpdateGroupCard-totaltext">
+                    {app.translator.trans(`hcl.forum.updates.total_tpe`)}
+                </div>
+                <div className="UpdateGroupCard-total UpdateGroupCard-center">
+                    {this.updates.reduce((a, u) => {
+                        if (Number.isInteger(u.tpe()))
+                            return a + u.tpe();
+
+                        return a;
+                    }, 0)}
+                </div>
             </div>
         );
     }

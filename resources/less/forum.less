@@ -327,12 +327,47 @@
 .UpdateGroupCard,
 .UpdateGroupCardOwn {
     display: grid;
+
+    legend {
+        color: #fff;
+        margin-bottom: 0px;
+    }
+
+    legend:first-of-type {
+        border-top-left-radius: 5px;
+    }
+
+    legend:last-of-type {
+        border-top-right-radius: 5px;
+    }
+
+    div {
+        padding-top: 2px;
+        padding: 5px;
+        border-bottom: #ccc 1px solid;
+    }
+
+    .UpdateGroupCard-center {
+        text-align: center;
+    }
+
+    .UpdateGroupCard-leftpad {
+    }
+
+    .UpdateGroupCard-end {
+        text-align: end;
+    }
+
+    .UpdateGroupCard-total,
+    .UpdateGroupCard-totaltext {
+        font-weight: bold;
+    }
 }
 
 .UpdateGroupCardOwn {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: 1fr .5fr .5fr 2fr 1fr 1fr;
 }
 
 .UpdateGroupCard {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: 1fr .5fr .5fr 2fr 1fr;
 }

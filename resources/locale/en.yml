@@ -60,6 +60,7 @@ hcl:
       approve: Approve
       deny: Deny
       under_review: Under Review
+      total_tpe: TPE for the week
       types:
         pointTask: Point Task
         minorPointTask: Minor Point Task

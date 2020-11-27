@@ -4820,17 +4820,48 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
   _proto.view = function view() {
     var _this = this;
 
-    var status = null;
+    var legendStyle = {
+      backgroundColor: this.user.color()
+    };
     var className = "UpdateGroupCard";
+    var status = null;
 
     if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === this.user) {
       className += "Own";
-      status = m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.current_status'));
+      status = m("legend", {
+        style: legendStyle,
+        className: "UpdateGroupCard-end"
+      }, m("div", {
+        className: "darkenBackground"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.current_status')));
     }
 
     return m("div", {
       className: className
-    }, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.type')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.tpe')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.capped')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.comment')), status, m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.approved_by')), this.updates.map(function (update) {
+    }, m("legend", {
+      style: legendStyle
+    }, m("div", {
+      className: "darkenBackground"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.type'))), m("legend", {
+      style: legendStyle,
+      className: "UpdateGroupCard-center"
+    }, m("div", {
+      className: "darkenBackground"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.tpe'))), m("legend", {
+      style: legendStyle,
+      className: "UpdateGroupCard-center"
+    }, m("div", {
+      className: "darkenBackground"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.capped'))), m("legend", {
+      style: legendStyle
+    }, m("div", {
+      className: "darkenBackground"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.comment'))), m("legend", {
+      style: legendStyle,
+      className: "UpdateGroupCard-end"
+    }, m("div", {
+      className: "darkenBackground"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.approved_by'))), status, this.updates.map(function (update) {
       var type = !!update.link() ? m(flarum_components_Link__WEBPACK_IMPORTED_MODULE_5___default.a, {
         href: update.link()
       }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.updates.types." + update.type())) : flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.updates.types." + update.type());
@@ -4845,14 +4876,29 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
         approvedBy = flarum_helpers_username__WEBPACK_IMPORTED_MODULE_3___default()(update.updaterUser());
       }
 
-      var fields = [m("div", null, type), m("div", null, update.tpe()), m("div", null, update.isCapped() ? flarum_helpers_icon__WEBPACK_IMPORTED_MODULE_2___default()('fas fa-check') : null), m("div", null, update.comment()), m("div", null, approvedBy)];
+      var fields = [m("div", null, type), m("div", {
+        className: "UpdateGroupCard-center"
+      }, update.tpe()), m("div", {
+        className: "UpdateGroupCard-center"
+      }, update.isCapped() ? flarum_helpers_icon__WEBPACK_IMPORTED_MODULE_2___default()('fas fa-check') : null), m("div", null, update.comment()), m("div", {
+        className: "UpdateGroupCard-end"
+      }, approvedBy)];
 
       if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === _this.user) {
-        fields.push(m("div", null, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.lib.update_status." + update.status())));
+        fields.push(m("div", {
+          className: "UpdateGroupCard-end"
+        }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.lib.update_status." + update.status())));
       }
 
       return fields;
-    }));
+    }), m("div", {
+      className: "UpdateGroupCard-totaltext"
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans("hcl.forum.updates.total_tpe")), m("div", {
+      className: "UpdateGroupCard-total UpdateGroupCard-center"
+    }, this.updates.reduce(function (a, u) {
+      if (Number.isInteger(u.tpe())) return a + u.tpe();
+      return a;
+    }, 0)));
   };
 
   return UpdateGroupCard;
