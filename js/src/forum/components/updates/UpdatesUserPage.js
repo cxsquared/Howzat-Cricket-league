@@ -37,7 +37,7 @@ export default class UpdatesUserPage extends UserPage {
     content() {
         let header;
 
-        if (app.session.user === this.user) {
+        if (app.session.user === this.user && this.user.player()) {
             header = (
                 <div className="IndexPage-toolbar">
                     <ul className="IndexPage-toolbar-view">{listItems(this.viewItems().toArray())}</ul>
