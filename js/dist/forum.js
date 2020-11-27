@@ -3972,15 +3972,6 @@ var PlayerUserPage = /*#__PURE__*/function (_UserPage) {
   _proto.loadPlayers = function loadPlayers() {
     var _this = this;
 
-    flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.preloadedApiDocument();
-    flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.store.all('players').some(function (player) {
-      if (player.user() === _this.user) {
-        _this.showPlayer(player);
-
-        return true;
-      }
-    });
-
     if (!this.player) {
       flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.store.find('users', this.user.id() + "/player", null, {
         errorHandler: function errorHandler() {}
