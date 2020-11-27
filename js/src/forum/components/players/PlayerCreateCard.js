@@ -21,7 +21,7 @@ export default class  PlayerCreateCard extends Component {
     }
 
     view() {
-        return <div className="Form Form--centered CreatePlayer">
+        return <div className="Form Form-group Form--centered CreatePlayer">
             {this.fields().toArray()}
         </div>;
     }

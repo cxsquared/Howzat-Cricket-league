@@ -6,15 +6,17 @@ export default class PlayerCreatePage extends Page {
     oninit(vnode) {
         super.oninit(vnode);
 
+        if (app.session.user == null) {
+            m.route.set(app.route('index'));
+        }
+
         if (app.session.user.player()) {
             m.route.set(app.route('user.player', {username: app.session.user.username()}));
         }
 
         this.player = { firstName: "", lastName: ""};
-    }
 
-    className() {
-        return 'App--page CreatePlayer';
+        this.bodyClass = 'App--index';
     }
 
     title() {
@@ -27,7 +29,7 @@ export default class PlayerCreatePage extends Page {
 
     view () {
         return <form onsubmit={this.onsubmit.bind(this)}
-                     className="CreatePlayers-Players">
+                     className="container CreatePlayers-Players Form--centered">
             <div>
                 {PlayerCreateCard.component({
                     player: this.player,
