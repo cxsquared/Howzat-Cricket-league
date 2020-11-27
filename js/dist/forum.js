@@ -5239,7 +5239,7 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
     items.add('players', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
       href: playersHref,
       icon: "fas fa-hiking",
-      "class": "Button Button--link"
+      "class": "Button Button--link hasIcon"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.user.player_link')), 80);
     var updatesHref = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('user.updates', {
       username: this.user.username()
@@ -5247,7 +5247,7 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
     items.add('updates', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
       href: updatesHref,
       icon: "fas fa-certificate",
-      "class": "Button Button--link"
+      "class": "Button Button--link hasIcon"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.user.updates_link')), 80);
   }); // Adding Create/Manage button to header
 

@@ -56,9 +56,8 @@ class UpdatePlayerHandler
             throw new ValidationException(['player' => "Player does not have enough banked TPE for this update."]);
         }
 
-        $tpe = $player->tpe + $tpaThisUpdate ;
         $banked_tpe = $player->banked_tpe - $tpaThisUpdate;
-        $player = $player->updateTpe($tpe, $banked_tpe);
+        $player = $player->updateTpe($player->tpe, $banked_tpe);
         $player = $player->updateUpdatedAt();
 
         $this->events->dispatch(

@@ -45,7 +45,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     const playersHref = app.route('user.player', {username: this.user.username()});
 
     items.add('players',
-      <LinkButton href={playersHref} icon="fas fa-hiking" class="Button Button--link">
+      <LinkButton href={playersHref} icon="fas fa-hiking" class="Button Button--link hasIcon">
         {app.translator.trans('hcl.forum.user.player_link')}
       </LinkButton>,
       80
@@ -54,7 +54,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     const updatesHref = app.route('user.updates', {username: this.user.username()});
 
     items.add('updates',
-      <LinkButton href={updatesHref} icon="fas fa-certificate" class="Button Button--link">
+      <LinkButton href={updatesHref} icon="fas fa-certificate" class="Button Button--link hasIcon">
         {app.translator.trans('hcl.forum.user.updates_link')}
       </LinkButton>,
       80 

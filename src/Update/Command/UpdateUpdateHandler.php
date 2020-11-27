@@ -109,8 +109,10 @@ class UpdateUpdateHandler
     {
         if ($previousStatus == 'pending' && $update->status == 'approved') {
             $player->banked_tpe += $update->tpe;
+            $player->tpe += $update->tpe;
         } else if ($previousStatus == 'approved' && $update->status != 'approved') {
             $player->banked_tpe -= $update->tpe;
+            $player->tpe -= $update->tpe;
         }
     }
 }
