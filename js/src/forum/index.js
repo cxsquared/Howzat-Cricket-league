@@ -89,7 +89,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
 
   // Claim Comment
   extend(PostControls, 'userControls', function(items, post) {
-    if (app.session.user == null)
+    if (app.session.user == null || !app.session.user.player())
       return;
 
     items.add('claimTpe',
