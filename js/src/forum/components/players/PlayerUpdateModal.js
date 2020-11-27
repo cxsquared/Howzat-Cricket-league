@@ -184,12 +184,12 @@ export default class PlayerUpdateModal extends Modal {
                     className="Button PlayerUpdate--decrease Button--icon Button--rounded"
                     disabled={decreaseDisabled}
                     icon="fas fa-minus"
-                    onclick={() => this.updateSkill(skill, TpeUtils.decrementCost(currentTpe))} />
+                    onclick={() => this.updateSkill(skill, -1, TpeUtils.decrementCost(currentTpe))} />
             <Button type="button"
                     className="Button PlayerUpdate--increase Button--icon Button--rounded"
                     disabled={increaseDisabled}
                     icon="fas fa-plus"
-                    onclick={() => this.updateSkill(skill, TpeUtils.cost(currentTpe))} />
+                    onclick={() => this.updateSkill(skill, 1, TpeUtils.cost(currentTpe))} />
         </div>
     }
 
@@ -241,14 +241,14 @@ export default class PlayerUpdateModal extends Modal {
         this.playerSkillUpdates["yorkerArmBall"] = this.player.yorkerArmBall();
     }
 
-    updateSkill(skill, tpe) {
+    updateSkill(skill, tpeToAdd, cost) {
         const currentTpe = this.playerSkillUpdates[skill];
-        const newTpe = currentTpe + tpe;
+        const newTpe = currentTpe + tpeToAdd;
 
-        if (newTpe > 99 || newTpe < 40 || this.tpeLeft() - tpe < 0)
+        if (newTpe > 99 || newTpe < 40 || this.tpeLeft() - cost < 0)
             return;
 
-        this.spentTpe += tpe;
+        this.spentTpe += cost;
         this.playerSkillUpdates[skill] = newTpe;
     }
 

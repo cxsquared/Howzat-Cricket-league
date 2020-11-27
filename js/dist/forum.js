@@ -3767,7 +3767,7 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
       disabled: decreaseDisabled,
       icon: "fas fa-minus",
       onclick: function onclick() {
-        return _this2.updateSkill(skill, _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_5__["default"].decrementCost(currentTpe));
+        return _this2.updateSkill(skill, -1, _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_5__["default"].decrementCost(currentTpe));
       }
     }), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
       type: "button",
@@ -3775,7 +3775,7 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
       disabled: increaseDisabled,
       icon: "fas fa-plus",
       onclick: function onclick() {
-        return _this2.updateSkill(skill, _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_5__["default"].cost(currentTpe));
+        return _this2.updateSkill(skill, 1, _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_5__["default"].cost(currentTpe));
       }
     }));
   };
@@ -3830,11 +3830,11 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     this.playerSkillUpdates["yorkerArmBall"] = this.player.yorkerArmBall();
   };
 
-  _proto.updateSkill = function updateSkill(skill, tpe) {
+  _proto.updateSkill = function updateSkill(skill, tpeToAdd, cost) {
     var currentTpe = this.playerSkillUpdates[skill];
-    var newTpe = currentTpe + tpe;
-    if (newTpe > 99 || newTpe < 40 || this.tpeLeft() - tpe < 0) return;
-    this.spentTpe += tpe;
+    var newTpe = currentTpe + tpeToAdd;
+    if (newTpe > 99 || newTpe < 40 || this.tpeLeft() - cost < 0) return;
+    this.spentTpe += cost;
     this.playerSkillUpdates[skill] = newTpe;
   };
 
