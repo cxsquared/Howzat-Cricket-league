@@ -24,8 +24,10 @@ hcl:
       approved: Update Approved
       denied: Update Denied 
       underReview: Update put Under Review 
+      comment_required: You must include an updater comment to deny a claim
     notifications:
       update_approved: "{username} approved your update"
+      update_denied: "{username} denied your update"
     header:
       update_button: Updates
     settings:

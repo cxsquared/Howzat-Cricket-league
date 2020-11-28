@@ -279,6 +279,12 @@
     margin-left: auto;
     padding-top: 10px;
 
+    .UpdateEditCard-fields {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+    }
+
     border-radius: 10px;
 
     .Button-group {
@@ -289,24 +295,26 @@
         }
     }
 
-    .UpdateEditCard-info,
-    .UpdateEditCard-meta {
-        display: flex;
-        padding: 5px;
-    }
-
     .UpdateEditCard-item  {
         margin: 2px 0;
         border-right: white 1px solid;
         padding: 0 5px;
 
         input {
-            width: 75%;
+            width: 100%;
         }
     }
 
     .UpdateEditCard-tpe {
-        width: 50px;
+        max-width: 50px;
+    }
+
+    .UpdateEditCard-week {
+        max-width: 125px;
+    }
+
+    .UpdateEditCard-full {
+        flex-grow: 1;
     }
 }
 

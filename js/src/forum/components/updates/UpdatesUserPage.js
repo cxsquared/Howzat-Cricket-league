@@ -71,11 +71,12 @@ export default class UpdatesUserPage extends UserPage {
 
         // https://www.robinwieruch.de/javascript-groupby
         const updatesByWeek = this.updates.reduce((groups, update) =>{
-            if (!groups[update.weekEnding()]) {
-                groups[update.weekEnding()] = [];
+            const weekEndingKey = update.weekEnding().toLocaleDateString();
+            if (!groups[weekEndingKey]) {
+                groups[weekEndingKey] = [];
             }
 
-            groups[update.weekEnding()].push(update);
+            groups[weekEndingKey].push(update);
 
             return groups;
         }, {});

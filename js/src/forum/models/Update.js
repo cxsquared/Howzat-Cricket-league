@@ -6,7 +6,7 @@ export default class Update extends Model {}
 
 Object.assign(Update.prototype, {
     date: Model.attribute('date', Model.transformDate),
-    weekEnding: computed('date', (date) => getNextDayOfWeek(date, 0).toLocaleDateString()),
+    weekEnding: computed('date', (date) => getNextDayOfWeek(date, 0)),
     link: Model.attribute('link'),
     type: Model.attribute('type'),
     comment: Model.attribute('comment'),

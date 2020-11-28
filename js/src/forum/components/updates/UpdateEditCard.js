@@ -1,8 +1,15 @@
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import app from 'flarum/app';
+import Stream from 'flarum/utils/Stream';
+import username from 'flarum/helpers/username';
+import humanTime from 'flarum/helpers/humanTime';
 import Component from 'flarum/Component'
 import Button from 'flarum/components/Button';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
-import username from 'flarum/helpers/username';
+import getDatepicker from '../../../common/utils/getDatepicker';
+
+dayjs.extend(utc)
 
 /*
  * Attr
@@ -17,6 +24,18 @@ export default class UpdateEditCard extends Component {
         this.originalState = this.update;
         this.saving = false;
         this.loadingPlayer = false;
+
+        this.updaterComment = new Stream(this.update.updaterComment());
+        this.tpe = new Stream(this.update.tpe());
+        this.date = new Stream(this.update.weekEnding());
+    }
+
+    oncreate(vnode) {
+        super.oncreate(vnode);
+        this.datepicker = getDatepicker(`#Update-datepicker-${this.update.id()}`,
+            this.date(),
+            (instance, date) => this.date(date)
+        );
     }
 
     view() {
@@ -39,7 +58,7 @@ export default class UpdateEditCard extends Component {
         return (
             <div className="UpdateEditCard"
                  style={{ backgroundColor: this.update.submittedUser().color()}}>
-                <div className="UpdateEditCard-info">
+                <div className="UpdateEditCard-fields">
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.player')}</legend>
                         {this.player.name()} (
@@ -47,9 +66,13 @@ export default class UpdateEditCard extends Component {
                             {username(this.update.submittedUser())}
                         </a>)
                     </div>
-                    <div className="UpdateEditCard-item">
+                    <div className="UpdateEditCard-item UpdateEditCard-week">
                         <legend>{app.translator.trans('hcl.forum.basics.for_week')}</legend>
-                        {this.update.weekEnding()}
+                        <input id={`Update-datepicker-${this.update.id()}`}
+                            className="FormControl"
+                            type="text"
+                            required
+                            autocomplete="off" />
                     </div>
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.type')}</legend>
@@ -59,56 +82,43 @@ export default class UpdateEditCard extends Component {
                         <legend>{app.translator.trans('hcl.forum.basics.tpe')}</legend>
                         <input type="number"
                                 min={1}
-                                min={30}
+                                max={12}
                                 className="UpdateEditCard-tpe"
-                                value={this.update.tpe()}/>
+                                bidi={this.tpe} />
                     </div>
-                    <div className="UpdateEditCard-item">
+                    <div className="UpdateEditCard-item UpdateEditCard-full">
                         <legend>{app.translator.trans('hcl.forum.basics.link')}</legend>
-                        <div className="UpdateEditCard-link">
-                            <a href={this.update.link()}
-                               target="_blank">
-                                {this.update.link()}
-                            </a>
-                        </div>
+                        <a href={this.update.link()}
+                        target="_blank">
+                            {this.update.link()}
+                        </a>
                     </div>
-                    <div className="UpdateEditCard-item">
+                    <div className="UpdateEditCard-item UpdateEditCard-full">
                         <legend>{app.translator.trans('hcl.forum.basics.comment')}</legend>
-                        <div className="UpdateEditCard-comment">
-                            {this.update.comment()}
-                        </div>
+                        {this.update.comment()}
                     </div>
-                </div>
-                <div className="UpdateEditCard-meta">
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.current_status')}</legend>
-                        <div>
-                            {app.translator.trans(`hcl.lib.update_status.${this.update.status()}`)}
-                        </div>
+                        {app.translator.trans(`hcl.lib.update_status.${this.update.status()}`)}
                     </div>
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.submitted_at')}</legend>
-                        <div className="UpdateEditCard-date">
-                            {this.update.submittedAt().toLocaleString()}
-                        </div>
+                        {humanTime(this.update.submittedAt())}
                     </div>
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.last_updated')}</legend>
                         <div className="UpdateEditCard-date">
-                            {this.update.updatedAt() ? this.update.updatedAt().toLocaleString() : 'Never Updated'}
+                            {this.update.updatedAt() ? humanTime(this.update.updatedAt()) : 'Never Updated'}
                         </div>
                     </div>
                     <div className="UpdateEditCard-item">
                         <legend>{app.translator.trans('hcl.forum.basics.updater')}</legend>
-                        <div className="UpdateEditCard-user">
-                            {updater}
-                        </div>
+                        {updater}
                     </div>
-                    <div className="UpdateEditCard-item">
+                    <div className="UpdateEditCard-item UpdateEditCard-full">
                         <legend>{app.translator.trans('hcl.forum.basics.updater_comment')}</legend>
-                        <div className="UpdateEditCard-text">
-                            {this.update.updaterComment()}
-                        </div>
+                        <input type="textarea"
+                            bidi={this.updaterComment} />
                     </div>
                 </div>
                 <div className="Button-group">
@@ -147,12 +157,32 @@ export default class UpdateEditCard extends Component {
         });
     }
 
+    data(status) {
+        let data = {
+            status: status
+        };
+
+        if (!!this.updaterComment())
+            data.updaterComment = this.updaterComment();
+
+        var datea = dayjs(this.date()).format('YYYY-MM-DD');
+        var dateb = dayjs(this.update.date()).utc().format('YYYY-MM-DD');
+
+        if (datea != dateb)
+            data.date = dayjs(this.date()).format('YYYY-MM-DD');
+
+        if (this.tpe() != this.update.tpe())
+            data.tpe = this.tpe();
+
+        return data;
+    }
+
     approve() {
         this.saving = true;
 
-        this.update.save({
-            status: 'approved'
-        }).then(() => {
+        this.update.save(
+            this.data('approved')
+        ).then(() => {
             app.alerts.show(
                 { type: "success" },
                 app.translator.trans("hcl.forum.alerts.approved")
@@ -165,9 +195,18 @@ export default class UpdateEditCard extends Component {
     deny() {
         this.saving = true;
 
-        this.update.save({
-            status: 'denied'
-        }).then(() => {
+        if (!this.updaterComment()) {
+            app.alerts.show(
+                { type: "error" },
+                app.translator.trans("hcl.forum.alerts.comment_required")
+            );
+            this.saving = false;
+            return;
+        }
+
+        this.update.save(
+            this.data('denied')
+        ).then(() => {
             app.alerts.show(
                 { type: "success" },
                 app.translator.trans("hcl.forum.alerts.denied")
@@ -180,9 +219,9 @@ export default class UpdateEditCard extends Component {
     underReview() {
         this.saving = true;
 
-        this.update.save({
-            status: 'under_review'
-        }).then(() => {
+        this.update.save(
+            this.data('under_review')
+        ).then(() => {
             app.alerts.show(
                 { type: "success" },
                 app.translator.trans("hcl.forum.alerts.underReview")
