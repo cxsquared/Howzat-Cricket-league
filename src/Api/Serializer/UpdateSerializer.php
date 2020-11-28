@@ -19,6 +19,8 @@ class UpdateSerializer extends AbstractSerializer
             );
         }
 
+        $showComment = $this->actor->id === $update->submitted_user_id || $this->actor->hasPermissionLike('update.edit');
+
         return [
             'id'                => $update->id,
             'date'              => $this->formatDate($update->date),
@@ -29,8 +31,8 @@ class UpdateSerializer extends AbstractSerializer
             'status'            => $update->status,
             'isCapped'          => $update->is_capped,
             'submittedAt'       => $this->formatDate($update->submitted_at),
-            'updatedAt'         => $this->formatDate($update->updated_at),
-            'updaterComment'    => $this->actor->hasPermissionLike('update.edit') ? $update->updater_comment : ''
+            'updatedAt'         => $showComment ? $this->formatDate($update->updated_at) : null,
+            'updaterComment'    => $showComment ? $update->updater_comment : ''
         ];
     }
 

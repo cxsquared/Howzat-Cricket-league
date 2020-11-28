@@ -4911,6 +4911,7 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
     _Component.prototype.oninit.call(this, vnode);
 
     this.updates = this.attrs.updates;
+    this.updateIdToHighlight = this.attrs.updateIdToHighlight;
     this.user = this.attrs.user;
   };
 
@@ -4922,6 +4923,7 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
     };
     var className = "UpdateGroupCard";
     var status = null;
+    var updaterComment = null;
 
     if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === this.user) {
       className += "Own";
@@ -4931,6 +4933,11 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
       }, m("div", {
         className: "darkenBackground"
       }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.current_status')));
+      updaterComment = m("legend", {
+        style: legendStyle
+      }, m("div", {
+        className: "darkenBackground"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.updater_comment')));
     }
 
     return m("div", {
@@ -4953,7 +4960,7 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
       style: legendStyle
     }, m("div", {
       className: "darkenBackground"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.comment'))), m("legend", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.basics.comment'))), updaterComment, m("legend", {
       style: legendStyle,
       className: "UpdateGroupCard-end"
     }, m("div", {
@@ -4977,9 +4984,15 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
         className: "UpdateGroupCard-center"
       }, update.tpe()), m("div", {
         className: "UpdateGroupCard-center"
-      }, update.isCapped() ? flarum_helpers_icon__WEBPACK_IMPORTED_MODULE_2___default()('fas fa-check') : null), m("div", null, update.comment()), m("div", {
+      }, update.isCapped() ? flarum_helpers_icon__WEBPACK_IMPORTED_MODULE_2___default()('fas fa-check') : null), m("div", null, update.comment())];
+
+      if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === _this.user) {
+        fields.push(m("div", null, update.updaterComment()));
+      }
+
+      fields.push(m("div", {
         className: "UpdateGroupCard-end"
-      }, approvedBy)];
+      }, approvedBy));
 
       if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === _this.user) {
         fields.push(m("div", {

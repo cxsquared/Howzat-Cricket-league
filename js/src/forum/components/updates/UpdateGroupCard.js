@@ -8,6 +8,7 @@ export default class UpdateGroupCard extends Component {
     oninit(vnode) {
         super.oninit(vnode);
         this.updates = this.attrs.updates;
+        this.updateIdToHighlight = this.attrs.updateIdToHighlight;
         this.user = this.attrs.user;
     }
 
@@ -16,6 +17,7 @@ export default class UpdateGroupCard extends Component {
 
         let className = "UpdateGroupCard";
         let status = null;
+        let updaterComment = null;
         if (app.session.user === this.user) {
             className += "Own";
 
@@ -23,6 +25,12 @@ export default class UpdateGroupCard extends Component {
                              className="UpdateGroupCard-end">
                 <div className="darkenBackground">
                     {app.translator.trans('hcl.forum.basics.current_status')}
+                </div>
+            </legend>;
+
+            updaterComment = <legend style={legendStyle}>
+                <div className="darkenBackground">
+                    {app.translator.trans('hcl.forum.basics.updater_comment')}
                 </div>
             </legend>;
         }
@@ -51,6 +59,7 @@ export default class UpdateGroupCard extends Component {
                         {app.translator.trans('hcl.forum.basics.comment')}
                     </div>
                 </legend>
+                {updaterComment}
                 <legend style={legendStyle}
                         className="UpdateGroupCard-end">
                     <div className="darkenBackground">
@@ -88,10 +97,21 @@ export default class UpdateGroupCard extends Component {
                         <div>
                             {update.comment()}
                         </div>,
+                    ];
+
+                    if (app.session.user === this.user) {
+                        fields.push(
+                            <div>
+                                {update.updaterComment()}
+                            </div>
+                        );
+                    }
+
+                    fields.push(
                         <div className="UpdateGroupCard-end">
                             {approvedBy}
                         </div>
-                    ];
+                    );
 
                     if (app.session.user === this.user) {
                         fields.push(
