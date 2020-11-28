@@ -32,6 +32,7 @@ hcl:
       update_button: Updates
     settings:
       notify_update_approved: Update Approved
+      notify_update_denied: Update Denied 
     basics:
       approved_by: Approved By
       capped: Capped

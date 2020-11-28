@@ -19,6 +19,7 @@ import PlayerDirectoryPage from './components/players/PlayerDirectoryPage';
 import UpdateCreateModal from './components/updates/UpdateCreateModal';
 import UpdateDirectoryPage from './components/updates/UpdateDirectoryPage';
 import UpdateApprovedNotification from './notifications/UpdateApprovedNotification';
+import UpdateDeniedNotification from './notifications/UpdateDeniedNotification';
 import UpdatesUserPage from './components/updates/UpdatesUserPage';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
@@ -118,12 +119,19 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
 
   // Notifications
   app.notificationComponents.updateApproved = UpdateApprovedNotification;
+  app.notificationComponents.updateDenied = UpdateDeniedNotification;
 
   extend(NotificationGrid.prototype, 'notificationTypes', function (items) {
     items.add('updateApproved', {
       name: 'updateApproved',
       icon: 'fas fa-certificate',
       label: app.translator.trans('hcl.forum.settings.notify_update_approved')
+    });
+
+    items.add('updateDenied', {
+      name: 'updateDenied',
+      icon: 'fas fa-certificate',
+      label: app.translator.trans('hcl.forum.settings.notify_denied_approved')
     })
   })
 });

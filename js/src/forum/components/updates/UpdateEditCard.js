@@ -24,6 +24,7 @@ export default class UpdateEditCard extends Component {
         this.originalState = this.update;
         this.saving = false;
         this.loadingPlayer = false;
+        this.dpInit = false;
 
         this.updaterComment = new Stream(this.update.updaterComment());
         this.tpe = new Stream(this.update.tpe());
@@ -32,10 +33,23 @@ export default class UpdateEditCard extends Component {
 
     oncreate(vnode) {
         super.oncreate(vnode);
-        this.datepicker = getDatepicker(`#Update-datepicker-${this.update.id()}`,
-            this.date(),
-            (instance, date) => this.date(date)
-        );
+        if (!this.loadingPlayer && !this.dpInit) {
+            this.dpInit = true;
+            this.datepicker = getDatepicker(`#Update-datepicker-${this.update.id()}`,
+                this.date(),
+                (instance, date) => this.date(date)
+            );
+        }
+    }
+
+    onupdate(vnode) {
+        if (!this.loadingPlayer && !this.dpInit) {
+            this.dpInit = true;
+            this.datepicker = getDatepicker(`#Update-datepicker-${this.update.id()}`,
+                this.date(),
+                (instance, date) => this.date(date)
+            );
+        }
     }
 
     view() {

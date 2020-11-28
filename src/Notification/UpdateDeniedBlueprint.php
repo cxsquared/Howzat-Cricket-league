@@ -6,7 +6,7 @@ use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\User\User;
 
-class UpdateApprovedBlueprint implements BlueprintInterface
+class UpdateDeniedBlueprint implements BlueprintInterface
 {
     public $update;
 
@@ -35,7 +35,7 @@ class UpdateApprovedBlueprint implements BlueprintInterface
 
     public static function getType()
     {
-        return 'updateApproved';
+        return 'updateDenied';
     }
 
     public static function getSubjectModel()

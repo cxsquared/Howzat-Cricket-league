@@ -4659,6 +4659,7 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
     this.originalState = this.update;
     this.saving = false;
     this.loadingPlayer = false;
+    this.dpInit = false;
     this.updaterComment = new flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_4___default.a(this.update.updaterComment());
     this.tpe = new flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_4___default.a(this.update.tpe());
     this.date = new flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_4___default.a(this.update.weekEnding());
@@ -4669,13 +4670,27 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
 
     _Component.prototype.oncreate.call(this, vnode);
 
-    this.datepicker = Object(_common_utils_getDatepicker__WEBPACK_IMPORTED_MODULE_10__["default"])("#Update-datepicker-" + this.update.id(), this.date(), function (instance, date) {
-      return _this.date(date);
-    });
+    if (!this.loadingPlayer && !this.dpInit) {
+      this.dpInit = true;
+      this.datepicker = Object(_common_utils_getDatepicker__WEBPACK_IMPORTED_MODULE_10__["default"])("#Update-datepicker-" + this.update.id(), this.date(), function (instance, date) {
+        return _this.date(date);
+      });
+    }
+  };
+
+  _proto.onupdate = function onupdate(vnode) {
+    var _this2 = this;
+
+    if (!this.loadingPlayer && !this.dpInit) {
+      this.dpInit = true;
+      this.datepicker = Object(_common_utils_getDatepicker__WEBPACK_IMPORTED_MODULE_10__["default"])("#Update-datepicker-" + this.update.id(), this.date(), function (instance, date) {
+        return _this2.date(date);
+      });
+    }
   };
 
   _proto.view = function view() {
-    var _this2 = this;
+    var _this3 = this;
 
     var updater = null;
 
@@ -4754,34 +4769,34 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
     }, m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_8___default.a, {
       className: "Button Button--approve Button--primary",
       onclick: function onclick() {
-        return _this2.approve();
+        return _this3.approve();
       },
       disabled: this.update.isApproved() || this.saving
     }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.updates.approve')), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_8___default.a, {
       className: "Button Button--deny Button--danger",
       onclick: function onclick() {
-        return _this2.deny();
+        return _this3.deny();
       },
       disabled: this.update.isDenied() || this.saving
     }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.updates.deny')), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_8___default.a, {
       className: "Button Button--under-review",
       disabled: this.update.isUnderReview() || this.saving,
       onclick: function onclick() {
-        return _this2.underReview();
+        return _this3.underReview();
       }
     }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.updates.under_review'))));
   };
 
   _proto.loadPlayer = function loadPlayer() {
-    var _this3 = this;
+    var _this4 = this;
 
     this.loadingPlayer = true;
     flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.store.find('users', this.update.submittedUser().id() + "/player", null, {
       errorHandler: function errorHandler() {}
     }).then(function (p) {
-      _this3.player = p;
+      _this4.player = p;
     })["finally"](function () {
-      _this3.loadingPlayer = false;
+      _this4.loadingPlayer = false;
       m.redraw();
     });
   };
@@ -4799,7 +4814,7 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
   };
 
   _proto.approve = function approve() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.saving = true;
     this.update.save(this.data('approved')).then(function () {
@@ -4807,12 +4822,12 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
         type: "success"
       }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.approved"));
     })["finally"](function () {
-      _this4.saving = false;
+      _this5.saving = false;
     });
   };
 
   _proto.deny = function deny() {
-    var _this5 = this;
+    var _this6 = this;
 
     this.saving = true;
 
@@ -4829,13 +4844,13 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
         type: "success"
       }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.denied"));
     })["finally"](function () {
-      _this5.saving = false;
+      _this6.saving = false;
     });
     ;
   };
 
   _proto.underReview = function underReview() {
-    var _this6 = this;
+    var _this7 = this;
 
     this.saving = true;
     this.update.save(this.data('under_review')).then(function () {
@@ -4843,7 +4858,7 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
         type: "success"
       }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.underReview"));
     })["finally"](function () {
-      _this6.saving = false;
+      _this7.saving = false;
     });
     ;
   };
@@ -5269,7 +5284,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_updates_UpdateCreateModal__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/updates/UpdateCreateModal */ "./src/forum/components/updates/UpdateCreateModal.js");
 /* harmony import */ var _components_updates_UpdateDirectoryPage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/updates/UpdateDirectoryPage */ "./src/forum/components/updates/UpdateDirectoryPage.js");
 /* harmony import */ var _notifications_UpdateApprovedNotification__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./notifications/UpdateApprovedNotification */ "./src/forum/notifications/UpdateApprovedNotification.js");
-/* harmony import */ var _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/updates/UpdatesUserPage */ "./src/forum/components/updates/UpdatesUserPage.js");
+/* harmony import */ var _notifications_UpdateDeniedNotification__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./notifications/UpdateDeniedNotification */ "./src/forum/notifications/UpdateDeniedNotification.js");
+/* harmony import */ var _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/updates/UpdatesUserPage */ "./src/forum/components/updates/UpdatesUserPage.js");
+
 
 
 
@@ -5317,7 +5334,7 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
   };
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['user.updates'] = {
     path: '/u/:username/updates',
-    component: _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_21__["default"]
+    component: _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_22__["default"]
   };
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['updates'] = {
     path: '/updates',
@@ -5385,11 +5402,17 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
   }); // Notifications
 
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.notificationComponents.updateApproved = _notifications_UpdateApprovedNotification__WEBPACK_IMPORTED_MODULE_20__["default"];
+  flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.notificationComponents.updateDenied = _notifications_UpdateDeniedNotification__WEBPACK_IMPORTED_MODULE_21__["default"];
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_NotificationGrid__WEBPACK_IMPORTED_MODULE_10___default.a.prototype, 'notificationTypes', function (items) {
     items.add('updateApproved', {
       name: 'updateApproved',
       icon: 'fas fa-certificate',
       label: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.settings.notify_update_approved')
+    });
+    items.add('updateDenied', {
+      name: 'updateDenied',
+      icon: 'fas fa-certificate',
+      label: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.settings.notify_denied_approved')
     });
   });
 });
@@ -5680,7 +5703,7 @@ var UpdateApprovedNotification = /*#__PURE__*/function (_Notification) {
   };
 
   _proto.href = function href() {
-    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('user.player', {
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('user.players', {
       username: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user.username()
     });
   };
@@ -5692,6 +5715,61 @@ var UpdateApprovedNotification = /*#__PURE__*/function (_Notification) {
   };
 
   return UpdateApprovedNotification;
+}(flarum_components_Notification__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+
+
+/***/ }),
+
+/***/ "./src/forum/notifications/UpdateDeniedNotification.js":
+/*!*************************************************************!*\
+  !*** ./src/forum/notifications/UpdateDeniedNotification.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UpdateDeniedNotification; });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/app */ "flarum/app");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_app__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_components_Notification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/components/Notification */ "flarum/components/Notification");
+/* harmony import */ var flarum_components_Notification__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Notification__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+var UpdateDeniedNotification = /*#__PURE__*/function (_Notification) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(UpdateDeniedNotification, _Notification);
+
+  function UpdateDeniedNotification() {
+    return _Notification.apply(this, arguments) || this;
+  }
+
+  var _proto = UpdateDeniedNotification.prototype;
+
+  _proto.icon = function icon() {
+    return 'fas fa-certificate';
+  };
+
+  _proto.href = function href() {
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('user.updates', {
+      username: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user.username()
+    });
+  };
+
+  _proto.content = function content() {
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.notifications.update_denied', {
+      user: this.attrs.notification.fromUser()
+    });
+  };
+
+  _proto.excerpt = function excerpt() {
+    return this.attrs.notification.content();
+  };
+
+  return UpdateDeniedNotification;
 }(flarum_components_Notification__WEBPACK_IMPORTED_MODULE_2___default.a);
 
 
