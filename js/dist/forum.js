@@ -5382,15 +5382,24 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
         username: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.session.user.username()
       });
       items.add('view-players', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
-        href: href
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.link.players_view')));
+        href: href,
+        className: "LinksButton Button Button--link"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.nav.players_view')), 5);
     } else {
       var _href = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('player.create');
 
       items.add('create-players', m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a, {
-        href: _href
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.link.players_create')));
+        href: _href,
+        className: "LinksButton Button Button--link"
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.nav.players_create')), 5);
     }
+
+    items.add('claimTpe', m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      className: "LinksButton Button Button--link",
+      onclick: function onclick() {
+        return flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.modal.show(_components_updates_UpdateCreateModal__WEBPACK_IMPORTED_MODULE_18__["default"]);
+      }
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.nav.claim_tpe')));
   }); // Claim Comment
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_utils_PostControls__WEBPACK_IMPORTED_MODULE_4___default.a, 'userControls', function (items, post) {

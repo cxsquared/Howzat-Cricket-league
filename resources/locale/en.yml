@@ -25,6 +25,10 @@ hcl:
       denied: Update Denied 
       underReview: Update put Under Review 
       comment_required: You must include an updater comment to deny a claim
+    nav:
+      claim_tpe: Claim TPE 
+      players_create: Create Player
+      players_view: Manager Player
     notifications:
       update_approved: "{username} approved your update"
       update_denied: "{username} denied your update"
@@ -81,8 +85,6 @@ hcl:
       refresh_tooltip: Refresh
       new_update: New Update
     link:
-      players_create: Create Player
-      players_view: Manager Player
     user:
       players_empty_text: It looks like there are no players here. 
       updates_empty_text: It looks like there are no updates here. 

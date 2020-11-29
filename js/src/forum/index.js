@@ -73,19 +73,27 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     if (player) {
       const href = app.route('user.player', {username: app.session.user.username()});
       items.add('view-players',
-        <LinkButton href={href}>
-          {app.translator.trans('hcl.forum.link.players_view')}
-        </LinkButton>
+        <LinkButton href={href}
+                    className="LinksButton Button Button--link">
+          {app.translator.trans('hcl.forum.nav.players_view')}
+        </LinkButton>, 5
         );
     } else {
       const href = app.route('player.create');
 
       items.add('create-players',
-        <LinkButton href={href}>
-          {app.translator.trans('hcl.forum.link.players_create')}
-        </LinkButton>
+        <LinkButton href={href}
+                    className="LinksButton Button Button--link">
+          {app.translator.trans('hcl.forum.nav.players_create')}
+        </LinkButton>, 5
         );
     }
+
+    items.add('claimTpe',
+      <Button className="LinksButton Button Button--link"
+              onclick={() => app.modal.show(UpdateCreateModal)}>
+        {app.translator.trans('hcl.forum.nav.claim_tpe')}
+      </Button>);
   });
 
   // Claim Comment
