@@ -4717,6 +4717,8 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
         backgroundColor: this.update.submittedUser().color()
       }
     }, m("div", {
+      className: "darkenBackground UpdateEditCard-wrapper"
+    }, m("div", {
       className: "UpdateEditCard-fields"
     }, m("div", {
       className: "UpdateEditCard-item"
@@ -4784,7 +4786,7 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
       onclick: function onclick() {
         return _this3.underReview();
       }
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.updates.under_review'))));
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.updates.under_review')))));
   };
 
   _proto.loadPlayer = function loadPlayer() {

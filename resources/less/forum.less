@@ -4,7 +4,7 @@
         padding: 0;
         list-style: none;
     }
-    
+   
     .PlayerCard {
         width: 75%;
         margin-right: auto;
@@ -271,13 +271,34 @@
 }
 
 .UpdateEditCardItem {
-    padding: 5px;
+    margin: 5px;
 }
 
 .UpdateEditCard {
+    color: white;
     margin-right: auto;
     margin-left: auto;
-    padding-top: 10px;
+
+    a {
+        color: #ddd;
+    }
+
+    legend {
+        color: #ccc;
+    }
+
+    .Button--approve {
+        background-color: lightgreen;
+        color: green;
+    }
+
+    .Button--under-review {
+        background-color: lightyellow;
+    }
+
+    .UpdateEditCard-wrapper {
+        border-radius: 10px;
+    }
 
     .UpdateEditCard-fields {
         display: flex;
@@ -289,6 +310,7 @@
 
     .Button-group {
         padding: 5px;
+        z-index: 2;
 
         .Button {
             margin-right: 5px;
@@ -302,6 +324,7 @@
 
         input {
             width: 100%;
+            color: #111;
         }
     }
 

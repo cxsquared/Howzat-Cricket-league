@@ -72,85 +72,87 @@ export default class UpdateEditCard extends Component {
         return (
             <div className="UpdateEditCard"
                  style={{ backgroundColor: this.update.submittedUser().color()}}>
-                <div className="UpdateEditCard-fields">
-                    <div className="UpdateEditCard-item">
-                        <legend>{app.translator.trans('hcl.forum.basics.player')}</legend>
-                        {this.player.name()} (
-                        <a href={app.route('user', { username: this.update.submittedUser().username() })}>
-                            {username(this.update.submittedUser())}
-                        </a>)
-                    </div>
-                    <div className="UpdateEditCard-item UpdateEditCard-week">
-                        <legend>{app.translator.trans('hcl.forum.basics.for_week')}</legend>
-                        <input id={`Update-datepicker-${this.update.id()}`}
-                            className="FormControl"
-                            type="text"
-                            required
-                            autocomplete="off" />
-                    </div>
-                    <div className="UpdateEditCard-item">
-                        <legend>{app.translator.trans('hcl.forum.basics.type')}</legend>
-                        {app.translator.trans(`hcl.forum.updates.types.${this.update.type()}`)}
-                    </div>
-                    <div className="UpdateEditCard-item UpdateEditCard-tpe">
-                        <legend>{app.translator.trans('hcl.forum.basics.tpe')}</legend>
-                        <input type="number"
-                                min={1}
-                                max={12}
-                                className="UpdateEditCard-tpe"
-                                bidi={this.tpe} />
-                    </div>
-                    <div className="UpdateEditCard-item UpdateEditCard-full">
-                        <legend>{app.translator.trans('hcl.forum.basics.link')}</legend>
-                        <a href={this.update.link()}
-                        target="_blank">
-                            {this.update.link()}
-                        </a>
-                    </div>
-                    <div className="UpdateEditCard-item UpdateEditCard-full">
-                        <legend>{app.translator.trans('hcl.forum.basics.comment')}</legend>
-                        {this.update.comment()}
-                    </div>
-                    <div className="UpdateEditCard-item">
-                        <legend>{app.translator.trans('hcl.forum.basics.current_status')}</legend>
-                        {app.translator.trans(`hcl.lib.update_status.${this.update.status()}`)}
-                    </div>
-                    <div className="UpdateEditCard-item">
-                        <legend>{app.translator.trans('hcl.forum.basics.submitted_at')}</legend>
-                        {humanTime(this.update.submittedAt())}
-                    </div>
-                    <div className="UpdateEditCard-item">
-                        <legend>{app.translator.trans('hcl.forum.basics.last_updated')}</legend>
-                        <div className="UpdateEditCard-date">
-                            {this.update.updatedAt() ? humanTime(this.update.updatedAt()) : 'Never Updated'}
+                <div className="darkenBackground UpdateEditCard-wrapper">
+                    <div className="UpdateEditCard-fields">
+                        <div className="UpdateEditCard-item">
+                            <legend>{app.translator.trans('hcl.forum.basics.player')}</legend>
+                            {this.player.name()} (
+                            <a href={app.route('user', { username: this.update.submittedUser().username() })}>
+                                {username(this.update.submittedUser())}
+                            </a>)
+                        </div>
+                        <div className="UpdateEditCard-item UpdateEditCard-week">
+                            <legend>{app.translator.trans('hcl.forum.basics.for_week')}</legend>
+                            <input id={`Update-datepicker-${this.update.id()}`}
+                                className="FormControl"
+                                type="text"
+                                required
+                                autocomplete="off" />
+                        </div>
+                        <div className="UpdateEditCard-item">
+                            <legend>{app.translator.trans('hcl.forum.basics.type')}</legend>
+                            {app.translator.trans(`hcl.forum.updates.types.${this.update.type()}`)}
+                        </div>
+                        <div className="UpdateEditCard-item UpdateEditCard-tpe">
+                            <legend>{app.translator.trans('hcl.forum.basics.tpe')}</legend>
+                            <input type="number"
+                                    min={1}
+                                    max={12}
+                                    className="UpdateEditCard-tpe"
+                                    bidi={this.tpe} />
+                        </div>
+                        <div className="UpdateEditCard-item UpdateEditCard-full">
+                            <legend>{app.translator.trans('hcl.forum.basics.link')}</legend>
+                            <a href={this.update.link()}
+                            target="_blank">
+                                {this.update.link()}
+                            </a>
+                        </div>
+                        <div className="UpdateEditCard-item UpdateEditCard-full">
+                            <legend>{app.translator.trans('hcl.forum.basics.comment')}</legend>
+                            {this.update.comment()}
+                        </div>
+                        <div className="UpdateEditCard-item">
+                            <legend>{app.translator.trans('hcl.forum.basics.current_status')}</legend>
+                            {app.translator.trans(`hcl.lib.update_status.${this.update.status()}`)}
+                        </div>
+                        <div className="UpdateEditCard-item">
+                            <legend>{app.translator.trans('hcl.forum.basics.submitted_at')}</legend>
+                            {humanTime(this.update.submittedAt())}
+                        </div>
+                        <div className="UpdateEditCard-item">
+                            <legend>{app.translator.trans('hcl.forum.basics.last_updated')}</legend>
+                            <div className="UpdateEditCard-date">
+                                {this.update.updatedAt() ? humanTime(this.update.updatedAt()) : 'Never Updated'}
+                            </div>
+                        </div>
+                        <div className="UpdateEditCard-item">
+                            <legend>{app.translator.trans('hcl.forum.basics.updater')}</legend>
+                            {updater}
+                        </div>
+                        <div className="UpdateEditCard-item UpdateEditCard-full">
+                            <legend>{app.translator.trans('hcl.forum.basics.updater_comment')}</legend>
+                            <input type="textarea"
+                                bidi={this.updaterComment} />
                         </div>
                     </div>
-                    <div className="UpdateEditCard-item">
-                        <legend>{app.translator.trans('hcl.forum.basics.updater')}</legend>
-                        {updater}
+                    <div className="Button-group">
+                        <Button className="Button Button--approve Button--primary"
+                                onclick={() => this.approve()}
+                                disabled={this.update.isApproved() || this.saving}>
+                            {app.translator.trans('hcl.forum.updates.approve')}
+                        </Button>
+                        <Button className="Button Button--deny Button--danger"
+                                onclick={() => this.deny()}
+                                disabled={this.update.isDenied() || this.saving}>
+                            {app.translator.trans('hcl.forum.updates.deny')}
+                        </Button>
+                        <Button className="Button Button--under-review"
+                                disabled={this.update.isUnderReview() || this.saving}
+                                onclick={() => this.underReview()} >
+                            {app.translator.trans('hcl.forum.updates.under_review')}
+                        </Button>
                     </div>
-                    <div className="UpdateEditCard-item UpdateEditCard-full">
-                        <legend>{app.translator.trans('hcl.forum.basics.updater_comment')}</legend>
-                        <input type="textarea"
-                            bidi={this.updaterComment} />
-                    </div>
-                </div>
-                <div className="Button-group">
-                    <Button className="Button Button--approve Button--primary"
-                            onclick={() => this.approve()}
-                            disabled={this.update.isApproved() || this.saving}>
-                        {app.translator.trans('hcl.forum.updates.approve')}
-                    </Button>
-                    <Button className="Button Button--deny Button--danger"
-                            onclick={() => this.deny()}
-                            disabled={this.update.isDenied() || this.saving}>
-                        {app.translator.trans('hcl.forum.updates.deny')}
-                    </Button>
-                    <Button className="Button Button--under-review"
-                            disabled={this.update.isUnderReview() || this.saving}
-                            onclick={() => this.underReview()} >
-                        {app.translator.trans('hcl.forum.updates.under_review')}
-                    </Button>
                 </div>
             </div>
         );
