@@ -80,7 +80,7 @@ hcl:
         other: Other 
     page:
       empty_text: There's no items to show
-      player_directory: Player Directory
+      player_directory: All Player
       nav: Players
       refresh_tooltip: Refresh
       new_update: New Update

@@ -76,19 +76,6 @@ export default class PlayerDirectoryPage extends Page {
      */
     navItems() {
         const items = IndexPage.prototype.navItems();
-        const params = this.stickyParams();
-
-        items.add(
-            'hcl-player-directory',
-            LinkButton.component(
-                {
-                    href: app.route('players', params),
-                    icon: 'far fa-address-book',
-                },
-                app.translator.trans('hcl.forum.page.player_directory')
-            ),
-            85
-        );
 
         return items;
     }

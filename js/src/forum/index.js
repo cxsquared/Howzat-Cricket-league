@@ -7,6 +7,7 @@ import Button from 'flarum/components/Button';
 import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import LinkButton from 'flarum/components/LinkButton';
 import UserPage from 'flarum/components/UserPage';
+import IndexPage from 'flarum/components/IndexPage';
 import SessionDropdown from 'flarum/components/SessionDropdown';
 import NotificationGrid from 'flarum/components/NotificationGrid';
 import Player from './models/Player';
@@ -141,5 +142,20 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
       icon: 'fas fa-certificate',
       label: app.translator.trans('hcl.forum.settings.notify_denied_approved')
     })
-  })
+  });
+
+  // Index Page itesm
+  extend(IndexPage.prototype, 'navItems', (items) => {
+          items.add(
+              'hcl-players-directory',
+              LinkButton.component(
+                  {
+                      href: app.route('players'),
+                      icon: 'fas fa-hiking'
+                  },
+                  app.translator.trans('hcl.forum.page.player_directory')
+              ),
+              85
+          );
+    });
 });
