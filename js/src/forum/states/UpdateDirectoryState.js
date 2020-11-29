@@ -67,7 +67,32 @@ export default class UpdateDirectoryState {
 
         return this.loadResults().then(
             (results) => {
-                this.parseResults(results);
+                const playersToLoad = results.reduce((existingIds, update) => {
+                    const id = update.submittedUser().id();
+                    if (!update.submittedUser().player() && !existingIds.includes(id))
+                        existingIds.push(id);
+
+                    return existingIds;
+                }, []);
+
+                if (playersToLoad.length === 0) {
+                    this.parseResults(results);
+                }
+
+                playersToLoad.forEach((id, i) => {
+                    if (i === playersToLoad.length - 1) {
+                        app.store.find('users', `${id}/player`, null, {
+                            errorHandler() {
+                            }
+                        }).then(() => this.parseResults(results));
+
+                    } else {
+                        app.store.find('users', `${id}/player`, null, {
+                            errorHandler() {
+                            }
+                        })
+                    }
+                });
             },
             () => {
                 this.loading = false;

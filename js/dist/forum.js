@@ -4790,7 +4790,19 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
   _proto.loadPlayer = function loadPlayer() {
     var _this4 = this;
 
-    this.loadingPlayer = true;
+    this.loadingPlayer = true; // The UpdateDirectoryPage preloads players we just need to go find them
+
+    var preloadedplayer = flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.store.all('players').filter(function (p) {
+      return p.user() && p.user().id() == _this4.update.submittedUser().id();
+    })[0];
+
+    if (!!preloadedplayer) {
+      this.loadingPlayer = false;
+      this.player = preloadedplayer;
+      m.redraw();
+      return;
+    }
+
     flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.store.find('users', this.update.submittedUser().id() + "/player", null, {
       errorHandler: function errorHandler() {}
     }).then(function (p) {
@@ -6040,7 +6052,29 @@ var UpdateDirectoryState = /*#__PURE__*/function () {
     this.loading = true;
     this.clear();
     return this.loadResults().then(function (results) {
-      _this2.parseResults(results);
+      var playersToLoad = results.reduce(function (existingIds, update) {
+        var id = update.submittedUser().id();
+        if (!update.submittedUser().player() && !existingIds.includes(id)) existingIds.push(id);
+        return existingIds;
+      }, []);
+
+      if (playersToLoad.length === 0) {
+        _this2.parseResults(results);
+      }
+
+      playersToLoad.forEach(function (id, i) {
+        if (i === playersToLoad.length - 1) {
+          app.store.find('users', id + "/player", null, {
+            errorHandler: function errorHandler() {}
+          }).then(function () {
+            return _this2.parseResults(results);
+          });
+        } else {
+          app.store.find('users', id + "/player", null, {
+            errorHandler: function errorHandler() {}
+          });
+        }
+      });
     }, function () {
       _this2.loading = false;
       m.redraw();

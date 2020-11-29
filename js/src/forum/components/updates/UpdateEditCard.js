@@ -160,6 +160,16 @@ export default class UpdateEditCard extends Component {
     {
         this.loadingPlayer = true;
 
+        // The UpdateDirectoryPage preloads players we just need to go find them
+        const preloadedplayer = app.store.all('players')
+            .filter(p => p.user() && p.user().id() == this.update.submittedUser().id())[0];
+        if (!!preloadedplayer) {
+            this.loadingPlayer = false;
+            this.player = preloadedplayer;
+            m.redraw();
+            return;
+        }
+
         app.store.find('users', `${this.update.submittedUser().id()}/player`, null, {
             errorHandler() {
             }
