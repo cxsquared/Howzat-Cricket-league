@@ -7,7 +7,7 @@ export default class UpdateApprovedNotification extends Notification {
     }
 
     href() {
-        return app.route('user.players', {username: app.session.user.username()});
+        return app.route('user.player', {username: app.session.user.username()});
     }
 
     content() {

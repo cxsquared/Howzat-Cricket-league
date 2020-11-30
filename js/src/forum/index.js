@@ -147,7 +147,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
   // Index Page itesm
   extend(IndexPage.prototype, 'navItems', (items) => {
           items.add(
-              'hcl-players-directory',
+              'hcl-player-directory',
               LinkButton.component(
                   {
                       href: app.route('players'),
