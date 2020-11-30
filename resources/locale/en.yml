@@ -85,6 +85,7 @@ hcl:
       nav: Players
       refresh_tooltip: Refresh
       new_update: New Update
+      load_more_button: Load More
     link:
     user:
       players_empty_text: It looks like there are no players here. 

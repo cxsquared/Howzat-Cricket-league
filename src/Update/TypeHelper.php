@@ -27,7 +27,9 @@ class TypeHelper
 
         $cappedTpeThisWeek = 0;
         foreach($thisWeeksUpdates as $update) {
-            $cappedTpeThisWeek += $update->tpe;
+            if ($update->is_capped) {
+                $cappedTpeThisWeek += $update->tpe;
+            }
 
             if ($isPt && TypeHelper::isPt($update->type, $update->tpe)) {
                 // TODO: Update this to use the translator

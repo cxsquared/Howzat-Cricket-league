@@ -39,7 +39,7 @@ class UpdateSearcher
         $this->gambits->apply($search, $criteria->query);
         $this->applySort($search, $criteria->sort);
         $this->applyOffset($search, $offset);
-        $this->applyLimit($search, $limit);
+        $this->applyLimit($search, $limit + 1);
 
         event(new Searching($search, $criteria));
 
