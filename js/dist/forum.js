@@ -2440,15 +2440,15 @@ var UpdateTypeUtils = /*#__PURE__*/function () {
 
   UpdateTypeUtils.types = function types() {
     return {
-      'pointTask': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.pointTask"),
-      'minorPointTask': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.minorPointTask"),
-      'welfare': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.welfare"),
-      'affiliate': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.affiliate"),
-      'pressConference': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.pressConference"),
-      'activityCheck': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.activityCheck"),
-      'job': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.job"),
-      'predictions': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.predictions"),
-      'other': flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans("hcl.forum.updates.types.other")
+      pointTask: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.pointTask'),
+      minorPointTask: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.minorPointTask'),
+      welfare: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.welfare'),
+      affiliate: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.affiliate'),
+      pressConference: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.pressConference'),
+      activityCheck: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.activityCheck'),
+      job: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.job'),
+      predictions: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.predictions'),
+      other: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.updates.types.other')
     };
   };
 
@@ -2647,7 +2647,7 @@ __webpack_require__.r(__webpack_exports__);
 var seperator = m("div", {
   className: "PlayerCard-seperator"
 }, "|");
-var flagUrl = "https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/svg/";
+var flagUrl = 'https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/svg/';
 /*
  * Attr
  * player
@@ -2715,12 +2715,12 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
 
     if (canEdit && !this.saving) {
       var hasTpe = this.player.bankedTpe() > 0;
-      var text = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.basics.no_tpe");
-      var className = "Button";
+      var text = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.no_tpe');
+      var className = 'Button';
 
       if (hasTpe) {
-        text = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.basics.update");
-        className += " Button--important";
+        text = flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.update');
+        className += ' Button--important';
       }
 
       headerButtons.push(m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
@@ -2832,9 +2832,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["running"],
+      value: this.playerSkillUpdates['running'],
       onchange: function onchange(e) {
-        return _this.updateSkill("running", e.target.value);
+        return _this.updateSkill('running', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2842,9 +2842,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["defense"],
+      value: this.playerSkillUpdates['defense'],
       onchange: function onchange(e) {
-        return _this.updateSkill("defense", e.target.value);
+        return _this.updateSkill('defense', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2852,9 +2852,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["attacking"],
+      value: this.playerSkillUpdates['attacking'],
       onchange: function onchange(e) {
-        return _this.updateSkill("attacking", e.target.value);
+        return _this.updateSkill('attacking', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2862,9 +2862,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["lofted"],
+      value: this.playerSkillUpdates['lofted'],
       onchange: function onchange(e) {
-        return _this.updateSkill("lofted", e.target.value);
+        return _this.updateSkill('lofted', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2872,9 +2872,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["vsSpin"],
+      value: this.playerSkillUpdates['vsSpin'],
       onchange: function onchange(e) {
-        return _this.updateSkill("vsSpin", e.target.value);
+        return _this.updateSkill('vsSpin', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2882,9 +2882,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["vsPace"],
+      value: this.playerSkillUpdates['vsPace'],
       onchange: function onchange(e) {
-        return _this.updateSkill("vsPace", e.target.value);
+        return _this.updateSkill('vsPace', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2892,9 +2892,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["footwork"],
+      value: this.playerSkillUpdates['footwork'],
       onchange: function onchange(e) {
-        return _this.updateSkill("footwork", e.target.value);
+        return _this.updateSkill('footwork', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2902,9 +2902,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["timing"],
+      value: this.playerSkillUpdates['timing'],
       onchange: function onchange(e) {
-        return _this.updateSkill("timing", e.target.value);
+        return _this.updateSkill('timing', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2912,9 +2912,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["control"],
+      value: this.playerSkillUpdates['control'],
       onchange: function onchange(e) {
-        return _this.updateSkill("control", e.target.value);
+        return _this.updateSkill('control', e.target.value);
       }
     }))];
   };
@@ -2979,9 +2979,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["paceFlight"],
+      value: this.playerSkillUpdates['paceFlight'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("paceFlight", e.target.value);
+        return _this2.updateSkill('paceFlight', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2989,9 +2989,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["swingLegSpin"],
+      value: this.playerSkillUpdates['swingLegSpin'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("swingLegSpin", e.target.value);
+        return _this2.updateSkill('swingLegSpin', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -2999,9 +2999,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["slowerBallOffSpin"],
+      value: this.playerSkillUpdates['slowerBallOffSpin'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("slowerBallOffSpin", e.target.value);
+        return _this2.updateSkill('slowerBallOffSpin', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -3009,9 +3009,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["seamDrift"],
+      value: this.playerSkillUpdates['seamDrift'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("seamDrift", e.target.value);
+        return _this2.updateSkill('seamDrift', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -3019,9 +3019,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["accuracy"],
+      value: this.playerSkillUpdates['accuracy'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("accuracy", e.target.value);
+        return _this2.updateSkill('accuracy', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -3029,9 +3029,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["discipline"],
+      value: this.playerSkillUpdates['discipline'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("discipline", e.target.value);
+        return _this2.updateSkill('discipline', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -3039,9 +3039,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["bouncerBounce"],
+      value: this.playerSkillUpdates['bouncerBounce'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("bouncerBounce", e.target.value);
+        return _this2.updateSkill('bouncerBounce', e.target.value);
       }
     })), m("div", {
       className: "PlayerCard-skill-update"
@@ -3049,9 +3049,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       type: "number",
       min: 40,
       max: 99,
-      value: this.playerSkillUpdates["yorkerArmBall"],
+      value: this.playerSkillUpdates['yorkerArmBall'],
       onchange: function onchange(e) {
-        return _this2.updateSkill("yorkerArmBall", e.target.value);
+        return _this2.updateSkill('yorkerArmBall', e.target.value);
       }
     }))];
   };
@@ -3141,7 +3141,7 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       required: true,
       value: this.player.firstName || '',
       onchange: function onchange(e) {
-        return _this2.attrs.update("firstName", e.target.value);
+        return _this2.attrs.update('firstName', e.target.value);
       }
     }), m("label", {
       "for": "last_name"
@@ -3156,7 +3156,7 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       required: true,
       value: this.player.lastName || '',
       onchange: function onchange(e) {
-        return _this2.attrs.update("lastName", e.target.value);
+        return _this2.attrs.update('lastName', e.target.value);
       }
     }), m("label", {
       "for": "age"
@@ -3170,7 +3170,7 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       max: 99,
       value: this.player.age || '',
       onchange: function onchange(e) {
-        return _this2.attrs.update("age", e.target.value);
+        return _this2.attrs.update('age', e.target.value);
       }
     }), m("label", {
       "for": "height"
@@ -3184,7 +3184,7 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       max: 270,
       value: this.player.height || '',
       onchange: function onchange(e) {
-        return _this2.attrs.update("height", e.target.value);
+        return _this2.attrs.update('height', e.target.value);
       }
     }), m("label", {
       "for": "weight"
@@ -3198,7 +3198,7 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       max: 130,
       value: this.player.weight || '',
       onchange: function onchange(e) {
-        return _this2.attrs.update("weight", e.target.value);
+        return _this2.attrs.update('weight', e.target.value);
       }
     }), m("label", {
       "for": "nationality"
@@ -3207,7 +3207,7 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       id: "nationality",
       options: this.countries,
       onchange: function onchange(v) {
-        return _this2.attrs.update("nationality", v);
+        return _this2.attrs.update('nationality', v);
       }
     }), m("label", {
       "for": "bowling_style"
@@ -3215,11 +3215,11 @@ var PlayerCreateCard = /*#__PURE__*/function (_Component) {
       value: this.player.bowlingStyle,
       id: "bowling_style",
       options: {
-        "pace": app.translator.trans('hcl.forum.player.style.pace'),
-        "spin": app.translator.trans('hcl.forum.player.style.spin')
+        pace: app.translator.trans('hcl.forum.player.style.pace'),
+        spin: app.translator.trans('hcl.forum.player.style.spin')
       },
       onchange: function onchange(v) {
-        return _this2.attrs.update("bowlingStyle", v);
+        return _this2.attrs.update('bowlingStyle', v);
       }
     })), 30);
     return items;
@@ -3276,8 +3276,8 @@ var PlayerCreatePage = /*#__PURE__*/function (_Page) {
     }
 
     this.player = {
-      firstName: "",
-      lastName: ""
+      firstName: '',
+      lastName: ''
     };
     this.bodyClass = 'App--index';
   };
@@ -3745,7 +3745,7 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
       className: "PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.update.cost')), m("div", {
       className: "PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.update.update')), this.skillRow("running"), this.skillRow("defense"), this.skillRow("attacking"), this.skillRow("lofted"), this.skillRow("vsSpin"), this.skillRow("vsPace"), this.skillRow("footwork"), this.skillRow("timing"), this.skillRow("control")));
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.update.update')), this.skillRow('running'), this.skillRow('defense'), this.skillRow('attacking'), this.skillRow('lofted'), this.skillRow('vsSpin'), this.skillRow('vsPace'), this.skillRow('footwork'), this.skillRow('timing'), this.skillRow('control')));
     var style = this.player.bowlingStyle();
     var bowling = m("div", {
       className: "PlayerUpdate--bowling"
@@ -3761,7 +3761,7 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
       className: "PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center"
     }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.update.cost')), m("div", {
       className: "PlayerUpdate--item PlayerUpdate--header PlayerUpdate--center"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.update.update')), this.skillRow("paceFlight", style), this.skillRow("swingLegSpin", style), this.skillRow("slowerBallOffSpin", style), this.skillRow("seamDrift", style), this.skillRow("accuracy"), this.skillRow("discipline"), this.skillRow("bouncerBounce", style), this.skillRow("yorkerArmBall", style)));
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.update.update')), this.skillRow('paceFlight', style), this.skillRow('swingLegSpin', style), this.skillRow('slowerBallOffSpin', style), this.skillRow('seamDrift', style), this.skillRow('accuracy'), this.skillRow('discipline'), this.skillRow('bouncerBounce', style), this.skillRow('yorkerArmBall', style)));
     var save = m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
       type: "submit",
       className: "Button Button--primary",
@@ -3788,8 +3788,8 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
     var originalValue = this.player.data.attributes[skill];
     var newValue = this.playerSkillUpdates[skill];
     var updated = originalValue != newValue;
-    var className = "PlayerUpdate--item PlayerUpdate--skill";
-    if (updated) className += " PlayerUpdate--updated";
+    var className = 'PlayerUpdate--item PlayerUpdate--skill';
+    if (updated) className += ' PlayerUpdate--updated';
     return [m("div", {
       className: className,
       title: flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.player.tooltip." + name)
@@ -3797,8 +3797,8 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.currentTpe = function currentTpe(skill, updated) {
-    var className = "PlayerUpdate--item PlayerUpdate--tpe PlayerUpdate--center";
-    if (updated) className += " PlayerUpdate--updated";
+    var className = 'PlayerUpdate--item PlayerUpdate--tpe PlayerUpdate--center';
+    if (updated) className += ' PlayerUpdate--updated';
     return m("div", {
       className: className
     }, this.playerSkillUpdates[skill]);
@@ -3806,8 +3806,8 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
 
   _proto.currentCost = function currentCost(skill) {
     var cost = _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_5__["default"].cost(this.playerSkillUpdates[skill]);
-    var className = "PlayerUpdate--item PlayerUpdate--cost PlayerUpdate--center";
-    if (cost > this.tpeLeft()) className = "PlayerUpdate--item PlayerUpdate--warning PlayerUpdate--center";
+    var className = 'PlayerUpdate--item PlayerUpdate--cost PlayerUpdate--center';
+    if (cost > this.tpeLeft()) className = 'PlayerUpdate--item PlayerUpdate--warning PlayerUpdate--center';
     return m("div", {
       className: className
     }, cost);
@@ -3871,23 +3871,23 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
   _proto.initPlayerUpdateSkills = function initPlayerUpdateSkills() {
     this.spentTpe = 0; // Batter
 
-    this.playerSkillUpdates["running"] = this.player.running();
-    this.playerSkillUpdates["defense"] = this.player.defense();
-    this.playerSkillUpdates["attacking"] = this.player.attacking();
-    this.playerSkillUpdates["lofted"] = this.player.lofted();
-    this.playerSkillUpdates["vsSpin"] = this.player.vsSpin();
-    this.playerSkillUpdates["vsPace"] = this.player.vsPace();
-    this.playerSkillUpdates["footwork"] = this.player.footwork();
-    this.playerSkillUpdates["timing"] = this.player.timing();
-    this.playerSkillUpdates["control"] = this.player.control();
-    this.playerSkillUpdates["paceFlight"] = this.player.paceFlight();
-    this.playerSkillUpdates["swingLegSpin"] = this.player.swingLegSpin();
-    this.playerSkillUpdates["slowerBallOffSpin"] = this.player.slowerBallOffSpin();
-    this.playerSkillUpdates["seamDrift"] = this.player.seamDrift();
-    this.playerSkillUpdates["accuracy"] = this.player.accuracy();
-    this.playerSkillUpdates["discipline"] = this.player.discipline();
-    this.playerSkillUpdates["bouncerBounce"] = this.player.bouncerBounce();
-    this.playerSkillUpdates["yorkerArmBall"] = this.player.yorkerArmBall();
+    this.playerSkillUpdates['running'] = this.player.running();
+    this.playerSkillUpdates['defense'] = this.player.defense();
+    this.playerSkillUpdates['attacking'] = this.player.attacking();
+    this.playerSkillUpdates['lofted'] = this.player.lofted();
+    this.playerSkillUpdates['vsSpin'] = this.player.vsSpin();
+    this.playerSkillUpdates['vsPace'] = this.player.vsPace();
+    this.playerSkillUpdates['footwork'] = this.player.footwork();
+    this.playerSkillUpdates['timing'] = this.player.timing();
+    this.playerSkillUpdates['control'] = this.player.control();
+    this.playerSkillUpdates['paceFlight'] = this.player.paceFlight();
+    this.playerSkillUpdates['swingLegSpin'] = this.player.swingLegSpin();
+    this.playerSkillUpdates['slowerBallOffSpin'] = this.player.slowerBallOffSpin();
+    this.playerSkillUpdates['seamDrift'] = this.player.seamDrift();
+    this.playerSkillUpdates['accuracy'] = this.player.accuracy();
+    this.playerSkillUpdates['discipline'] = this.player.discipline();
+    this.playerSkillUpdates['bouncerBounce'] = this.player.bouncerBounce();
+    this.playerSkillUpdates['yorkerArmBall'] = this.player.yorkerArmBall();
   };
 
   _proto.updateSkill = function updateSkill(skill, tpeToAdd, cost) {
@@ -3906,7 +3906,6 @@ var PlayerUpdateModal = /*#__PURE__*/function (_Modal) {
 }(flarum_components_Modal__WEBPACK_IMPORTED_MODULE_3___default.a);
 
 
-;
 
 /***/ }),
 
@@ -3957,7 +3956,7 @@ var PlayerUserPage = /*#__PURE__*/function (_UserPage) {
     _UserPage.prototype.oninit.call(this, vnode);
     /**
      * Whether or not we are loading the players
-     * 
+     *
      * @type {Boolean}
      */
 
@@ -3981,7 +3980,7 @@ var PlayerUserPage = /*#__PURE__*/function (_UserPage) {
 
       if (this.user === flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user) {
         createNew = m(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_5___default.a, {
-          href: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route("player.create"),
+          href: flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('player.create'),
           className: "Button PlayersCreate"
         }, "Create Players");
       }
@@ -4058,6 +4057,229 @@ var PlayerUserPage = /*#__PURE__*/function (_UserPage) {
 
 /***/ }),
 
+/***/ "./src/forum/components/teams/TeamCard.js":
+/*!************************************************!*\
+  !*** ./src/forum/components/teams/TeamCard.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TeamCard; });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/app */ "flarum/app");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_app__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_Component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/Component */ "flarum/Component");
+/* harmony import */ var flarum_Component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_Component__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+var TeamCard = /*#__PURE__*/function (_Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(TeamCard, _Component);
+
+  function TeamCard() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = TeamCard.prototype;
+
+  _proto.oninit = function oninit(vnode) {
+    _Component.prototype.oninit.call(this, vnode);
+
+    this.team = this.attrs.team;
+  };
+
+  _proto.view = function view() {
+    return m("div", {
+      className: "TeamCard"
+    }, this.team.name(), this.team.players().map(function (p) {
+      return p.name();
+    }));
+  };
+
+  return TeamCard;
+}(flarum_Component__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+
+
+/***/ }),
+
+/***/ "./src/forum/components/teams/TeamsPage.js":
+/*!*************************************************!*\
+  !*** ./src/forum/components/teams/TeamsPage.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TeamsPage; });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/app */ "flarum/app");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_app__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_utils_ItemList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/utils/ItemList */ "flarum/utils/ItemList");
+/* harmony import */ var flarum_utils_ItemList__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_utils_ItemList__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/helpers/listItems */ "flarum/helpers/listItems");
+/* harmony import */ var flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flarum_components_Page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flarum/components/Page */ "flarum/components/Page");
+/* harmony import */ var flarum_components_Page__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Page__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! flarum/components/IndexPage */ "flarum/components/IndexPage");
+/* harmony import */ var flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flarum/components/LoadingIndicator */ "flarum/components/LoadingIndicator");
+/* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! flarum/components/Button */ "flarum/components/Button");
+/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! flarum/components/SelectDropdown */ "flarum/components/SelectDropdown");
+/* harmony import */ var flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _TeamCard__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./TeamCard */ "./src/forum/components/teams/TeamCard.js");
+
+
+
+
+
+
+
+
+
+
+
+var TeamsPage = /*#__PURE__*/function (_Page) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(TeamsPage, _Page);
+
+  function TeamsPage() {
+    return _Page.apply(this, arguments) || this;
+  }
+
+  var _proto = TeamsPage.prototype;
+
+  _proto.oninit = function oninit(vnode) {
+    _Page.prototype.oninit.call(this, vnode);
+
+    this.loading = false;
+    this.teams = [];
+    this.teamId = m.route.param('id');
+    this.loadTeams().then(this.parseResults.bind(this));
+    this.bodyClass = 'TeamsPage';
+    this.teamItems = this.teamItems.bind(this);
+  };
+
+  _proto.view = function view() {
+    var _this = this;
+
+    return m("div", {
+      className: "IndexPage"
+    }, flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default.a.prototype.hero(), m("div", {
+      className: "container"
+    }, m("div", {
+      className: "sideNavContainer"
+    }, m("nav", {
+      className: "IndexPage-nav sideNav"
+    }, m("ul", null, flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3___default()(this.sidebarItems().toArray()))), m("div", {
+      className: "IndexPage-results sideNavOffset"
+    }, this.hasTeams() && !this.loading ? [m("div", {
+      className: "IndexPage-toolbar"
+    }, m("ul", {
+      className: "TeamsPage-toolbar"
+    }, flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3___default()(this.teamItems().toArray()))), this.teamId ? m(_TeamCard__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      team: this.teams.filter(function (t) {
+        return t.id() === _this.teamId;
+      })[0]
+    }) : null] : [m(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6___default.a, {
+      className: "LoadingIndicator--block"
+    })]))));
+  }
+  /**
+   * Our own sidebar. Re-uses Index.sidebarItems as the base
+   * Elements added here will only show up on the user directory page
+   *
+   * @return {ItemList}
+   */
+  ;
+
+  _proto.sidebarItems = function sidebarItems() {
+    var items = flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default.a.prototype.sidebarItems();
+    items.replace('nav', flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_8___default.a.component({
+      buttonClassName: 'Button',
+      className: 'App-titleControl'
+    }, this.navItems().toArray()));
+    return items;
+  }
+  /**
+   * Our own sidebar navigation. Re-uses Index.navItems as the base
+   * Elements added here will only show up on the user directory page
+   *
+   * @return {ItemList}
+   */
+  ;
+
+  _proto.navItems = function navItems() {
+    var items = flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default.a.prototype.navItems();
+    return items;
+  };
+
+  _proto.teamItems = function teamItems() {
+    var _this2 = this;
+
+    var items = new flarum_utils_ItemList__WEBPACK_IMPORTED_MODULE_2___default.a();
+
+    if (this.hasTeams()) {
+      this.teams.forEach(function (team) {
+        items.add(team.name(), flarum_components_Button__WEBPACK_IMPORTED_MODULE_7___default.a.component({
+          title: team.name(),
+          className: 'Button-team',
+          onclick: function onclick() {
+            _this2.teamId = team.id();
+            m.route.set(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('teams.show', {
+              id: _this2.teamId
+            }));
+          }
+        }));
+      });
+    }
+
+    return items;
+  };
+
+  _proto.loadTeams = function loadTeams() {
+    this.loading = true;
+    var preloadedTeams = flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.preloadedApiDocument();
+
+    if (preloadedTeams) {
+      return Promise.resolve(preloadedTeams);
+    }
+
+    var teams = flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.store.all('teams');
+
+    if (teams.length > 0) {
+      return Promise.resolve(teams);
+    }
+
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.store.find('teams');
+  };
+
+  _proto.parseResults = function parseResults(teams) {
+    var _this$teams;
+
+    (_this$teams = this.teams).push.apply(_this$teams, teams);
+
+    this.loading = false;
+    m.redraw();
+    return teams;
+  };
+
+  _proto.hasTeams = function hasTeams() {
+    return this.teams && this.teams.length > 0;
+  };
+
+  return TeamsPage;
+}(flarum_components_Page__WEBPACK_IMPORTED_MODULE_4___default.a);
+
+
+
+/***/ }),
+
 /***/ "./src/forum/components/updates/UpdateCreateModal.js":
 /*!***********************************************************!*\
   !*** ./src/forum/components/updates/UpdateCreateModal.js ***!
@@ -4107,7 +4329,7 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
     _Modal.prototype.oninit.call(this, vnode);
 
     this.saving = false;
-    var linkPost = "";
+    var linkPost = '';
 
     if (this.attrs.post) {
       linkPost = window.location.origin + flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.route.post(this.attrs.post);
@@ -4128,11 +4350,11 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.className = function className() {
-    return "Update Modal--small";
+    return 'Update Modal--small';
   };
 
   _proto.title = function title() {
-    return flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.title");
+    return flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.updates.title');
   };
 
   _proto.oncreate = function oncreate(vnode) {
@@ -4159,7 +4381,7 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       className: "Update--datepicker Form-group"
     }, m("label", {
       "for": "datepicker"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.week_ending")), m("input", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.updates.week_ending')), m("input", {
       id: "Update-datepicker",
       className: "FormControl",
       type: "text",
@@ -4169,7 +4391,7 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       className: "Update--type Form-group"
     }, m("label", {
       "for": "type"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.type")), m(_RequiredSelect__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.updates.type')), m(_RequiredSelect__WEBPACK_IMPORTED_MODULE_9__["default"], {
       id: "type",
       options: _common_utils_UpdateTypeUtils__WEBPACK_IMPORTED_MODULE_8__["default"].types(),
       className: "FormControl",
@@ -4183,7 +4405,7 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       className: "Update--link Form-group"
     }, m("label", {
       "for": "link"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.link")), m("input", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.updates.link')), m("input", {
       id: "link",
       className: "FormControl",
       type: "text",
@@ -4192,7 +4414,7 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       className: "Update--comment Form-group"
     }, m("label", {
       "for": "comment"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.comment")), m("input", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.updates.comment')), m("input", {
       id: "comment",
       className: "FormControl",
       type: "text",
@@ -4202,7 +4424,7 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       className: "Update--tpe Form-group"
     }, m("label", {
       "for": "tpe"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.basics.tpe")), m("input", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.tpe')), m("input", {
       id: "tpe",
       type: "number",
       className: "FormControl",
@@ -4240,8 +4462,8 @@ var UpdateCreateModal = /*#__PURE__*/function (_Modal) {
       _this3.hide();
 
       flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.alerts.show({
-        type: "success"
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.updates.success"));
+        type: 'success'
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.updates.success'));
     })["catch"](function () {
       _this3.saving = false;
     });
@@ -4533,7 +4755,7 @@ var UpdateDirectoryPage = /*#__PURE__*/function (_Page) {
   /**
    * Redirect to the index page using the given status parameter.
    *
-   * @param {String} status 
+   * @param {String} status
    */
   ;
 
@@ -4633,7 +4855,7 @@ __webpack_require__.r(__webpack_exports__);
 dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.extend(dayjs_plugin_utc__WEBPACK_IMPORTED_MODULE_2___default.a);
 /*
  * Attr
- * update 
+ * update
  * onselect
  */
 
@@ -4828,8 +5050,8 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
     this.saving = true;
     this.update.save(this.data('approved')).then(function () {
       flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.alerts.show({
-        type: "success"
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.approved"));
+        type: 'success'
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.alerts.approved'));
     })["finally"](function () {
       _this5.saving = false;
     });
@@ -4842,20 +5064,19 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
 
     if (!this.updaterComment()) {
       flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.alerts.show({
-        type: "error"
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.comment_required"));
+        type: 'error'
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.alerts.comment_required'));
       this.saving = false;
       return;
     }
 
     this.update.save(this.data('denied')).then(function () {
       flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.alerts.show({
-        type: "success"
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.denied"));
+        type: 'success'
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.alerts.denied'));
     })["finally"](function () {
       _this6.saving = false;
     });
-    ;
   };
 
   _proto.underReview = function underReview() {
@@ -4864,12 +5085,11 @@ var UpdateEditCard = /*#__PURE__*/function (_Component) {
     this.saving = true;
     this.update.save(this.data('under_review')).then(function () {
       flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.alerts.show({
-        type: "success"
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.alerts.underReview"));
+        type: 'success'
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.alerts.underReview'));
     })["finally"](function () {
       _this7.saving = false;
     });
-    ;
   };
 
   return UpdateEditCard;
@@ -4930,12 +5150,12 @@ var UpdateGroupCard = /*#__PURE__*/function (_Component) {
     var legendStyle = {
       backgroundColor: this.user.color()
     };
-    var className = "UpdateGroupCard";
+    var className = 'UpdateGroupCard';
     var status = null;
     var updaterComment = null;
 
     if (flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.session.user === this.user) {
-      className += "Own";
+      className += 'Own';
       status = m("legend", {
         style: legendStyle,
         className: "UpdateGroupCard-end"
@@ -5310,6 +5530,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _notifications_UpdateApprovedNotification__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./notifications/UpdateApprovedNotification */ "./src/forum/notifications/UpdateApprovedNotification.js");
 /* harmony import */ var _notifications_UpdateDeniedNotification__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./notifications/UpdateDeniedNotification */ "./src/forum/notifications/UpdateDeniedNotification.js");
 /* harmony import */ var _components_updates_UpdatesUserPage__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/updates/UpdatesUserPage */ "./src/forum/components/updates/UpdatesUserPage.js");
+/* harmony import */ var _components_teams_TeamsPage__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/teams/TeamsPage */ "./src/forum/components/teams/TeamsPage.js");
+
 
 
 
@@ -5364,6 +5586,14 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['updates'] = {
     path: '/updates',
     component: _components_updates_UpdateDirectoryPage__WEBPACK_IMPORTED_MODULE_20__["default"]
+  };
+  flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['teams'] = {
+    path: '/teams',
+    component: _components_teams_TeamsPage__WEBPACK_IMPORTED_MODULE_24__["default"]
+  };
+  flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.routes['teams.show'] = {
+    path: '/teams/:id',
+    component: _components_teams_TeamsPage__WEBPACK_IMPORTED_MODULE_24__["default"]
   }; // Adding player button to UserPage
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_UserPage__WEBPACK_IMPORTED_MODULE_8___default.a.prototype, 'navItems', function (items) {
@@ -5455,6 +5685,10 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
       href: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('players'),
       icon: 'fas fa-hiking'
     }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.page.player_directory')), 85);
+    items.add('hcl-team-directory', flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_7___default.a.component({
+      href: flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.route('teams'),
+      icon: 'fas fa-hiking'
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.page.team_directory')), 85);
   });
 });
 
@@ -5558,7 +5792,7 @@ Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"
   user: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('user'),
   team: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('team'),
   isPaceBowler: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('bowlingStyle', function (bs) {
-    return bs.toLowerCase() === "pace";
+    return bs.toLowerCase() === 'pace';
   }),
   name: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('firstName', 'lastName', function (fn, ln) {
     return fn + " " + ln;
@@ -5637,6 +5871,8 @@ var Team = /*#__PURE__*/function (_Model) {
 
 
 Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Team.prototype, {
+  name: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('name'),
+  logoLink: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('logoLink'),
   createdAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('createdAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
   updatedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updatedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transaformDate),
   gmUser: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('gmUser'),
@@ -5699,13 +5935,13 @@ Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"
   updaterComment: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updaterComment'),
   player: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('player'),
   isApproved: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('status', function (status) {
-    return status.toLowerCase() === "approved";
+    return status.toLowerCase() === 'approved';
   }),
   isDenied: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('status', function (status) {
-    return status.toLowerCase() === "denied";
+    return status.toLowerCase() === 'denied';
   }),
   isUnderReview: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('status', function (status) {
-    return status.toLowerCase() === "under_review";
+    return status.toLowerCase() === 'under_review';
   })
 });
 

@@ -123,11 +123,11 @@ flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.initializers.add('cxsquared/ho
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_components_PermissionGrid__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'moderateItems', function (items) {
     items.add('updatePlayer', {
       icon: 'fas fa-running',
-      label: "Update Players",
+      label: 'Update Players',
       permission: 'player.edit'
     }, 75), items.add('updateUpdates', {
       icon: 'fas fa-pen-nib',
-      label: "Manged Updates",
+      label: 'Manged Updates',
       permission: 'update.edit'
     }, 80);
   });

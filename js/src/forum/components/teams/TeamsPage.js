@@ -4,6 +4,9 @@ import listItems from 'flarum/helpers/listItems';
 import Page from 'flarum/components/Page';
 import IndexPage from 'flarum/components/IndexPage';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
+import Button from 'flarum/components/Button';
+import SelectDropdown from 'flarum/components/SelectDropdown';
+import TeamCard from './TeamCard';
 
 export default class TeamsPage extends Page {
     oninit(vnode) {
@@ -11,13 +14,15 @@ export default class TeamsPage extends Page {
 
         this.loading = false;
 
-        this.teams = null;
+        this.teams = [];
 
         this.teamId = m.route.param('id');
 
-        this.loadTeams();
+        this.loadTeams().then(this.parseResults.bind(this));
 
         this.bodyClass = 'TeamsPage';
+
+        this.teamItems = this.teamItems.bind(this);
     }
 
     view() {
@@ -30,12 +35,14 @@ export default class TeamsPage extends Page {
                             <ul>{listItems(this.sidebarItems().toArray())}</ul>
                         </nav>
                         <div className="IndexPage-results sideNavOffset">
-                            {this.team 
+                            {this.hasTeams() && !this.loading
                                 ? [
                                     <div className="IndexPage-toolbar">
                                         <ul className="TeamsPage-toolbar">{listItems(this.teamItems().toArray())}</ul>
                                     </div>,
-                                    <TeamCard team={this.teams.filter(t => t.id = this.teamId).first()} />
+                                    this.teamId
+                                        ? <TeamCard team={this.teams.filter(t => t.id() === this.teamId)[0]} />
+                                        : null
                                   ]   
                                 : [<LoadingIndicator className="LoadingIndicator--block" />]}
                         </div>
@@ -83,26 +90,53 @@ export default class TeamsPage extends Page {
     teamItems() {
         const items = new ItemList();
 
-        if (this.teams) {
-            for(const team in this.teams) {
-                items.add(
+        if (this.hasTeams()) {
+            this.teams.forEach(team => {
+                 items.add(
                     team.name(),
                     Button.component({
                         title: team.name(),
                         className: 'Button-team',
                         onclick: (() => {
                             this.teamId = team.id();
-                            m.redraw();
+                            m.route.set(app.route('teams.show', { id: this.teamId }));
                         })
                     })
                 );
-            }
+            });
         }
 
         return items;
     }
 
     loadTeams() {
+        this.loading = true;
 
+        const preloadedTeams = app.preloadedApiDocument();
+
+        if (preloadedTeams) {
+            return Promise.resolve(preloadedTeams);
+        }
+
+        const teams = app.store.all('teams');
+        if (teams.length > 0) {
+            return Promise.resolve(teams);
+        }
+
+        return app.store.find('teams');
+    }
+
+    parseResults(teams) {
+        this.teams.push(...teams);
+
+        this.loading = false;
+
+        m.redraw();
+
+        return teams;
+    }
+
+    hasTeams() {
+        return this.teams && this.teams.length > 0;
     }
 }

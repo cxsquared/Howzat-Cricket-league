@@ -20,7 +20,6 @@ class PlayerSerializer extends AbstractSerializer
         }
 
         return [
-            'id'                => $player->id,
             'firstName'         => $player->first_name,
             'lastName'          => $player->last_name,
             'age'               => $player->age,

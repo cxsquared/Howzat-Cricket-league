@@ -164,5 +164,18 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
             ),
             85
         );
+
+        items.add(
+            'hcl-team-directory',
+            LinkButton.component(
+                {
+                    href: app.route('teams'),
+                    icon: 'fas fa-hiking',
+                },
+                app.translator.trans('hcl.forum.page.team_directory')
+            ),
+            85
+        );
+
     });
 });

@@ -20,7 +20,6 @@ class TeamSerializer extends AbstractSerializer
         }
 
         return [
-            'id'            => $team->id,
             'name'          => $team->name,
             'logoLink'     => $team->logo_link,
             'createdAt'     => $this->formatDate($team->created_at),

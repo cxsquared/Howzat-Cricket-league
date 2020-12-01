@@ -22,7 +22,6 @@ class UpdateSerializer extends AbstractSerializer
         $showComment = $this->actor->id === $update->submitted_user_id || $this->actor->hasPermissionLike('update.edit');
 
         return [
-            'id'                => $update->id,
             'date'              => $this->formatDate($update->date),
             'link'              => $update->link,
             'type'              => $update->type,

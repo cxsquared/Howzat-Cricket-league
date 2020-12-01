@@ -10,6 +10,7 @@ export default class TeamCard extends Component {
     view() {
         return <div className="TeamCard">
             {this.team.name()}
+            {this.team.players().map(p => p.name())}
         </div>
     }
 }
