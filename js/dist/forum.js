@@ -4129,13 +4129,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flarum/components/LoadingIndicator */ "flarum/components/LoadingIndicator");
 /* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! flarum/components/Button */ "flarum/components/Button");
-/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! flarum/components/LinkButton */ "flarum/components/LinkButton");
-/* harmony import */ var flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! flarum/components/SelectDropdown */ "flarum/components/SelectDropdown");
-/* harmony import */ var flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _TeamCard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./TeamCard */ "./src/forum/components/teams/TeamCard.js");
+/* harmony import */ var color__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! color */ "./node_modules/color/index.js");
+/* harmony import */ var color__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(color__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! flarum/components/Button */ "flarum/components/Button");
+/* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! flarum/components/LinkButton */ "flarum/components/LinkButton");
+/* harmony import */ var flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! flarum/components/SelectDropdown */ "flarum/components/SelectDropdown");
+/* harmony import */ var flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _TeamCard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./TeamCard */ "./src/forum/components/teams/TeamCard.js");
+
 
 
 
@@ -4184,7 +4187,7 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
       className: "IndexPage-toolbar"
     }, m("ul", {
       className: "TeamsPage-toolbar"
-    }, flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3___default()(this.teamItems().toArray()))), this.teamId ? m(_TeamCard__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    }, flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_3___default()(this.teamItems().toArray()))), this.teamId ? m(_TeamCard__WEBPACK_IMPORTED_MODULE_11__["default"], {
       team: this.teams.filter(function (t) {
         return t.id() === _this.teamId;
       })[0]
@@ -4202,7 +4205,7 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
 
   _proto.sidebarItems = function sidebarItems() {
     var items = flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default.a.prototype.sidebarItems();
-    items.replace('nav', flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_9___default.a.component({
+    items.replace('nav', flarum_components_SelectDropdown__WEBPACK_IMPORTED_MODULE_10___default.a.component({
       buttonClassName: 'Button',
       className: 'App-titleControl'
     }, this.navItems().toArray()));
@@ -4221,7 +4224,7 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
     var href = this.teamId ? flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('teams.show', {
       id: this.teamId
     }) : flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('teams');
-    items.add('hcl-team-directory', flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_8___default.a.component({
+    items.add('hcl-team-directory', flarum_components_LinkButton__WEBPACK_IMPORTED_MODULE_9___default.a.component({
       href: href,
       icon: 'fas fa-hiking'
     }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.page.team_directory')), 85);
@@ -4242,10 +4245,10 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
 
         if (_this2.teamId === team.id()) {
           className += ' Button-team-active';
-          style.backgroundColor = "#" + team.primaryColor();
+          style.backgroundColor = "" + color__WEBPACK_IMPORTED_MODULE_7___default()("#" + team.primaryColor()).darken(0.35).hex();
         }
 
-        items.add(team.name(), flarum_components_Button__WEBPACK_IMPORTED_MODULE_7___default.a.component({
+        items.add(team.name(), m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_8___default.a, {
           style: style,
           title: team.name(),
           className: className,

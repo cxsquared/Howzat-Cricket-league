@@ -1,5 +1,5 @@
 import app from 'flarum/app';
-import Component from "flarum/Component";
+import Component from 'flarum/Component';
 
 export default class TeamCard extends Component {
     oninit(vnode) {
@@ -8,9 +8,11 @@ export default class TeamCard extends Component {
     }
 
     view() {
-        return <div className="TeamCard">
-            {this.team.name()}
-            {this.team.players().map(p => p.name())}
-        </div>
+        return (
+            <div className="TeamCard">
+                {this.team.name()}
+                {this.team.players().map((p) => p.name())}
+            </div>
+        );
     }
 }

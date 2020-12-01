@@ -4,6 +4,7 @@ import listItems from 'flarum/helpers/listItems';
 import Page from 'flarum/components/Page';
 import IndexPage from 'flarum/components/IndexPage';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
+import Color from 'color';
 import Button from 'flarum/components/Button';
 import LinkButton from 'flarum/components/LinkButton';
 import SelectDropdown from 'flarum/components/SelectDropdown';
@@ -36,13 +37,11 @@ export default class TeamsPage extends Page {
                         <div className="IndexPage-results sideNavOffset">
                             {this.hasTeams() && !this.loading
                                 ? [
-                                    <div className="IndexPage-toolbar">
-                                        <ul className="TeamsPage-toolbar">{listItems(this.teamItems().toArray())}</ul>
-                                    </div>,
-                                    this.teamId
-                                        ? <TeamCard team={this.teams.filter(t => t.id() === this.teamId)[0]} />
-                                        : null
-                                  ]   
+                                      <div className="IndexPage-toolbar">
+                                          <ul className="TeamsPage-toolbar">{listItems(this.teamItems().toArray())}</ul>
+                                      </div>,
+                                      this.teamId ? <TeamCard team={this.teams.filter((t) => t.id() === this.teamId)[0]} /> : null,
+                                  ]
                                 : [<LoadingIndicator className="LoadingIndicator--block" />]}
                         </div>
                     </div>
@@ -83,15 +82,13 @@ export default class TeamsPage extends Page {
     navItems() {
         const items = IndexPage.prototype.navItems();
 
-        const href = this.teamId
-            ? app.route('teams.show', { id: this.teamId })
-            : app.route('teams');
+        const href = this.teamId ? app.route('teams.show', { id: this.teamId }) : app.route('teams');
 
         items.add(
             'hcl-team-directory',
             LinkButton.component(
                 {
-                    href: href, 
+                    href: href,
                     icon: 'fas fa-hiking',
                 },
                 app.translator.trans('hcl.forum.page.team_directory')
@@ -106,27 +103,27 @@ export default class TeamsPage extends Page {
         const items = new ItemList();
 
         if (this.hasTeams()) {
-            this.teams.forEach(team => {
+            this.teams.forEach((team) => {
                 let className = 'Button-team';
 
                 const style = { backgroundImage: `url(${team.logoLink()})` };
 
                 if (this.teamId === team.id()) {
                     className += ' Button-team-active';
-                    style.backgroundColor = `#${team.primaryColor()}`;
+                    style.backgroundColor = `${Color(`#${team.primaryColor()}`).darken(0.35).hex()}`;
                 }
 
                 items.add(
                     team.name(),
-                    Button.component({
-                        style: style,
-                        title: team.name(),
-                        className: className,
-                        onclick: (() => {
+                    <Button
+                        style={style}
+                        title={team.name()}
+                        className={className}
+                        onclick={() => {
                             this.teamId = team.id();
                             m.route.set(app.route('teams.show', { id: this.teamId }));
-                        })
-                    })
+                        }}
+                    />
                 );
             });
         }

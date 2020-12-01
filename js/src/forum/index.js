@@ -176,6 +176,5 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
             ),
             85
         );
-
     });
 });
