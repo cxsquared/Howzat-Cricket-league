@@ -379,9 +379,6 @@
         text-align: center;
     }
 
-    .UpdateGroupCard-leftpad {
-    }
-
     .UpdateGroupCard-end {
         text-align: end;
     }
@@ -398,4 +395,34 @@
 
 .UpdateGroupCard {
     grid-template-columns: 1fr .5fr .5fr 2fr 1fr;
+}
+
+.TeamPage {
+    .TeamsPage-toolbar {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            margin: 5px;
+        }
+
+        border-bottom: 1px solid #ededed;
+    }
+
+    .Button-team {
+        width: 100px;
+        height: 100px;
+        border: none;
+        background-position: center; 
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: white;
+    }
+
+    .Button-team-active {
+        border: #111 1px solid;
+        background-color: #ededed;
+        border-radius: 5px;
+    }
 }

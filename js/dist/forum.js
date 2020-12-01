@@ -4164,7 +4164,6 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
     this.teams = [];
     this.teamId = m.route.param('id');
     this.loadTeams().then(this.parseResults.bind(this));
-    this.bodyClass = 'TeamsPage';
     this.teamItems = this.teamItems.bind(this);
   };
 
@@ -4172,7 +4171,7 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
     var _this = this;
 
     return m("div", {
-      className: "IndexPage"
+      className: "IndexPage TeamPage"
     }, flarum_components_IndexPage__WEBPACK_IMPORTED_MODULE_5___default.a.prototype.hero(), m("div", {
       className: "container"
     }, m("div", {
@@ -4236,9 +4235,20 @@ var TeamsPage = /*#__PURE__*/function (_Page) {
 
     if (this.hasTeams()) {
       this.teams.forEach(function (team) {
+        var className = 'Button-team';
+        var style = {
+          backgroundImage: "url(" + team.logoLink() + ")"
+        };
+
+        if (_this2.teamId === team.id()) {
+          className += ' Button-team-active';
+          style.backgroundColor = "#" + team.primaryColor();
+        }
+
         items.add(team.name(), flarum_components_Button__WEBPACK_IMPORTED_MODULE_7___default.a.component({
+          style: style,
           title: team.name(),
-          className: 'Button-team',
+          className: className,
           onclick: function onclick() {
             _this2.teamId = team.id();
             m.route.set(flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.route('teams.show', {
@@ -5883,6 +5893,8 @@ var Team = /*#__PURE__*/function (_Model) {
 Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Team.prototype, {
   name: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('name'),
   logoLink: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('logoLink'),
+  primaryColor: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('primaryColor'),
+  secondaryColor: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('secondaryColor'),
   createdAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('createdAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
   updatedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updatedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transaformDate),
   gmUser: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('gmUser'),

@@ -21,7 +21,9 @@ class TeamSerializer extends AbstractSerializer
 
         return [
             'name'          => $team->name,
-            'logoLink'     => $team->logo_link,
+            'logoLink'      => $team->logo_link,
+            'primaryColor'  => $team->primary_color,
+            'secondaryColor'=> $team->secondary_color,
             'createdAt'     => $this->formatDate($team->created_at),
             'updatedAt'     => $this->formatDate($team->updated_at)
         ];

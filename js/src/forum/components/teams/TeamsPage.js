@@ -21,14 +21,12 @@ export default class TeamsPage extends Page {
 
         this.loadTeams().then(this.parseResults.bind(this));
 
-        this.bodyClass = 'TeamsPage';
-
         this.teamItems = this.teamItems.bind(this);
     }
 
     view() {
         return (
-            <div className="IndexPage">
+            <div className="IndexPage TeamPage">
                 {IndexPage.prototype.hero()}
                 <div className="container">
                     <div className="sideNavContainer">
@@ -109,11 +107,21 @@ export default class TeamsPage extends Page {
 
         if (this.hasTeams()) {
             this.teams.forEach(team => {
-                 items.add(
+                let className = 'Button-team';
+
+                const style = { backgroundImage: `url(${team.logoLink()})` };
+
+                if (this.teamId === team.id()) {
+                    className += ' Button-team-active';
+                    style.backgroundColor = `#${team.primaryColor()}`;
+                }
+
+                items.add(
                     team.name(),
                     Button.component({
+                        style: style,
                         title: team.name(),
-                        className: 'Button-team',
+                        className: className,
                         onclick: (() => {
                             this.teamId = team.id();
                             m.route.set(app.route('teams.show', { id: this.teamId }));
