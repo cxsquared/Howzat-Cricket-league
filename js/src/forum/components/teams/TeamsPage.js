@@ -1,14 +1,23 @@
 import app from 'flarum/app';
-import Page from 'flarum/components/Page';
-import IndexPage from 'flarum/components/IndexPage';
 import ItemList from 'flarum/utils/ItemList';
 import listItems from 'flarum/helpers/listItems';
+import Page from 'flarum/components/Page';
+import IndexPage from 'flarum/components/IndexPage';
+import LoadingIndicator from 'flarum/components/LoadingIndicator';
 
 export default class TeamsPage extends Page {
     oninit(vnode) {
         super.oninit(vnode);
 
-        this.bodyClass = 'User--directory Teams';
+        this.loading = false;
+
+        this.teams = null;
+
+        this.teamId = m.route.param('id');
+
+        this.loadTeams();
+
+        this.bodyClass = 'TeamsPage';
     }
 
     view() {
@@ -21,10 +30,14 @@ export default class TeamsPage extends Page {
                             <ul>{listItems(this.sidebarItems().toArray())}</ul>
                         </nav>
                         <div className="IndexPage-results sideNavOffset">
-                            <div className="IndexPage-toolbar">
-                                <ul className="IndexPage-toolbar-view">{listItems(this.viewItems().toArray())}</ul>
-                                <ul className="IndexPage-toolbar-action">{listItems(this.actionItems().toArray())}</ul>
-                            </div>
+                            {this.team 
+                                ? [
+                                    <div className="IndexPage-toolbar">
+                                        <ul className="TeamsPage-toolbar">{listItems(this.teamItems().toArray())}</ul>
+                                    </div>,
+                                    <TeamCard team={this.teams.filter(t => t.id = this.teamId).first()} />
+                                  ]   
+                                : [<LoadingIndicator className="LoadingIndicator--block" />]}
                         </div>
                     </div>
                 </div>
@@ -67,25 +80,29 @@ export default class TeamsPage extends Page {
         return items;
     }
 
-    actionItems() {
+    teamItems() {
         const items = new ItemList();
 
-        /*
-        if (app.forum.attribute('adminUrl')) {
-            items.add(
-                'download',
-                LinkButton.component({
-                    title: app.translator.trans('hcl.forum.page.refresh_tooltip'),
-                    icon: 'fas fa-download',
-                    className: 'Button Button--icon',
-                    href: `${window.location.origin}${app.forum.attribute('basePath')}/api/players/download`,
-                    force: false,
-                    target: '_blank'
-                })
-            )
+        if (this.teams) {
+            for(const team in this.teams) {
+                items.add(
+                    team.name(),
+                    Button.component({
+                        title: team.name(),
+                        className: 'Button-team',
+                        onclick: (() => {
+                            this.teamId = team.id();
+                            m.redraw();
+                        })
+                    })
+                );
+            }
         }
-        */
 
         return items;
+    }
+
+    loadTeams() {
+
     }
 }

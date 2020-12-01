@@ -24,7 +24,6 @@ use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Extend;
-use Flarum\Search\SearchServiceProvider;
 use Flarum\User\User;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -59,7 +58,9 @@ return [
         ->route('/user/:id/updates', 'user.updates')
         ->route('/player/create', 'player.create')
         ->route('/players', 'players')
-        ->route('/updates', 'updates'),
+        ->route('/updates', 'updates')
+        ->route('/teams', 'teams')
+        ->route('/teams/:id', 'teams.show'),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);

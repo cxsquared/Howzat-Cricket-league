@@ -22,6 +22,7 @@ import UpdateDirectoryPage from './components/updates/UpdateDirectoryPage';
 import UpdateApprovedNotification from './notifications/UpdateApprovedNotification';
 import UpdateDeniedNotification from './notifications/UpdateDeniedNotification';
 import UpdatesUserPage from './components/updates/UpdatesUserPage';
+import TeamsPage from './components/teams/TeamsPage';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
     // New Models
@@ -41,6 +42,8 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     app.routes['user.player'] = { path: '/u/:username/player', component: PlayerUserPage };
     app.routes['user.updates'] = { path: '/u/:username/updates', component: UpdatesUserPage };
     app.routes['updates'] = { path: '/updates', component: UpdateDirectoryPage };
+    app.routes['teams'] = { path: '/teams', component: TeamsPage };
+    app.routes['teams.show'] = { path: '/teams/:id', component: TeamsPage };
 
     // Adding player button to UserPage
     extend(UserPage.prototype, 'navItems', function (items) {
