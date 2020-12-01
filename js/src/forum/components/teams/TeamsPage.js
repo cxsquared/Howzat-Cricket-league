@@ -5,6 +5,7 @@ import Page from 'flarum/components/Page';
 import IndexPage from 'flarum/components/IndexPage';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import Button from 'flarum/components/Button';
+import LinkButton from 'flarum/components/LinkButton';
 import SelectDropdown from 'flarum/components/SelectDropdown';
 import TeamCard from './TeamCard';
 
@@ -83,6 +84,22 @@ export default class TeamsPage extends Page {
      */
     navItems() {
         const items = IndexPage.prototype.navItems();
+
+        const href = this.teamId
+            ? app.route('teams.show', { id: this.teamId })
+            : app.route('teams');
+
+        items.add(
+            'hcl-team-directory',
+            LinkButton.component(
+                {
+                    href: href, 
+                    icon: 'fas fa-hiking',
+                },
+                app.translator.trans('hcl.forum.page.team_directory')
+            ),
+            85
+        );
 
         return items;
     }
