@@ -107,10 +107,10 @@ class UpdateUpdateHandler
 
     protected function apply_player_tpe($player, $update, $previousStatus)
     {
-        if ($previousStatus == 'pending' && $update->status == 'approved') {
+        if ($previousStatus !== 'approved' && $update->status === 'approved') {
             $player->banked_tpe += $update->tpe;
             $player->tpe += $update->tpe;
-        } else if ($previousStatus == 'approved' && $update->status != 'approved') {
+        } else if ($previousStatus === 'approved' && $update->status !== 'approved') {
             $player->banked_tpe -= $update->tpe;
             $player->tpe -= $update->tpe;
         }
