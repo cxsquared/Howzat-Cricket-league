@@ -4,7 +4,7 @@ export default function getNextDayOfWeek(date, dayOfWeek) {
 
     var resultDate = new Date(date.getTime());
 
-    resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
+    resultDate.setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7));
 
     return resultDate;
 }

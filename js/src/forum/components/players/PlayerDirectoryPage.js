@@ -124,14 +124,14 @@ export default class PlayerDirectoryPage extends Page {
             items.add(
                 'download',
                 LinkButton.component({
-                    title: app.translator.trans('hcl.forum.page.refresh_tooltip'),
+                    title: app.translator.trans('hcl.forum.page.download_tooltip'),
                     icon: 'fas fa-download',
                     className: 'Button Button--icon',
                     href: `${window.location.origin}${app.forum.attribute('basePath')}/api/players/download`,
                     force: false,
-                    target: '_blank'
+                    target: '_blank',
                 })
-            )
+            );
         }
 
         return items;

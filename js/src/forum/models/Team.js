@@ -8,6 +8,5 @@ Object.assign(Team.prototype, {
 
     gmUser: Model.hasOne('gmUser'),
     agmUser: Model.hasOne('agmUser'),
-    players: Model.hasMany('players')
+    players: Model.hasMany('players'),
 });
-

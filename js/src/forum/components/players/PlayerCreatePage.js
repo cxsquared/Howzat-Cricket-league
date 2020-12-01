@@ -11,10 +11,10 @@ export default class PlayerCreatePage extends Page {
         }
 
         if (app.session.user.player()) {
-            m.route.set(app.route('user.player', {username: app.session.user.username()}));
+            m.route.set(app.route('user.player', { username: app.session.user.username() }));
         }
 
-        this.player = { firstName: "", lastName: ""};
+        this.player = { firstName: '', lastName: '' };
 
         this.bodyClass = 'App--index';
     }
@@ -27,24 +27,22 @@ export default class PlayerCreatePage extends Page {
         this.player[attribute] = value;
     }
 
-    view () {
-        return <form onsubmit={this.onsubmit.bind(this)}
-                     className="container CreatePlayers-Players Form--centered">
-            <div>
-                {PlayerCreateCard.component({
-                    player: this.player,
-                    update: this.updatePlayer.bind(this)
-                })}
-            </div>
-            <div className="Form-group Submit">
-                <Button
-                    className="Button Button--primary Button--block"
-                    type="submit"
-                    loading={this.loading}>
+    view() {
+        return (
+            <form onsubmit={this.onsubmit.bind(this)} className="container CreatePlayers-Players Form--centered">
+                <div>
+                    {PlayerCreateCard.component({
+                        player: this.player,
+                        update: this.updatePlayer.bind(this),
+                    })}
+                </div>
+                <div className="Form-group Submit">
+                    <Button className="Button Button--primary Button--block" type="submit" loading={this.loading}>
                         Create
-                </Button>
-            </div>
-        </form>;
+                    </Button>
+                </div>
+            </form>
+        );
     }
 
     onsubmit(e) {
@@ -54,11 +52,14 @@ export default class PlayerCreatePage extends Page {
 
         let player = app.store.createRecord('players');
 
-        player.save(this.player).then((e) => {
-            this.loading = false;
-            m.route.set(app.route('user.player', {username: app.session.user.username()}));
-        }).catch(() => {
-            this.loading = false;
-        });
+        player
+            .save(this.player)
+            .then((e) => {
+                this.loading = false;
+                m.route.set(app.route('user.player', { username: app.session.user.username() }));
+            })
+            .catch(() => {
+                this.loading = false;
+            });
     }
 }

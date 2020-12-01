@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "flarum/*": ["./ClientApp/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}

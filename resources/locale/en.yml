@@ -84,9 +84,9 @@ hcl:
       team_directory: Teams 
       nav: Players
       refresh_tooltip: Refresh
+      download_tooltip: Download 
       new_update: New Update
       load_more_button: Load More
-    link:
     user:
       players_empty_text: It looks like there are no players here. 
       updates_empty_text: It looks like there are no updates here. 

@@ -75,7 +75,7 @@ export default class UpdateDirectoryPage extends Page {
                 onchange: this.changeStatus.bind(this),
             })
         );
- 
+
         return items;
     }
 
@@ -117,7 +117,7 @@ export default class UpdateDirectoryPage extends Page {
     /**
      * Redirect to the index page using the given status parameter.
      *
-     * @param {String} status 
+     * @param {String} status
      */
     changeStatus(status) {
         const params = this.params();
@@ -134,7 +134,7 @@ export default class UpdateDirectoryPage extends Page {
     stickyParams() {
         return {
             sort: m.route.param('sort'),
-            q: m.route.param('q')
+            q: m.route.param('q'),
         };
     }
 
@@ -162,4 +162,3 @@ export default class UpdateDirectoryPage extends Page {
         return IndexPage.prototype.navItems();
     }
 }
-

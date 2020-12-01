@@ -12,7 +12,7 @@ export default class PlayerSortMap {
             newest: '-createdAt',
             oldest: 'createdAt',
             newest_update: '-updatedAt',
-            oldest_update: 'updatedAt'
+            oldest_update: 'updatedAt',
         };
     }
 }
