@@ -47,6 +47,8 @@ hcl:
       no_tpe: No Availabe TPE
       submitt: Submit
       tpe: TPE 
+      tpa: TPA
+      role: Role 
       player: Player
       for_week: For Week
       type: Type
@@ -94,6 +96,8 @@ hcl:
       updates_link: Updates 
       for_week: "For Week Ending in {week}"
     player:
+      bowler: "{style} Bowler"
+      batter: Batter
       update:
         title: Update Player
         banked_tpe: TPE Remaining

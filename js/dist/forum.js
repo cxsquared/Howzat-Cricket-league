@@ -2371,6 +2371,35 @@ var TpeUtils = /*#__PURE__*/function () {
     return -1;
   };
 
+  TpeUtils.tpa = function tpa(stats) {
+    return stats.reduce(function (t, n) {
+      if (Number.isInteger(n)) {
+        var tpa = n - 40;
+        var totalTpa = 0;
+
+        while (tpa > 0) {
+          if (tpa > 50) {
+            totalTpa += 10;
+          } else if (tpa > 40) {
+            totalTpa += 5;
+          } else if (tpa > 35) {
+            totalTpa += 3;
+          } else if (tpa > 30) {
+            totalTpa += 2;
+          } else {
+            totalTpa += 1;
+          }
+
+          tpa--;
+        }
+
+        return t + totalTpa;
+      }
+
+      return t;
+    }, 0);
+  };
+
   return TpeUtils;
 }();
 
@@ -2489,6 +2518,26 @@ var UpdateTypeUtils = /*#__PURE__*/function () {
 }();
 
 
+
+/***/ }),
+
+/***/ "./src/common/utils/flag.js":
+/*!**********************************!*\
+  !*** ./src/common/utils/flag.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return flag; });
+var flagUrl = 'https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/svg/';
+function flag(countryCode) {
+  return m("img", {
+    src: "" + flagUrl + countryCode + ".svg",
+    alt: countryCode
+  });
+}
 
 /***/ }),
 
@@ -2636,7 +2685,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Button__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var flarum_helpers_username__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! flarum/helpers/username */ "flarum/helpers/username");
 /* harmony import */ var flarum_helpers_username__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(flarum_helpers_username__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _PlayerUpdateModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PlayerUpdateModal */ "./src/forum/components/players/PlayerUpdateModal.js");
+/* harmony import */ var _common_utils_flag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../common/utils/flag */ "./src/common/utils/flag.js");
+/* harmony import */ var _PlayerUpdateModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PlayerUpdateModal */ "./src/forum/components/players/PlayerUpdateModal.js");
+
 
 
 
@@ -2647,7 +2698,6 @@ __webpack_require__.r(__webpack_exports__);
 var seperator = m("div", {
   className: "PlayerCard-seperator"
 }, "|");
-var flagUrl = 'https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/svg/';
 /*
  * Attr
  * player
@@ -2678,7 +2728,7 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
   };
 
   _proto.toggleUpdating = function toggleUpdating() {
-    flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.modal.show(_PlayerUpdateModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.modal.show(_PlayerUpdateModal__WEBPACK_IMPORTED_MODULE_7__["default"], {
       player: this.player,
       onsave: this.onsave.bind(this)
     });
@@ -2731,13 +2781,9 @@ var PlayerCard = /*#__PURE__*/function (_Component) {
       }, text));
     }
 
-    var countryCode = player.nationality().toLowerCase();
     var nationality = m("div", {
       className: "PlayerCard-data-img"
-    }, m("img", {
-      src: "" + flagUrl + countryCode + ".svg",
-      alt: countryCode
-    }));
+    }, Object(_common_utils_flag__WEBPACK_IMPORTED_MODULE_6__["default"])(player.nationality().toLowerCase()));
     return m("div", {
       className: "PlayerCard-header",
       style: {
@@ -4068,10 +4114,18 @@ var PlayerUserPage = /*#__PURE__*/function (_UserPage) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TeamCard; });
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
-/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/app */ "flarum/app");
-/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_app__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var flarum_Component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/Component */ "flarum/Component");
-/* harmony import */ var flarum_Component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_Component__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! color */ "./node_modules/color/index.js");
+/* harmony import */ var color__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(color__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/app */ "flarum/app");
+/* harmony import */ var flarum_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_app__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var flarum_Component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/Component */ "flarum/Component");
+/* harmony import */ var flarum_Component__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_Component__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flarum_components_Link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flarum/components/Link */ "flarum/components/Link");
+/* harmony import */ var flarum_components_Link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Link__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _common_utils_flag__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../common/utils/flag */ "./src/common/utils/flag.js");
+
+
+
 
 
 
@@ -4092,15 +4146,32 @@ var TeamCard = /*#__PURE__*/function (_Component) {
   };
 
   _proto.view = function view() {
+    var style = {
+      backgroundImage: "url(" + this.team.logoLink() + ")",
+      backgroundColor: "" + color__WEBPACK_IMPORTED_MODULE_1___default()("#" + this.team.primaryColor()).darken(0.35).hex()
+    };
     return m("div", {
       className: "TeamCard"
-    }, this.team.name(), this.team.players().map(function (p) {
-      return p.name();
-    }));
+    }, m("div", {
+      className: "TeamCard-header",
+      style: style
+    }, m("h1", null, this.team.name())), m("div", {
+      className: "TeamCard-players"
+    }, m("legend", null), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.player')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.role')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.basics.tpa')), this.team.players().map(function (p) {
+      return [m("div", {
+        className: "TeamCard-flag"
+      }, Object(_common_utils_flag__WEBPACK_IMPORTED_MODULE_5__["default"])(p.nationality().toLowerCase())), m("div", null, m(flarum_components_Link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.route('user.player', {
+          username: p.user().username()
+        })
+      }, p.name())), m("div", null, p.isBowler() ? flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.bowler', {
+        style: flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans("hcl.forum.player.style." + p.bowlingStyle())
+      }) : flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.forum.player.batter')), m("div", null, p.tpa())];
+    })));
   };
 
   return TeamCard;
-}(flarum_Component__WEBPACK_IMPORTED_MODULE_2___default.a);
+}(flarum_Component__WEBPACK_IMPORTED_MODULE_3___default.a);
 
 
 
@@ -5733,6 +5804,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_Model__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_Model__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/utils/computed */ "flarum/utils/computed");
 /* harmony import */ var flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/utils/TpeUtils */ "./src/common/utils/TpeUtils.js");
+
 
 
 
@@ -5777,49 +5850,41 @@ Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"
   yorkerArmBall: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('yorkerArmBall'),
   tpe: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('tpe'),
   bankedTpe: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('bankedTpe'),
-  tpa: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace', 'footwork', 'timing', 'control', 'paceFlight', 'swingLegSpin', 'slowerBallOffSpin', 'seamDrift', 'accuracy', 'discipline', 'bouncerBounce', 'yorkerArmBall', function () {
+  // Computed
+  name: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('firstName', 'lastName', function (fn, ln) {
+    return fn + " " + ln;
+  }),
+  tpa: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('battingTpa', 'bowlingTpa', function (bat, bowl) {
+    return bat + bowl;
+  }),
+  battingTpa: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace', 'footwork', 'timing', 'control', function () {
     for (var _len = arguments.length, stats = new Array(_len), _key = 0; _key < _len; _key++) {
       stats[_key] = arguments[_key];
     }
 
-    return stats.reduce(function (t, n) {
-      if (Number.isInteger(n)) {
-        var tpa = n - 40;
-        var totalTpa = 0;
-
-        while (tpa > 0) {
-          if (tpa > 50) {
-            totalTpa += 10;
-          } else if (tpa > 40) {
-            totalTpa += 5;
-          } else if (tpa > 35) {
-            totalTpa += 3;
-          } else if (tpa > 30) {
-            totalTpa += 2;
-          } else {
-            totalTpa += 1;
-          }
-
-          tpa--;
-        }
-
-        return t + totalTpa;
-      }
-
-      return t;
-    }, 0);
+    return _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].tpa(stats);
   }),
-  createdAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('createdAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
-  updatedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updatedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transaformDate),
-  canEdit: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('canEdit'),
-  user: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('user'),
-  team: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('team'),
+  bowlingTpa: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('paceFlight', 'swingLegSpin', 'slowerBallOffSpin', 'seamDrift', 'accuracy', 'discipline', 'bouncerBounce', 'yorkerArmBall', function () {
+    for (var _len2 = arguments.length, stats = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      stats[_key2] = arguments[_key2];
+    }
+
+    return _common_utils_TpeUtils__WEBPACK_IMPORTED_MODULE_4__["default"].tpa(stats);
+  }),
+  isBowler: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('battingTpa', 'bowlingTpa', function (bat, bowl) {
+    return bowl > bat;
+  }),
   isPaceBowler: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('bowlingStyle', function (bs) {
     return bs.toLowerCase() === 'pace';
   }),
-  name: flarum_utils_computed__WEBPACK_IMPORTED_MODULE_3___default()('firstName', 'lastName', function (fn, ln) {
-    return fn + " " + ln;
-  })
+  // relationships
+  user: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('user'),
+  team: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.hasOne('team'),
+  // permissions
+  canEdit: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('canEdit'),
+  // audit trail
+  createdAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('createdAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transformDate),
+  updatedAt: flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.attribute('updatedAt', flarum_Model__WEBPACK_IMPORTED_MODULE_2___default.a.transaformDate)
 });
 
 /***/ }),

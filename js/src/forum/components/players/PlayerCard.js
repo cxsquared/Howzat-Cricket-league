@@ -3,10 +3,10 @@ import app from 'flarum/app';
 import Component from 'flarum/Component';
 import Button from 'flarum/components/Button';
 import username from 'flarum/helpers/username';
+import flag from '../../../common/utils/flag';
 import PlayerUpdateModal from './PlayerUpdateModal';
 
 const seperator = <div className="PlayerCard-seperator">|</div>;
-const flagUrl = 'https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/svg/';
 
 /*
  * Attr
@@ -79,10 +79,9 @@ export default class PlayerCard extends Component {
             );
         }
 
-        const countryCode = player.nationality().toLowerCase();
         const nationality = (
             <div className="PlayerCard-data-img">
-                <img src={`${flagUrl}${countryCode}.svg`} alt={countryCode} />
+                {flag(player.nationality().toLowerCase())}
             </div>
         );
 
