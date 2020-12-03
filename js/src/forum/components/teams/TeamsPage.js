@@ -132,14 +132,6 @@ export default class TeamsPage extends Page {
     }
 
     loadTeams() {
-        this.loading = true;
-
-        const preloadedTeams = app.preloadedApiDocument();
-
-        if (preloadedTeams) {
-            return Promise.resolve(preloadedTeams);
-        }
-
         const teams = app.store.all('teams');
         if (teams.length > 0) {
             return Promise.resolve(teams);
