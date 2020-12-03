@@ -15,8 +15,10 @@ use Cxsquared\HowzatCricketLeague\Api\Controller\CreatePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\CreateUpdateController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\DownloadPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\ListTeamsController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListUpdatesController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\ShowTeamController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdatePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdateUpdateController;
@@ -24,7 +26,6 @@ use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
 use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Extend;
-use Flarum\Search\SearchServiceProvider;
 use Flarum\User\User;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -52,14 +53,18 @@ return [
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
         ->post('/updates', 'updates', CreateUpdateController::class)
         ->get('/updates', 'updates.index', ListUpdatesController::class)
-        ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class),
+        ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class)
+        ->get('/teams', 'teams', ListTeamsController::class)
+        ->get('/teams/{id}', 'teams.show', ShowTeamController::class),
     
     (new Extend\Frontend('forum'))
-        ->route('/user/:id/player', 'user.player')
-        ->route('/user/:id/updates', 'user.updates')
+        ->route('/user/{username}/player', 'user.player')
+        ->route('/user/{username}/updates', 'user.updates')
         ->route('/player/create', 'player.create')
         ->route('/players', 'players')
-        ->route('/updates', 'updates'),
+        ->route('/updates', 'updates')
+        ->route('/teams/{id}', 'teams.show')
+        ->route('/teams', 'teams'),
 
     function (Dispatcher $events) {
         $events->subscribe(Listener\AddRelationships::class);

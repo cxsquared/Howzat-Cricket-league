@@ -21,7 +21,7 @@ Object.assign(Update.prototype, {
     updaterComment: Model.attribute('updaterComment'),
     player: Model.hasOne('player'),
 
-    isApproved: computed('status', (status) => status.toLowerCase() === "approved"),
-    isDenied: computed('status', (status) => status.toLowerCase() === "denied"),
-    isUnderReview: computed('status', (status) => status.toLowerCase() === "under_review"),
+    isApproved: computed('status', (status) => status.toLowerCase() === 'approved'),
+    isDenied: computed('status', (status) => status.toLowerCase() === 'denied'),
+    isUnderReview: computed('status', (status) => status.toLowerCase() === 'under_review'),
 });

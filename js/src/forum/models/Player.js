@@ -1,5 +1,6 @@
 import Model from 'flarum/Model';
 import computed from 'flarum/utils/computed';
+import TpeUtils from '../../common/utils/TpeUtils';
 
 export default class Player extends Model {}
 
@@ -33,47 +34,44 @@ Object.assign(Player.prototype, {
 
     tpe: Model.attribute('tpe'),
     bankedTpe: Model.attribute('bankedTpe'),
-    tpa: computed('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace',
-                   'footwork', 'timing', 'control', 'paceFlight', 'swingLegSpin',
-                   'slowerBallOffSpin', 'seamDrift', 'accuracy', 'discipline',
-                   'bouncerBounce', 'yorkerArmBall',
-                   (...stats) => stats.reduce((t, n) => {
-                        if (Number.isInteger(n)) {
-                            var tpa = n - 40;
-                            var totalTpa = 0;
 
-                            while (tpa > 0) {
-                                if (tpa > 50) {
-                                    totalTpa += 10;                                
-                                } else if (tpa > 40) {
-                                    totalTpa += 5;
-                                } else if (tpa > 35) {
-                                    totalTpa += 3;
-                                } else if (tpa > 30) {
-                                    totalTpa += 2;
-                                } else {
-                                    totalTpa += 1;
-                                }
+    // Computed
+    name: computed('firstName', 'lastName', (fn, ln) => `${fn} ${ln}`),
+    tpa: computed('battingTpa', 'bowlingTpa', (bat, bowl) => bat + bowl), 
+    battingTpa: computed(
+        'running',
+        'defense',
+        'attacking',
+        'lofted',
+        'vsSpin',
+        'vsPace',
+        'footwork',
+        'timing',
+        'control',
+        (...stats) => TpeUtils.tpa(stats)
+    ),
+    bowlingTpa: computed(
+        'paceFlight',
+        'swingLegSpin',
+        'slowerBallOffSpin',
+        'seamDrift',
+        'accuracy',
+        'discipline',
+        'bouncerBounce',
+        'yorkerArmBall',
+        (...stats) => TpeUtils.tpa(stats)
+    ),
+    isBowler: computed('battingTpa', 'bowlingTpa', (bat, bowl) => bowl > bat),
+    isPaceBowler: computed('bowlingStyle', (bs) => bs.toLowerCase() === 'pace'),
 
-                                tpa--;
-                            }
-
-                            return t + totalTpa;
-                        }
-
-                        return t;
-                   }, 0)),
-
-    createdAt: Model.attribute('createdAt', Model.transformDate),
-    updatedAt: Model.attribute('updatedAt', Model.transaformDate),
-
-    canEdit: Model.attribute('canEdit'),
-
+    // relationships
     user: Model.hasOne('user'),
     team: Model.hasOne('team'),
 
-    isPaceBowler: computed('bowlingStyle', (bs) => bs.toLowerCase() === "pace"),
+    // permissions
+    canEdit: Model.attribute('canEdit'),
 
-    name: computed('firstName', 'lastName', (fn, ln) => `${fn} ${ln}`)
-
+    // audit trail
+    createdAt: Model.attribute('createdAt', Model.transformDate),
+    updatedAt: Model.attribute('updatedAt', Model.transaformDate),
 });

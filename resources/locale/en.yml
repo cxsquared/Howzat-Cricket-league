@@ -47,6 +47,8 @@ hcl:
       no_tpe: No Availabe TPE
       submitt: Submit
       tpe: TPE 
+      tpa: TPA
+      role: Role 
       player: Player
       for_week: For Week
       type: Type
@@ -84,9 +86,9 @@ hcl:
       team_directory: Teams 
       nav: Players
       refresh_tooltip: Refresh
+      download_tooltip: Download 
       new_update: New Update
       load_more_button: Load More
-    link:
     user:
       players_empty_text: It looks like there are no players here. 
       updates_empty_text: It looks like there are no updates here. 
@@ -94,6 +96,8 @@ hcl:
       updates_link: Updates 
       for_week: "For Week Ending in {week}"
     player:
+      bowler: "{style} Bowler"
+      batter: Batter
       update:
         title: Update Player
         banked_tpe: TPE Remaining

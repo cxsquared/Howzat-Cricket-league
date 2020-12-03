@@ -4,7 +4,7 @@
 import SortMap from '../../common/utils/PlayerSortMap';
 
 export default class PlayersDirectoryState {
-    constructor(params = {}, app = window.app) {    
+    constructor(params = {}, app = window.app) {
         this.params = params;
         this.app = app;
         this.players = [];
@@ -30,7 +30,7 @@ export default class PlayersDirectoryState {
     sortMap() {
         return {
             default: '',
-            ...new SortMap().sortMap()
+            ...new SortMap().sortMap(),
         };
     }
 
@@ -44,7 +44,7 @@ export default class PlayersDirectoryState {
     }
 
     refreshParams(newParams) {
-        const hasNewParams = Object.keys(newParams).some(key => this.getParams()[key] != newParams[key]);
+        const hasNewParams = Object.keys(newParams).some((key) => this.getParams()[key] != newParams[key]);
         if (!this.hasPlayers() || hasNewParams) {
             this.params = newParams;
 

@@ -15,7 +15,7 @@ export default class PlayerUserPage extends UserPage {
 
         /**
          * Whether or not we are loading the players
-         * 
+         *
          * @type {Boolean}
          */
         this.loading = true;
@@ -36,10 +36,11 @@ export default class PlayerUserPage extends UserPage {
         if (!this.player && !this.loading) {
             let createNew = null;
             if (this.user === app.session.user) {
-                createNew = <LinkButton href={app.route("player.create")}
-                                        className="Button PlayersCreate">
-                                Create Players
-                            </LinkButton>;
+                createNew = (
+                    <LinkButton href={app.route('player.create')} className="Button PlayersCreate">
+                        Create Players
+                    </LinkButton>
+                );
             }
 
             return (
@@ -51,17 +52,14 @@ export default class PlayerUserPage extends UserPage {
         }
 
         if (this.loading) {
-            return (
-                LoadingIndicator.component()
-            );
+            return LoadingIndicator.component();
         }
 
         return (
             <div className="PlayersUserPage">
                 <ul className="PlayersUserPage-list">
                     <li>
-                        <PlayerCard player={this.player}
-                                    showUser={false} /> 
+                        <PlayerCard player={this.player} showUser={false} />
                     </li>
                 </ul>
             </div>
@@ -92,17 +90,18 @@ export default class PlayerUserPage extends UserPage {
 
     loadPlayers() {
         if (!this.player) {
-            app.store.find('users', `${this.user.id()}/player`, null, {
-                errorHandler() {
-                }
-            }).then(p => {
-                if (p)
-                    this.showPlayer(p);
-            }).catch(() => {
+            app.store
+                .find('users', `${this.user.id()}/player`, null, {
+                    errorHandler() {},
+                })
+                .then((p) => {
+                    if (p) this.showPlayer(p);
+                })
+                .catch(() => {
                     this.loading = false;
                     this.player = null;
                     m.redraw();
-            });
+                });
         }
     }
 
@@ -112,5 +111,4 @@ export default class PlayerUserPage extends UserPage {
 
         m.redraw();
     }
-
 }

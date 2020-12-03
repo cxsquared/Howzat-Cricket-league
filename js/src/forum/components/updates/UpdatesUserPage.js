@@ -43,7 +43,7 @@ export default class UpdatesUserPage extends UserPage {
                     <ul className="IndexPage-toolbar-view">{listItems(this.viewItems().toArray())}</ul>
                     <ul className="IndexPage-toolbar-action">{listItems(this.actionItems().toArray())}</ul>
                 </div>
-            )
+            );
         }
 
         if (this.updates.length === 0 && !this.loading) {
@@ -70,7 +70,7 @@ export default class UpdatesUserPage extends UserPage {
         }
 
         // https://www.robinwieruch.de/javascript-groupby
-        const updatesByWeek = this.updates.reduce((groups, update) =>{
+        const updatesByWeek = this.updates.reduce((groups, update) => {
             const weekEndingKey = update.weekEnding().toLocaleDateString();
             if (!groups[weekEndingKey]) {
                 groups[weekEndingKey] = [];
@@ -85,21 +85,20 @@ export default class UpdatesUserPage extends UserPage {
             <div className="PostsUserPage UpdatesUserPage">
                 {header}
                 <ul className="PostsUserPage-list UpdatesUserPage-list">
-                    {Object.keys(updatesByWeek).sort((a, b) => new Date(b) - new Date(a)).map((weekEndingKey) => (
-                        <li>
-                            <div className="PostsUserPage-discussion UpdatesUserPage-week">
-                                {app.translator.trans('hcl.forum.user.for_week', {
-                                    week: weekEndingKey 
-                                })}
-                            </div>
-                            <UpdateGroupCard updates={updatesByWeek[weekEndingKey]}
-                                             user={this.user} />
-                        </li>
-                    ))}
+                    {Object.keys(updatesByWeek)
+                        .sort((a, b) => new Date(b) - new Date(a))
+                        .map((weekEndingKey) => (
+                            <li>
+                                <div className="PostsUserPage-discussion UpdatesUserPage-week">
+                                    {app.translator.trans('hcl.forum.user.for_week', {
+                                        week: weekEndingKey,
+                                    })}
+                                </div>
+                                <UpdateGroupCard updates={updatesByWeek[weekEndingKey]} user={this.user} />
+                            </li>
+                        ))}
                 </ul>
-                <div className="PostsUserPage-loadMore UdatesUserPage-loadMore">
-                    {footer}
-                </div>
+                <div className="PostsUserPage-loadMore UdatesUserPage-loadMore">{footer}</div>
             </div>
         );
     }
@@ -123,7 +122,7 @@ export default class UpdatesUserPage extends UserPage {
                 },
             })
         );
- 
+
         return items;
     }
 
@@ -132,17 +131,18 @@ export default class UpdatesUserPage extends UserPage {
 
         items.add(
             'new-update',
-            <Button title={app.translator.trans('hcl.forum.page.new_update')}
-                    icon='fas fa-certificate'
-                    className='Button'
-                    onclick={() => app.modal.show(UpdateCreateModal, { })}>
+            <Button
+                title={app.translator.trans('hcl.forum.page.new_update')}
+                icon="fas fa-certificate"
+                className="Button"
+                onclick={() => app.modal.show(UpdateCreateModal, {})}
+            >
                 {app.translator.trans('hcl.forum.page.new_update')}
             </Button>
         );
 
         return items;
     }
-
 
     /**
      * Initialize the component with a user, and trigger the loading
@@ -171,15 +171,15 @@ export default class UpdatesUserPage extends UserPage {
         if (app.session.user != this.user) {
             q += ' status:approved';
         } else {
-            q += ` ${this.sortMap.statusMap()[this.status]}`
+            q += ` ${this.sortMap.statusMap()[this.status]}`;
         }
 
         return app.store.find('updates', {
             filter: {
-                q 
+                q,
             },
-            page: {offset, limit: this.loadLimit },
-            sort: '-submittedAt'
+            page: { offset, limit: this.loadLimit },
+            sort: '-submittedAt',
         });
     }
 
@@ -198,5 +198,4 @@ export default class UpdatesUserPage extends UserPage {
         m.redraw();
         return results;
     }
-
 }

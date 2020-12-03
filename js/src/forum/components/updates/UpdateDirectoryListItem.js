@@ -8,7 +8,7 @@ export default class UpdateDirectoryListItem extends Component {
         return (
             <div className="UpdateEditCardItem">
                 {UpdateEditCard.component({
-                    update
+                    update,
                 })}
             </div>
         );

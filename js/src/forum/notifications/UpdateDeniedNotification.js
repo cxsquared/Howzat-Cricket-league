@@ -7,11 +7,11 @@ export default class UpdateDeniedNotification extends Notification {
     }
 
     href() {
-        return app.route('user.updates', {username: app.session.user.username()});
+        return app.route('user.updates', { username: app.session.user.username() });
     }
 
     content() {
-        return app.translator.trans('hcl.forum.notifications.update_denied', { user: this.attrs.notification.fromUser() })
+        return app.translator.trans('hcl.forum.notifications.update_denied', { user: this.attrs.notification.fromUser() });
     }
 
     excerpt() {

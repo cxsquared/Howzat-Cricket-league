@@ -6,7 +6,7 @@ export default class UpdateSortMap {
     sortMap() {
         return {
             newest: '-submittedAt',
-            oldest: 'submittedAt'
+            oldest: 'submittedAt',
         };
     }
 
@@ -16,7 +16,7 @@ export default class UpdateSortMap {
             all: 'all',
             under_review: 'status:under_review',
             approved: 'status:approved',
-            denied: 'status:denied'
-        }
+            denied: 'status:denied',
+        };
     }
 }

@@ -9,7 +9,7 @@ export default class PlayerDirectoryListItem extends Component {
             <div className="User">
                 {PlayerCard.component({
                     player,
-                    showUser: true
+                    showUser: true,
                 })}
             </div>
         );

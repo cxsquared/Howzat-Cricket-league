@@ -9,8 +9,5 @@ Object.assign(PlayerMovement.prototype, {
 
     player: Model.hasOne('player'),
     fromTeam: Model.hasOne('fromTeam'),
-    toTeam: Model.hasMany('toTeam')
+    toTeam: Model.hasMany('toTeam'),
 });
-
-
-

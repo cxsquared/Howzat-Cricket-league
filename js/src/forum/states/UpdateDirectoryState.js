@@ -4,7 +4,7 @@
 import SortMap from '../../common/utils/UpdateSortMap';
 
 export default class UpdateDirectoryState {
-    constructor(params = {}, app = window.app) {    
+    constructor(params = {}, app = window.app) {
         this.params = params;
         this.app = app;
         this.updates = [];
@@ -22,8 +22,7 @@ export default class UpdateDirectoryState {
         // don't send anything is all is selected
         // and default to pending if nothing is set
         if (this.params.q) {
-            if (this.params.q != 'all')
-                params.filter.q = this.statusMap()[this.params.q];
+            if (this.params.q != 'all') params.filter.q = this.statusMap()[this.params.q];
         } else {
             params.filter.q = this.statusMap()['pending'];
         }
@@ -34,7 +33,7 @@ export default class UpdateDirectoryState {
     sortMap() {
         return {
             default: '',
-            ...new SortMap().sortMap()
+            ...new SortMap().sortMap(),
         };
     }
 
@@ -52,7 +51,7 @@ export default class UpdateDirectoryState {
     }
 
     refreshParams(newParams) {
-        const hasNewParams = Object.keys(newParams).some(key => this.getParams()[key] != newParams[key]);
+        const hasNewParams = Object.keys(newParams).some((key) => this.getParams()[key] != newParams[key]);
         if (!this.hasUpdates() || hasNewParams) {
             this.params = newParams;
 
@@ -69,8 +68,7 @@ export default class UpdateDirectoryState {
             (results) => {
                 const playersToLoad = results.reduce((existingIds, update) => {
                     const id = update.submittedUser().id();
-                    if (!update.submittedUser().player() && !existingIds.includes(id))
-                        existingIds.push(id);
+                    if (!update.submittedUser().player() && !existingIds.includes(id)) existingIds.push(id);
 
                     return existingIds;
                 }, []);
@@ -81,16 +79,15 @@ export default class UpdateDirectoryState {
 
                 playersToLoad.forEach((id, i) => {
                     if (i === playersToLoad.length - 1) {
-                        app.store.find('users', `${id}/player`, null, {
-                            errorHandler() {
-                            }
-                        }).then(() => this.parseResults(results));
-
+                        app.store
+                            .find('users', `${id}/player`, null, {
+                                errorHandler() {},
+                            })
+                            .then(() => this.parseResults(results));
                     } else {
                         app.store.find('users', `${id}/player`, null, {
-                            errorHandler() {
-                            }
-                        })
+                            errorHandler() {},
+                        });
                     }
                 });
             },
