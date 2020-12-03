@@ -141,7 +141,7 @@ export default class TeamsPage extends Page {
         }
 
         const teams = app.store.all('teams');
-        if (teams.length > 0) {
+        if (teams.length > 0 && teams.every(t => t.players())) {
             return Promise.resolve(teams);
         }
 
