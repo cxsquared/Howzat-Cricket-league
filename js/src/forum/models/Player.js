@@ -37,18 +37,9 @@ Object.assign(Player.prototype, {
 
     // Computed
     name: computed('firstName', 'lastName', (fn, ln) => `${fn} ${ln}`),
-    tpa: computed('battingTpa', 'bowlingTpa', (bat, bowl) => bat + bowl), 
-    battingTpa: computed(
-        'running',
-        'defense',
-        'attacking',
-        'lofted',
-        'vsSpin',
-        'vsPace',
-        'footwork',
-        'timing',
-        'control',
-        (...stats) => TpeUtils.tpa(stats)
+    tpa: computed('battingTpa', 'bowlingTpa', (bat, bowl) => bat + bowl),
+    battingTpa: computed('running', 'defense', 'attacking', 'lofted', 'vsSpin', 'vsPace', 'footwork', 'timing', 'control', (...stats) =>
+        TpeUtils.tpa(stats)
     ),
     bowlingTpa: computed(
         'paceFlight',

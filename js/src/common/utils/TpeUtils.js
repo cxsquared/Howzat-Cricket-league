@@ -49,6 +49,6 @@ export default class TpeUtils {
             }
 
             return t;
-        }, 0)
+        }, 0);
     }
 }

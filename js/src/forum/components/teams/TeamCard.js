@@ -13,13 +13,12 @@ export default class TeamCard extends Component {
     view() {
         const style = {
             backgroundImage: `url(${this.team.logoLink()})`,
-            backgroundColor: `${Color(`#${this.team.primaryColor()}`).darken(0.35).hex()}`
+            backgroundColor: `${Color(`#${this.team.primaryColor()}`).darken(0.35).hex()}`,
         };
 
         return (
             <div className="TeamCard">
-                <div className="TeamCard-header"
-                     style={style} >
+                <div className="TeamCard-header" style={style}>
                     <h1>{this.team.name()}</h1>
                 </div>
                 <div className="TeamCard-players">
@@ -31,16 +30,16 @@ export default class TeamCard extends Component {
                         return [
                             <div className="TeamCard-flag">{flag(p.nationality().toLowerCase())}</div>,
                             <div>
-                                <Link href={app.route('user.player', { username: p.user().username() })}>
-                                    {p.name()}
-                                </Link>
+                                {p.user() ? <Link href={app.route('user.player', { username: p.user().username() })}>{p.name()}</Link> : p.name()}
                             </div>,
                             <div>
                                 {p.isBowler()
-                                    ? app.translator.trans('hcl.forum.player.bowler', { style: app.translator.trans(`hcl.forum.player.style.${p.bowlingStyle()}`)})
+                                    ? app.translator.trans('hcl.forum.player.bowler', {
+                                          style: app.translator.trans(`hcl.forum.player.style.${p.bowlingStyle()}`),
+                                      })
                                     : app.translator.trans('hcl.forum.player.batter')}
                             </div>,
-                            <div>{p.tpa()}</div>
+                            <div>{p.tpa()}</div>,
                         ];
                     })}
                 </div>

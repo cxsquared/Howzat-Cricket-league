@@ -79,11 +79,7 @@ export default class PlayerCard extends Component {
             );
         }
 
-        const nationality = (
-            <div className="PlayerCard-data-img">
-                {flag(player.nationality().toLowerCase())}
-            </div>
-        );
+        const nationality = <div className="PlayerCard-data-img">{flag(player.nationality().toLowerCase())}</div>;
 
         return (
             <div className="PlayerCard-header" style={{ backgroundColor: bgColor, color: textColor }}>
