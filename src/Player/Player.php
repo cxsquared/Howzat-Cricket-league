@@ -32,6 +32,11 @@ class Player extends AbstractModel
         return $this->hasMany(PlayerMovement::class);
     }
 
+    public function player_role()
+    {
+        return $this->hasOne(PlayerRole::class);
+    }
+
     public function updateUpdatedAt()
     {
         $this->updated_at = Carbon::now();
