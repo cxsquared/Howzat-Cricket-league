@@ -12,7 +12,7 @@ class ListTeamsController extends AbstractListController
 {
     public $serializer = TeamSerializer::class;
 
-    public $include = ['players', 'gm_user', 'agm_user', 'players.user'];
+    public $include = ['players', 'gm_user', 'agm_user', 'players.user', 'players.role'];
 
     protected function data(Request $request, Document $document)
     {
