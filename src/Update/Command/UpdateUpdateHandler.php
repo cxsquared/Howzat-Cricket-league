@@ -81,16 +81,19 @@ class UpdateUpdateHandler
             $update->date = $attributes['date'];
         }
         if(isset($attributes['link'])) {
-            $update->date = $attributes['link'];
+            $update->link = $attributes['link'];
         }
         if(isset($attributes['type'])) {
-            $update->date = $attributes['type'];
+            $update->type = $attributes['type'];
         }
         if(isset($attributes['comment'])) {
-            $update->date = $attributes['comment'];
+            $update->comment = $attributes['comment'];
         }
         if(isset($attributes['tpe'])) {
-            $update->date = $attributes['tpe'];
+            $update->tpe = $attributes['tpe'];
+        }
+        if(isset($attributes['isCapped'])) {
+            $update->is_capped = $attributes['isCapped'];
         }
 
         $this->events->dispatch(
