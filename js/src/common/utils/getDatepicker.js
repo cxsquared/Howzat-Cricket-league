@@ -3,7 +3,7 @@ import getNextDayOfWeek from './getNextDayOfWeek';
 
 export default function getDatepicker(selector, date, onSelect) {
     let now = new Date();
-    let maxDate;
+    let maxDate = now;
 
     if (now.getDay() === 0) {
         maxDate.setDate(date.getDate() + 7);
