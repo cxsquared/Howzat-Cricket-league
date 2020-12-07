@@ -48,7 +48,7 @@ export default class UpdateCreateModal extends Modal {
         // Using a hidden input to avoid autofocussing the first date input"
         return (
             <div className="Modal-body">
-                <input type="hidden" autofocus="true" tabindex={-1} />;
+                <input type="hidden" autofocus="true" tabindex={-1} />
                 <div className="Update--datepicker Form-group">
                     <label for="datepicker">{app.translator.trans('hcl.forum.updates.week_ending')}</label>
                     <input id="Update-datepicker" className="FormControl" type="text" required autocomplete="off" />
