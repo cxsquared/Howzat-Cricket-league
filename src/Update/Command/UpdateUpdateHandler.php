@@ -32,7 +32,7 @@ class UpdateUpdateHandler
         $update = Update::findOrFail($command->updateId);
         $player = $this->players->findOrFailByUserId($update->submitted_user->id);
 
-        $actor->assertCan('update', $update);
+        $actor->assertCan('edit', $update);
 
         $attributes = Arr::get($data, 'attributes', []);
 
