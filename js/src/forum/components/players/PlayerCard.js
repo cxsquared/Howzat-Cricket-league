@@ -40,9 +40,7 @@ export default class PlayerCard extends Component {
     }
 
     buildHeader(player) {
-        const colorString = this.player.user() && this.player.user().color()
-            ? this.player.user().color()
-            : '#675555';
+        const colorString = this.player.user() && this.player.user().color() ? this.player.user().color() : '#675555';
 
         const bgColor = Color(colorString);
         const textColor = bgColor.isLight() ? '#111' : '#fff';

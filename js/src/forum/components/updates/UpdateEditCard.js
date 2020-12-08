@@ -6,6 +6,7 @@ import username from 'flarum/helpers/username';
 import humanTime from 'flarum/helpers/humanTime';
 import Component from 'flarum/Component';
 import Button from 'flarum/components/Button';
+import Checkbox from 'flarum/components/Checkbox';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import getDatepicker from '../../../common/utils/getDatepicker';
 
@@ -29,6 +30,7 @@ export default class UpdateEditCard extends Component {
         this.updaterComment = new Stream(this.update.updaterComment());
         this.tpe = new Stream(this.update.tpe());
         this.date = new Stream(this.update.weekEnding());
+        this.isCapped = this.update.isCapped();
     }
 
     oncreate(vnode) {
@@ -70,7 +72,9 @@ export default class UpdateEditCard extends Component {
                     <div className="UpdateEditCard-fields">
                         <div className="UpdateEditCard-item">
                             <legend>{app.translator.trans('hcl.forum.basics.player')}</legend>
-                            {this.player.name()} (
+                            <a href={app.route('user.updates', { username: this.update.submittedUser().username() })}>
+                                {this.player.name()} (
+                            </a>
                             <a href={app.route('user', { username: this.update.submittedUser().username() })}>
                                 {username(this.update.submittedUser())}
                             </a>
@@ -87,6 +91,10 @@ export default class UpdateEditCard extends Component {
                         <div className="UpdateEditCard-item UpdateEditCard-tpe">
                             <legend>{app.translator.trans('hcl.forum.basics.tpe')}</legend>
                             <input type="number" min={1} max={12} className="UpdateEditCard-tpe" bidi={this.tpe} />
+                        </div>
+                        <div className="UpdateEditCard-item Checkbox">
+                            <legend>{app.translator.trans('hcl.forum.basics.capped')}</legend>
+                            <Checkbox state={this.isCapped} onchange={(v) => (this.isCapped = v)} loading={this.saving} />
                         </div>
                         <div className="UpdateEditCard-item UpdateEditCard-full">
                             <legend>{app.translator.trans('hcl.forum.basics.link')}</legend>
@@ -187,6 +195,8 @@ export default class UpdateEditCard extends Component {
         if (datea != dateb) data.date = dayjs(this.date()).format('YYYY-MM-DD');
 
         if (this.tpe() != this.update.tpe()) data.tpe = this.tpe();
+
+        if (this.update.isCapped !== this.isCapped) data.isCapped = this.isCapped;
 
         return data;
     }

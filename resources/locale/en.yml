@@ -40,6 +40,7 @@ hcl:
     basics:
       approved_by: Approved By
       capped: Capped
+      capped_this_week: Weekly Capped TPE 
       claim_tpe: Claim for TPE
       save_skills: Save Skills
       reset: Reset

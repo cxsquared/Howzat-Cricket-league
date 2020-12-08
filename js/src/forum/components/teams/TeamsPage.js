@@ -136,12 +136,12 @@ export default class TeamsPage extends Page {
 
         const preloadedTeams = app.preloadedApiDocument();
 
-        if (preloadedTeams && preloadedTeams.every(t => t.players())) {
+        if (preloadedTeams && preloadedTeams.every((t) => t.players())) {
             return Promise.resolve(preloadedTeams);
         }
 
         const teams = app.store.all('teams');
-        if (teams.length > 0 && teams.every(t => t.players())) {
+        if (teams.length > 0 && teams.every((t) => t.players())) {
             return Promise.resolve(teams);
         }
 
