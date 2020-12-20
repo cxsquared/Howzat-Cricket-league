@@ -36,12 +36,12 @@ class CreateUpdateHandler
         $link = Arr::get($data, 'attributes.link');
         $is_capped = TypeHelper::isCapped($type);
 
-        if ($link !== null && $link !== '' && $actor->submitted_updates()->where('link', $link)->exists()) {
+        if ($link !== null && $link !== '' && $actor->submitted_updates()->where('link', $link)->where('type', $type)->where('status', '<>', 'denied')->exists()) {
             // TODO: Update this to use the translator
             throw new ValidationException(['update' => "You've already claimed this link."]);
         }
 
-        $updatesThisWeek = $actor->submitted_updates()->whereDate('date', $date)->get();
+        $updatesThisWeek = $actor->submitted_updates()->whereDate('date', $date)->where('status', '<>', 'denied')->get();
 
         $update = Update::createUpdate(
             $date,

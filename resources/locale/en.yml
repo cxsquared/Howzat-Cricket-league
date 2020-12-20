@@ -81,6 +81,7 @@ hcl:
         job: Job 
         predictions: Predictions 
         other: Other 
+        baseTpe: Base TPE
     page:
       empty_text: There's no items to show
       player_directory: Players
