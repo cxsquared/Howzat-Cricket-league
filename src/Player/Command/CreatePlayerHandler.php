@@ -3,6 +3,7 @@
 namespace Cxsquared\HowzatCricketLeague\Player\Command;
 
 use Carbon\Carbon;
+use Cxsquared\HowzatCricketLeague\Player\Event\Created;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\Event\Saving;
@@ -60,6 +61,10 @@ class CreatePlayerHandler
         $this->validator->assertValid($player->getAttributes());
 
         $player->save();
+
+        $this->events->dispatch(
+            new Created($player, $actor)
+        );
 
         $this->dispatchEventsFor($player, $actor);
 

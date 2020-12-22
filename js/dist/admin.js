@@ -154,6 +154,11 @@ flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.initializers.add('cxsquared/ho
         }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.admin.headings.player_tag_id')), m(NumberItem, {
           name: "hcl.player-tag-id",
           setting: s
+        }), m("legend", {
+          classname: "hcl-legend"
+        }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.admin.headings.captain_group_id')), m(NumberItem, {
+          name: "hcl.captain-group-id",
+          setting: s
         }))];
       }
     });

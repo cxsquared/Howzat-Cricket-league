@@ -83,6 +83,4 @@ class AddRelationships
             $event->addInclude('agm_team');
         }
     }
-
-
 }

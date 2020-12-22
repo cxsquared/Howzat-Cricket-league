@@ -73,5 +73,6 @@ return [
         $events->subscribe(Listener\AddSettings::class);
         $events->subscribe(Listener\SendUpdateNotifications::class);
         $events->subscribe(Listener\AddNotifications::class);
+        $events->subscribe(Listener\PlayerEvents::class);
     }
 ];

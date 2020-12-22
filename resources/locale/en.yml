@@ -21,6 +21,7 @@ hcl:
     headings:
       bot_id: Bot User Id
       player_tag_id: Player Tag Id
+      captain_group_id: Captain Group Id
     permissions:
       update_players: Update Players
   forum:
