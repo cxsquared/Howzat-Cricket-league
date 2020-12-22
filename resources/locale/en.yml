@@ -17,6 +17,10 @@ hcl:
       all: All 
       under_review: Under Review
   admin:
+    title: Howzat Cricket League Settings
+    headings:
+      bot_id: Bot User Id
+      player_tag_id: Player Tag Id
     permissions:
       update_players: Update Players
   forum:

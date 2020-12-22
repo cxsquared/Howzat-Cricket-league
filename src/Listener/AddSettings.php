@@ -26,6 +26,8 @@ class AddSettings
         if ($event->isSerializer(ForumSerializer::class)) {
             $event->attributes['canEditUpdates'] = $event->actor->hasPermissionLike('update.edit');
             $event->attributes['hcl.maxWeeklyCapped'] = (int) $this->settings->get('hcl.max-weekly-capped', 9);
+            $event->attributes['hcl.botId'] = (int) $this->settings->get('hcl.bot-id', 18);
+            $event->attributes['hcl.playerTagId'] = (int) $this->settings->get('hcl.player-tag-id', 14);
         }
     }
 }
