@@ -48,7 +48,7 @@ class CreatePlayerHandler
         );
 
         // Starting Banked TPE is 30
-        $player = $player->updateTpe(0, 30);
+        $player = $player->updateTpe(30, 30);
 
         // Default TPE is 40.
         // Not sure why we can't just use the defaults from the DB schema
