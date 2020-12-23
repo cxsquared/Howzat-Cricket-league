@@ -32,6 +32,7 @@ class PlayerEvents
 
     public function onPlayerCreated(Created $event)
     {
+        // Post recruitment Thread
         $captainGroupId = $this->settings->get('hcl.captain-group-id', 13);
         $captains = Group::findOrFail($captainGroupId)->users()->get();
 

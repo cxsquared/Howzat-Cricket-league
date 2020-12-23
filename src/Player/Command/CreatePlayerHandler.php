@@ -7,7 +7,10 @@ use Cxsquared\HowzatCricketLeague\Player\Event\Created;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\Event\Saving;
+use Cxsquared\HowzatCricketLeague\Update\DateHelper;
+use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Foundation\DispatchEventsTrait;
+use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
@@ -17,10 +20,13 @@ class CreatePlayerHandler
 
     protected $validator;
 
-    public function __construct(Dispatcher $events, PlayerValidator $validator)
+    protected $settings;
+
+    public function __construct(Dispatcher $events, PlayerValidator $validator, SettingsRepositoryInterface $settings)
     {
         $this->events = $events;
         $this->validator = $validator;
+        $this->settings = $settings;
     }
 
     public function handle(CreatePlayer $command)
@@ -67,6 +73,11 @@ class CreatePlayerHandler
         );
 
         $this->dispatchEventsFor($player, $actor);
+
+        $update = Update::createUpdate(DateHelper::getNextUpdateDate(), $actor->id, "", 'baseTpe', "", 30, false);
+        $update->approve($this->settings->get('hcl.bot-id', 18));
+
+        $update->save();
 
         return $player;
     }
