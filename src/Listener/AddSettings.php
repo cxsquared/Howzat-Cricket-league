@@ -29,6 +29,7 @@ class AddSettings
             $event->attributes['hcl.botId'] = (int) $this->settings->get('hcl.bot-id', 18);
             $event->attributes['hcl.playerTagId'] = (int) $this->settings->get('hcl.player-tag-id', 14);
             $event->attributes['hcl.captainGroupId'] = (int) $this->settings->get('hcl.captain-group-id', 13);
+            $event->attributes['hcl.viceCaptainGroupId'] = (int) $this->settings->get('hcl.vice-captain-group-id', 13);
         }
     }
 }

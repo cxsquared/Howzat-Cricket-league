@@ -2,6 +2,7 @@ import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import Model from 'flarum/Model';
 import User from 'flarum/models/User';
+import UserControls from 'flarum/utils/UserControls';
 import PostControls from 'flarum/utils/PostControls';
 import Button from 'flarum/components/Button';
 import HeaderPrimary from 'flarum/components/HeaderPrimary';
@@ -23,6 +24,7 @@ import UpdateApprovedNotification from './notifications/UpdateApprovedNotificati
 import UpdateDeniedNotification from './notifications/UpdateDeniedNotification';
 import UpdatesUserPage from './components/updates/UpdatesUserPage';
 import TeamsPage from './components/teams/TeamsPage';
+import MakeCaptainModal from './components/teams/MakeCaptainModal';
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
     // New Models
@@ -35,6 +37,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     User.prototype.player = Model.hasOne('player');
     User.prototype.submittedUpdates = Model.hasMany('submittedUpdates');
     User.prototype.gmTeam = Model.hasOne('gmTeam');
+    User.prototype.agmTeam = Model.hasOne('agmTeam');
 
     // New Routes
     app.routes['players'] = { path: '/players', component: PlayerDirectoryPage };
@@ -116,6 +119,18 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
         );
     });
 
+    // User Controls
+    extend(UserControls, 'moderationControls', (items, user) => {
+        if (app.forum.attribute('adminUrl')) {
+            items.add(
+                'hcl.gm',
+                <Button icon='fas fa-copyright' onclick={() => app.modal.show(MakeCaptainModal, {captain:true, user:user})} >
+                    {app.translator.trans('hcl.forum.profile.make_captain')}
+                </Button>
+            );
+        }
+    });
+
     // Update button
     extend(SessionDropdown.prototype, 'items', (items) => {
         if (app.forum.attribute('canEditUpdates')) {
@@ -170,7 +185,7 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
             LinkButton.component(
                 {
                     href: app.route('teams'),
-                    icon: 'fas fa-hiking',
+                    icon: 'fas fa-users',
                 },
                 app.translator.trans('hcl.forum.page.team_directory')
             ),

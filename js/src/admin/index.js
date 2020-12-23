@@ -42,6 +42,8 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
                     <NumberItem name="hcl.player-tag-id" setting={s} />
                     <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.captain_group_id')}</legend>
                     <NumberItem name="hcl.captain-group-id" setting={s} />
+                    <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.vice_captain_group_id')}</legend>
+                    <NumberItem name="hcl.vice-captain-group-id" setting={s} />
                 </div>
             ]
         });
