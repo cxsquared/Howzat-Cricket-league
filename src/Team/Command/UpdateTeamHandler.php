@@ -2,6 +2,7 @@
 
 namespace Cxsquared\HowzatCricketLeague\Team\Command;
 
+use Cxsquared\HowzatCricketLeague\HclSettingsUtils;
 use Cxsquared\HowzatCricketLeague\Team\Event\TeamAgmChanged;
 use Cxsquared\HowzatCricketLeague\Team\Event\TeamGmChanged;
 use Cxsquared\HowzatCricketLeague\Team\Team;
@@ -46,12 +47,20 @@ class UpdateTeamHandler
             $oldGm = $gm;
 
             if ($oldGm !== $newGm) {
-                $oldGm->groups()->detach()
                 $team->raise(
                     new TeamGmChanged($team, $actor, $oldGm)
                 );
 
+                $captainGroupId = HclSettingsUtils::GetCaptainGroupId($this->settings);
+
+                if ($oldGm) {
+                    $oldGm->groups()->detach($captainGroupId);
+                }
+
+                $newGm->groups()->attach($captainGroupId);
+
                 $team->gm_user()->associate($newGm);
+
                 $gm = $newGm;
             }
         }
@@ -70,6 +79,13 @@ class UpdateTeamHandler
                 $team->raise(
                     new TeamAgmChanged($team, $actor, $oldAgm)
                 );
+
+                $viceCaptainGroupId = HclSettingsUtils::GetViceCaptainGroupId($this->settings);
+
+                if ($oldAgm) {
+                    $oldAgm->groups()->detach($viceCaptainGroupId);
+                }
+                $newAgm->groups()->attach($viceCaptainGroupId);
 
                 $team->agm_user()->associate($newAgm);
                 $agm = $newAgm;
