@@ -3,6 +3,7 @@
 namespace Cxsquared\HowzatCricketLeague\Update\Command;
 
 use Carbon\Carbon;
+use Cxsquared\HowzatCricketLeague\HclSettingsUtils;
 use Cxsquared\HowzatCricketLeague\Update\Event\Saving;
 use Cxsquared\HowzatCricketLeague\Update\TypeHelper;
 use Cxsquared\HowzatCricketLeague\Update\Update;
@@ -53,7 +54,7 @@ class CreateUpdateHandler
             $is_capped
         );
 
-        TypeHelper::canClaim($updatesThisWeek, $update, $this->settings->get('hcl.max-weekly-capped', 9));
+        TypeHelper::canClaim($updatesThisWeek, $update, HclSettingsUtils::GetMaxWeeklyCapped($this->settings));
 
         $this->events->dispatch(
             new Saving($update, $actor, $data)

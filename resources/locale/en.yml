@@ -30,6 +30,11 @@ hcl:
       denied: Update Denied 
       underReview: Update put Under Review 
       comment_required: You must include an updater comment to deny a claim
+      set_captain: User set as Captain 
+      set_vice_captain: User set as vice captain
+    title:
+      captain_modal: Set as Captain 
+      vice_captain_modal: Set as Vice Captain 
     nav:
       claim_tpe: Claim TPE 
       players_create: Create Player

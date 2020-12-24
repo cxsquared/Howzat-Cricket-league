@@ -19,15 +19,24 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
             },
             75
         ),
-            items.add(
-                'updateUpdates',
-                {
-                    icon: 'fas fa-pen-nib',
-                    label: 'Manged Updates',
-                    permission: 'update.edit',
-                },
-                80
-            );
+        items.add(
+            'updateUpdates',
+            {
+                icon: 'fas fa-pen-nib',
+                label: 'Manage Updates',
+                permission: 'update.edit',
+            },
+            80
+        );
+        items.add(
+            'updateTeams',
+            {
+                icon: 'fas fa-users',
+                label: 'Edit Teams',
+                permission: 'team.edit',
+            },
+            80
+        );
     });
 
     app.extensionSettings['cxsquared-howzat-cricket-league'] = () => {

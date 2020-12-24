@@ -2,6 +2,7 @@
 
 namespace Cxsquared\HowzatCricketLeague\Listener;
 
+use Cxsquared\HowzatCricketLeague\HclSettingsUtils;
 use Cxsquared\HowzatCricketLeague\Player\Event\Created;
 use Flarum\Discussion\Command\StartDiscussion;
 use Flarum\Group\Group;
@@ -33,7 +34,7 @@ class PlayerEvents
     public function onPlayerCreated(Created $event)
     {
         // Post recruitment Thread
-        $captainGroupId = $this->settings->get('hcl.captain-group-id', 13);
+        $captainGroupId = HclSettingsUtils::GetCaptainGroupId($this->settings);
         $captains = Group::findOrFail($captainGroupId)->users()->get();
 
         $playerName = $event->player->first_name." ".$event->player->last_name;
@@ -54,10 +55,10 @@ class PlayerEvents
         $postBody .= "Height (cms) ".$event->player->height."\n";
         $postBody .= "Weight (kgs) ".$event->player->weight."\n";
 
-        $botId = $this->settings->get('hcl.bot-id', 18);
+        $botId = HclSettingsUtils::GetBotUserId($this->settings);
         $bot = $this->users->findOrFail($botId); 
 
-        $playersTagId = $this->settings->get('hcl.player-tag-id', 14);
+        $playersTagId = HclSettingsUtils::GetPlayerTagId($this->settings);
 
         $data = array(
             "attributes" => array(

@@ -2,6 +2,7 @@
 
 namespace Cxsquared\HowzatCricketLeague\Listener;
 
+use Cxsquared\HowzatCricketLeague\HclSettingsUtils;
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -25,11 +26,11 @@ class AddSettings
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             $event->attributes['canEditUpdates'] = $event->actor->hasPermissionLike('update.edit');
-            $event->attributes['hcl.maxWeeklyCapped'] = (int) $this->settings->get('hcl.max-weekly-capped', 9);
-            $event->attributes['hcl.botId'] = (int) $this->settings->get('hcl.bot-id', 18);
-            $event->attributes['hcl.playerTagId'] = (int) $this->settings->get('hcl.player-tag-id', 14);
-            $event->attributes['hcl.captainGroupId'] = (int) $this->settings->get('hcl.captain-group-id', 13);
-            $event->attributes['hcl.viceCaptainGroupId'] = (int) $this->settings->get('hcl.vice-captain-group-id', 13);
+            $event->attributes['hcl.maxWeeklyCapped'] = (int) HclSettingsUtils::GetMaxWeeklyCapped($this->settings);
+            $event->attributes['hcl.botId'] = (int) HclSettingsUtils::GetBotUserId($this->settings);
+            $event->attributes['hcl.playerTagId'] = (int) HclSettingsUtils::GetPlayerTagId($this->settings);
+            $event->attributes['hcl.captainGroupId'] = (int) HclSettingsUtils::GetCaptainGroupId($this->settings);
+            $event->attributes['hcl.viceCaptainGroupId'] = (int) HclSettingsUtils::GetViceCaptainGroupId($this->settings);
         }
     }
 }

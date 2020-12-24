@@ -22,7 +22,10 @@ export default class MakeCaptainModal extends Modal {
     }
 
     title() {
-        return app.translator.trans('hcl.forum.title.captain_modal');
+        if (this.attrs.captain)
+            return app.translator.trans('hcl.forum.title.captain_modal');
+
+        return app.translator.trans('hcl.forum.title.vice_captain_modal');
     }
 
     content() {
@@ -69,7 +72,11 @@ export default class MakeCaptainModal extends Modal {
 
         team.save(data).then(() => {
             this.hide();
-            app.alerts.show({ type: 'success'}, app.translator.trans('hcl.forum.alerts.set_captain'));
+            if (this.attrs.captain) {
+                app.alerts.show({ type: 'success'}, app.translator.trans('hcl.forum.alerts.set_captain'));
+            } else {
+                app.alerts.show({ type: 'success'}, app.translator.trans('hcl.forum.alerts.set_vice_captain'));
+            }
         });
     }
 

@@ -4158,7 +4158,8 @@ var MakeCaptainModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.title = function title() {
-    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.title.captain_modal');
+    if (this.attrs.captain) return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.title.captain_modal');
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.title.vice_captain_modal');
   };
 
   _proto.content = function content() {
@@ -4205,9 +4206,15 @@ var MakeCaptainModal = /*#__PURE__*/function (_Modal) {
     team.save(data).then(function () {
       _this2.hide();
 
-      flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.alerts.show({
-        type: 'success'
-      }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.alerts.set_captain'));
+      if (_this2.attrs.captain) {
+        flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.alerts.show({
+          type: 'success'
+        }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.alerts.set_captain'));
+      } else {
+        flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.alerts.show({
+          type: 'success'
+        }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('hcl.forum.alerts.set_vice_captain'));
+      }
     });
   };
 
@@ -5917,6 +5924,15 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
           });
         }
       }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.profile.make_captain')));
+      items.add('hcl.agm', m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_6___default.a, {
+        icon: "fab fa-vimeo",
+        onclick: function onclick() {
+          return flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.modal.show(_components_teams_MakeCaptainModal__WEBPACK_IMPORTED_MODULE_26__["default"], {
+            captain: false,
+            user: user
+          });
+        }
+      }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.profile.make_vice_captain')));
     }
   }); // Update button
 

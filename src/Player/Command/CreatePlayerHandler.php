@@ -3,6 +3,7 @@
 namespace Cxsquared\HowzatCricketLeague\Player\Command;
 
 use Carbon\Carbon;
+use Cxsquared\HowzatCricketLeague\HclSettingsUtils;
 use Cxsquared\HowzatCricketLeague\Player\Event\Created;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
@@ -75,7 +76,7 @@ class CreatePlayerHandler
         $this->dispatchEventsFor($player, $actor);
 
         $update = Update::createUpdate(DateHelper::getNextUpdateDate(), $actor->id, "", 'baseTpe', "", 30, false);
-        $update->approve($this->settings->get('hcl.bot-id', 18));
+        $update->approve(HclSettingsUtils::GetBotUserId($this->settings));
 
         $update->save();
 

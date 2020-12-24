@@ -132,8 +132,13 @@ flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.initializers.add('cxsquared/ho
       permission: 'player.edit'
     }, 75), items.add('updateUpdates', {
       icon: 'fas fa-pen-nib',
-      label: 'Manged Updates',
+      label: 'Manage Updates',
       permission: 'update.edit'
+    }, 80);
+    items.add('updateTeams', {
+      icon: 'fas fa-users',
+      label: 'Edit Teams',
+      permission: 'team.edit'
     }, 80);
   });
 
