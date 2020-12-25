@@ -3,6 +3,7 @@
 namespace Cxsquared\HowzatCricketLeague\Update;
 
 use Flarum\Foundation\ValidationException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TypeHelper
 {
@@ -21,7 +22,8 @@ class TypeHelper
         }
     }
 
-    public static function canClaim($thisWeeksUpdates, $newUpdate, $maxCapped) {
+    public static function canClaim($thisWeeksUpdates, $newUpdate, $maxCapped,
+                                    TranslatorInterface $translator) {
         $isPt = TypeHelper::isPt($newUpdate->type, $newUpdate->tpe);
         $isAffiliate = TypeHelper::isAffiliate($newUpdate->type);
 
@@ -32,18 +34,15 @@ class TypeHelper
             }
 
             if ($isPt && TypeHelper::isPt($update->type, $update->tpe)) {
-                // TODO: Update this to use the translator
-                throw new ValidationException(['update' => "You've already claimed a Point Task this week."]);
+                throw new ValidationException(['update' => $translator->trans('hcl.api.claimed_pt')]);
             }
 
             if ($isAffiliate && TypeHelper::isAffiliate($update->type)) {
-                // TODO: Update this to use the translator
-                throw new ValidationException(['update' => "You've already claimed an Affiliate Task this week."]);
+                throw new ValidationException(['update' => $translator->trans('hcl.api.claimed_affiliate')]);
             }
 
             if ($newUpdate->is_capped && $cappedTpeThisWeek + $newUpdate->tpe > $maxCapped) {
-                // TODO: Update this to use the translator
-                throw new ValidationException(['update' => "You've already claimed max capped TPE this week."]);
+                throw new ValidationException(['update' => $translator->trans('hcl.api.claimed_max')]);
             }
         }
     }

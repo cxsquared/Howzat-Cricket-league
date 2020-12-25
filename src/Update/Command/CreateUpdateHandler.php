@@ -8,6 +8,7 @@ use Cxsquared\HowzatCricketLeague\Update\TypeHelper;
 use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Foundation\ValidationException;
+use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
@@ -18,10 +19,13 @@ class CreateUpdateHandler
 
     protected $settings;
 
+    protected $translator;
+
     public function __construct(Dispatcher $events, SettingsRepositoryInterface $settings)
     {
        $this->events = $events; 
        $this->settings = $settings;
+       $this->translator = app(Translator::class);
     }
 
     public function handle(CreateUpdate $command)
@@ -37,8 +41,7 @@ class CreateUpdateHandler
         $is_capped = TypeHelper::isCapped($type);
 
         if ($link !== null && $link !== '' && $actor->submitted_updates()->where('link', $link)->where('type', $type)->where('status', '<>', 'denied')->exists()) {
-            // TODO: Update this to use the translator
-            throw new ValidationException(['update' => "You've already claimed this link."]);
+            throw new ValidationException(['update' => $this->translator->trans('hcl.api.claimed_link')]);
         }
 
         $updatesThisWeek = $actor->submitted_updates()->whereDate('date', $date)->where('status', '<>', 'denied')->get();
@@ -53,7 +56,7 @@ class CreateUpdateHandler
             $is_capped
         );
 
-        TypeHelper::canClaim($updatesThisWeek, $update, $this->settings->get('hcl.max-weekly-capped', 9));
+        TypeHelper::canClaim($updatesThisWeek, $update, $this->settings->get('hcl.max-weekly-capped', 9), $this->translator);
 
         $this->events->dispatch(
             new Saving($update, $actor, $data)

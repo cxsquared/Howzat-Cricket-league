@@ -24,6 +24,12 @@ hcl:
       captain_group_id: Captain Group Id
     permissions:
       update_players: Update Players
+  api:
+    not_enough_tpe: Player does not have enough banked TPE for this update.
+    claimed_pt: You've already claimed a Point Task this week.
+    claimed_affiliate: You've already claimed an Affiliate Task this week.
+    claimed_max: You've already claimed max capped TPE this week.
+    claimed_link: You've already claimed this link.
   forum:
     alerts:
       approved: Update Approved

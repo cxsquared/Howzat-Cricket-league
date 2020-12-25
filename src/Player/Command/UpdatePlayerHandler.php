@@ -9,6 +9,7 @@ use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\TpeHelper;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Foundation\ValidationException;
+use Flarum\Locale\Translator;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
@@ -20,11 +21,15 @@ class UpdatePlayerHandler
 
     protected $validator;
 
-    public function __construct(Dispatcher $events, PlayerRepository $players, PlayerValidator $validator)
+    protected $translator;
+
+    public function __construct(Dispatcher $events, PlayerRepository $players,
+                                PlayerValidator $validator)
     {
         $this->events = $events;
         $this->players = $players;
         $this->validator = $validator;
+        $this->translator = app(Translator::class);
     }
 
     public function handle(UpdatePlayer $command)
@@ -52,8 +57,7 @@ class UpdatePlayerHandler
         $tpaThisUpdate = $newTpa - $originalTpa;
 
         if ($tpaThisUpdate > $player->banked_tpe) {
-            // TODO: Update this to use the translator
-            throw new ValidationException(['player' => "Player does not have enough banked TPE for this update."]);
+            throw new ValidationException(['player' => $this->translator->trans('hcl.api.not_enough_tpe')]);
         }
 
         $banked_tpe = $player->banked_tpe - $tpaThisUpdate;
