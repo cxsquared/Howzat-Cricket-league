@@ -128,7 +128,9 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
                     {app.translator.trans('hcl.forum.profile.make_captain')}
                 </Button>
             );
+        }
 
+        if (app.forum.attribute('adminUrl') || user.gmTeam()) {
             items.add(
                 'hcl.agm',
                 <Button icon='fab fa-vimeo' onclick={() => app.modal.show(MakeCaptainModal, {captain:false, user:user})} >

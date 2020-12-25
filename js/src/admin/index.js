@@ -53,6 +53,8 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
                     <NumberItem name="hcl.captain-group-id" setting={s} />
                     <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.vice_captain_group_id')}</legend>
                     <NumberItem name="hcl.vice-captain-group-id" setting={s} />
+                    <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.max_weekly_cap')}</legend>
+                    <NumberItem name="hcl.max-weekly-capped" setting={s} />
                 </div>
             ]
         });

@@ -169,6 +169,11 @@ flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.initializers.add('cxsquared/ho
         }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.admin.headings.vice_captain_group_id')), m(NumberItem, {
           name: "hcl.vice-captain-group-id",
           setting: s
+        }), m("legend", {
+          classname: "hcl-legend"
+        }, flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.admin.headings.max_weekly_cap')), m(NumberItem, {
+          name: "hcl.max-weekly-capped",
+          setting: s
         }))];
       }
     });

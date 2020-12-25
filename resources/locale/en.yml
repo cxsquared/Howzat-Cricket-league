@@ -22,6 +22,8 @@ hcl:
       bot_id: Bot User Id
       player_tag_id: Player Tag Id
       captain_group_id: Captain Group Id
+      vice_captain_group_id: Vice Captain Group Id
+      max_weekly_cap: Max Weekly Capped TPE 
     permissions:
       update_players: Update Players
   forum:
@@ -35,6 +37,9 @@ hcl:
     title:
       captain_modal: Set as Captain 
       vice_captain_modal: Set as Vice Captain 
+    profile:
+      make_captain: Make Captain
+      make_vice_captain: Make Vice Captain
     nav:
       claim_tpe: Claim TPE 
       players_create: Create Player

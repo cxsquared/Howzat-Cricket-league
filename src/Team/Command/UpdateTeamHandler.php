@@ -53,7 +53,7 @@ class UpdateTeamHandler
 
                 $captainGroupId = HclSettingsUtils::GetCaptainGroupId($this->settings);
 
-                if ($oldGm) {
+                if ($oldGm->exists()) {
                     $oldGm->groups()->detach($captainGroupId);
                 }
 
@@ -82,7 +82,7 @@ class UpdateTeamHandler
 
                 $viceCaptainGroupId = HclSettingsUtils::GetViceCaptainGroupId($this->settings);
 
-                if ($oldAgm) {
+                if ($oldAgm->exists()) {
                     $oldAgm->groups()->detach($viceCaptainGroupId);
                 }
                 $newAgm->groups()->attach($viceCaptainGroupId);

@@ -5924,6 +5924,9 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('cxsquared/ho
           });
         }
       }, flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('hcl.forum.profile.make_captain')));
+    }
+
+    if (flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.forum.attribute('adminUrl') || user.gmTeam()) {
       items.add('hcl.agm', m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_6___default.a, {
         icon: "fab fa-vimeo",
         onclick: function onclick() {
