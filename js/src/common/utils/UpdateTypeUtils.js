@@ -11,6 +11,7 @@ export default class UpdateTypeUtils {
             activityCheck: app.translator.trans('hcl.forum.updates.types.activityCheck'),
             job: app.translator.trans('hcl.forum.updates.types.job'),
             predictions: app.translator.trans('hcl.forum.updates.types.predictions'),
+            simAttendance: app.translator.trans('hcl.forum.updates.types.simAttendance'),
             other: app.translator.trans('hcl.forum.updates.types.other'),
         };
     }
@@ -25,6 +26,7 @@ export default class UpdateTypeUtils {
             case 'pressConference':
                 return 2;
             case 'activityCheck':
+            case 'simAttendance': // fall-through
                 return 1;
             case 'predictions': // fall-through
             case 'job': // fall-through

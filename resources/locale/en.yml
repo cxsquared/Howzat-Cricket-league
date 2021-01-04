@@ -91,6 +91,7 @@ hcl:
         activityCheck: Acitvity Check 
         job: Job 
         predictions: Predictions 
+        simAttendance: Sim Attendance
         other: Other 
         baseTpe: Base TPE
     page:

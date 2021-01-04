@@ -40,7 +40,7 @@ class CreateUpdateHandler
         $link = Arr::get($data, 'attributes.link');
         $is_capped = TypeHelper::isCapped($type);
 
-        if ($link !== null && $link !== '' && $actor->submitted_updates()->where('link', $link)->where('type', $type)->where('status', '<>', 'denied')->exists()) {
+        if ($link !== null && $link !== '' && $actor->submitted_updates()->whereDate('date', $date)->where('link', $link)->where('type', $type)->where('status', '<>', 'denied')->exists()) {
             throw new ValidationException(['update' => $this->translator->trans('hcl.api.claimed_link')]);
         }
 

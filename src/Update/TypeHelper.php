@@ -16,6 +16,7 @@ class TypeHelper
             case 'job':
             case 'welfare':
             case 'affiliate':
+            case 'simAttendance':
                 return true;
             default:
                 return false;
