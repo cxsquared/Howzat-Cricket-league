@@ -19,7 +19,7 @@ class ListPlayersController extends AbstractListController
 
     public $sort = ['createdAt' => 'desc'];
 
-    public $sortFields = ['firstName', 'lastName', 'updatedAt', 'createdAt'];
+    public $sortFields = ['firstName', 'lastName', 'updatedAt', 'createdAt', 'tpe'];
 
     protected $searcher;
 

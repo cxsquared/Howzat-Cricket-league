@@ -2,10 +2,9 @@ hcl:
   lib:
     sort:
       default: Default
-      first_name_az: First Name (a-z)
-      first_name_za: First Name (z-a)
-      last_name_az: Last Name (a-z)
-      last_name_za: Last Name (z-a)
+      first_name_az: Name (a-z)
+      first_name_za: Name (z-a)
+      tpe: TPE
       newest: Newest 
       oldest: Oldest 
       newest_update: Most Recent Update 

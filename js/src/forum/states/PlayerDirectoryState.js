@@ -29,7 +29,6 @@ export default class PlayersDirectoryState {
 
     sortMap() {
         return {
-            default: '',
             ...new SortMap().sortMap(),
         };
     }

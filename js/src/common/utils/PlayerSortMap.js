@@ -7,8 +7,7 @@ export default class PlayerSortMap {
         return {
             first_name_az: 'firstName',
             first_name_za: '-firstName',
-            last_name_az: 'lastName',
-            last_name_za: '-lastName',
+            tpe: '-tpe',
             newest: '-createdAt',
             oldest: 'createdAt',
             newest_update: '-updatedAt',
