@@ -113,6 +113,8 @@ export default class PlayerCard extends Component {
                         </div>
                         {seperator}
                         <div className="PlayerCard-data">{`${app.translator.trans('hcl.forum.player.tpa')}: ${player.tpa()}`}</div>
+                        {seperator}
+                        <div className="PlayerCard-data">{`${app.translator.trans('hcl.forum.player.season')}${player.season()}`}</div>
                     </div>
                 </div>
                 <div className="PlayerCard-update ButtonGroup">{headerButtons}</div>

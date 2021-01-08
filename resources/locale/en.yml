@@ -160,6 +160,7 @@ hcl:
       tpe: TPE
       banked: Banked
       tpa: TPA 
+      season: S
       country: Country
       team: Team
       style:
