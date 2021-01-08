@@ -2,6 +2,7 @@ import Color from 'color';
 import app from 'flarum/app';
 import Component from 'flarum/Component';
 import Button from 'flarum/components/Button';
+import Link from 'flarum/components/Link';
 import username from 'flarum/helpers/username';
 import flag from '../../../common/utils/flag';
 import PlayerUpdateModal from './PlayerUpdateModal';
@@ -81,6 +82,20 @@ export default class PlayerCard extends Component {
 
         const nationality = <div className="PlayerCard-data-img">{flag(player.nationality().toLowerCase())}</div>;
 
+        let team = null;
+        if (player.team()) {
+            team = [<div className="PlayerCard-data PlayerCard-team">
+                    <Link href={app.route('teams.show', { id: player.team().id() })}
+                          title={player.team().name()}
+                          alt={player.team().name()} >
+                        <img src={player.team().logoLink()}
+                             alt={player.team().name()}
+                             style = {{backgroundColor: `${Color(`#${player.team().primaryColor()}`).darken(0.35).hex()}` }} />
+                    </Link>
+                </div>,
+            seperator];
+        }
+
         return (
             <div className="PlayerCard-header" style={{ backgroundColor: bgColor, color: textColor }}>
                 <div className="PlayerCard-info">
@@ -88,6 +103,7 @@ export default class PlayerCard extends Component {
                     {nationality}
                     <div className="PlayerCard-subheader">
                         {userLink}
+                        {team}
                         <div className="PlayerCard-data">{`${app.translator.trans('hcl.forum.player.age')}: ${player.age()}`}</div>
                         {seperator}
                         <div className="PlayerCard-data">
