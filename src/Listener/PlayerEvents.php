@@ -3,8 +3,11 @@
 namespace Cxsquared\HowzatCricketLeague\Listener;
 
 use Cxsquared\HowzatCricketLeague\Player\Event\Created;
+use Cxsquared\HowzatCricketLeague\Player\Event\Retire;
+use Cxsquared\HowzatCricketLeague\SettingsUtils;
 use Flarum\Discussion\Command\StartDiscussion;
 use Flarum\Group\Group;
+use Flarum\Http\UrlGenerator;
 use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\UserRepository;
@@ -21,18 +24,25 @@ class PlayerEvents
 
     protected $translator;
 
-    public function __construct(BusDispatcher $bus, UserRepository $users,
-                                SettingsRepositoryInterface $settings)
-    {
+    protected $url;
+
+    public function __construct(
+        BusDispatcher $bus,
+        UserRepository $users,
+        SettingsRepositoryInterface $settings,
+        UrlGenerator $url
+    ) {
         $this->bus = $bus;
         $this->users = $users;
         $this->settings = $settings;
         $this->translator = app(Translator::class);
+        $this->url = $url;
     }
 
     public function subscribe(Dispatcher $events)
     {
         $events->listen(Created::class, [$this, 'onPlayerCreated']);
+        $events->listen(Retire::class, [$this, 'onPlayerRetire']);
     }
 
     public function onPlayerCreated(Created $event)
@@ -41,31 +51,31 @@ class PlayerEvents
         $captainGroupId = $this->settings->get('hcl.captain-group-id', 13);
         $captains = Group::findOrFail($captainGroupId)->users()->get();
 
-        $playerName = $event->player->first_name." ".$event->player->last_name;
+        $playerName = $event->player->first_name . " " . $event->player->last_name;
         $postBody = "";
         foreach ($captains as &$captain) {
-            $postBody .= "@".$captain->username." ";
+            $postBody .= "@" . $captain->username . " ";
         }
         $postBody .= "\n\n";
 
-        $postBody .= "Username @".$event->actor->username."\n";
-        $postBody .= "Player Name ".$playerName."\n";
-        $postBody .= "Nationality ".$this->code_to_country($event->player->nationality)."\n";
-        $postBody .= "Bowling Style ".$this->translator->trans('hcl.forum.player.style.'.$event->player->bowling_style)."\n";
+        $postBody .= "Username @" . $event->actor->username . "\n";
+        $postBody .= "Player Name " . $playerName . "\n";
+        $postBody .= "Nationality " . $this->code_to_country($event->player->nationality) . "\n";
+        $postBody .= "Bowling Style " . $this->translator->trans('hcl.forum.player.style.' . $event->player->bowling_style) . "\n";
         $postBody .= "\n";
-        $postBody .= "Age ".$event->player->age."\n";
-        $postBody .= "Height (cms) ".$event->player->height."\n";
-        $postBody .= "Weight (kgs) ".$event->player->weight."\n";
+        $postBody .= "Age " . $event->player->age . "\n";
+        $postBody .= "Height (cms) " . $event->player->height . "\n";
+        $postBody .= "Weight (kgs) " . $event->player->weight . "\n";
 
         $botId = $this->settings->get('hcl.bot-id', 18);
-        $bot = $this->users->findOrFail($botId); 
+        $bot = $this->users->findOrFail($botId);
 
         $playersTagId = $this->settings->get('hcl.player-tag-id', 14);
 
         $data = array(
             "attributes" => array(
                 "title" => $playerName,
-                "content" => $postBody 
+                "content" => $postBody
             ),
             "relationships" => array(
                 "tags" => array(
@@ -84,8 +94,49 @@ class PlayerEvents
         );
     }
 
+    public function onPlayerRetire(Retire $event)
+    {
+        // Post recruitment Thread
+        $playerName = $event->player->first_name . " " . $event->player->last_name;
+        $playerUrl = $this->url->to('forum')->route('user.player', ['username' => $event->player->user->username]);
+        $postBody = "[" . $playerName . "](" . $playerUrl . ") has retired!";
+        $title = "[S" . $event->player->season . "] " . $playerName . " has retired!";
+
+        $botId = SettingsUtils::GetBotUserId($this->settings);
+        $bot = $this->users->findOrFail($botId);
+
+        $leagueMovementsTagId = SettingsUtils::GetLeagueMovementsTagId($this->settings);
+        $retirementTagId = SettingsUtils::GetRetiredMentTagId($this->settings);
+
+        $data = array(
+            "attributes" => array(
+                "title" => $title,
+                "content" => $postBody
+            ),
+            "relationships" => array(
+                "tags" => array(
+                    "data" => array(
+                        array(
+                            "id" => $leagueMovementsTagId,
+                            "type" => "tags"
+                        ),
+                        array(
+                            "id" => $retirementTagId,
+                            "type" => "tags"
+                        )
+                    )
+                )
+            )
+        );
+
+        return $this->bus->dispatch(
+            new StartDiscussion($bot, $data, '127.0.0.1')
+        );
+    }
+
     //Edited by rezker (http://www.rezker.com)
-    function code_to_country( $code ){
+    function code_to_country($code)
+    {
         $code = strtoupper($code);
 
         $countryList = array(
@@ -337,7 +388,7 @@ class PlayerEvents
             'ZW' => 'Zimbabwe'
         );
 
-        if( !$countryList[$code] ) return $code;
+        if (!$countryList[$code]) return $code;
         else return $countryList[$code];
     }
 }

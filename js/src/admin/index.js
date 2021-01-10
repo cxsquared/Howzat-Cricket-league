@@ -36,12 +36,21 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
             type: 'small',
             items: (s) => [
                 <div className="Forum-group">
-                    <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.bot_id')}</legend>
-                    <NumberItem name="hcl.bot-id" setting={s} />
-                    <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.player_tag_id')}</legend>
-                    <NumberItem name="hcl.player-tag-id" setting={s} />
-                    <legend classname="hcl-legend">{app.translator.trans('hcl.admin.headings.captain_group_id')}</legend>
-                    <NumberItem name="hcl.captain-group-id" setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.bot_id')}
+                                name="hcl.bot-id"
+                                setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.player_tag_id')}
+                                name="hcl.player-tag-id"
+                                setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.captain_group_id')}
+                                name="hcl.captain-group-id"
+                                setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.captain_group_id')}
+                                name="hcl.league-movements-tag-id"
+                                setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.captain_group_id')}
+                                name="hcl.retirement-tag-id"
+                                setting={s} />
                 </div>
             ]
         });

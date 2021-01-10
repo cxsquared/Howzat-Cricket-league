@@ -17,6 +17,7 @@ use Cxsquared\HowzatCricketLeague\Api\Controller\DownloadPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListTeamsController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListUpdatesController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\RetirePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowTeamController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
@@ -33,11 +34,11 @@ use FoF\Components\Extend\AddFofComponents;
 return [
     new AddFofComponents(),
     (new Extend\Frontend('forum'))
-        ->js(__DIR__.'/js/dist/forum.js')
-        ->css(__DIR__.'/resources/less/forum.less'),
+        ->js(__DIR__ . '/js/dist/forum.js')
+        ->css(__DIR__ . '/resources/less/forum.less'),
     (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/resources/less/admin.less'),
+        ->js(__DIR__ . '/js/dist/admin.js')
+        ->css(__DIR__ . '/resources/less/admin.less'),
     new Extend\Locales(__DIR__ . '/resources/locale'),
 
     (new Extend\Model(User::class))
@@ -52,13 +53,14 @@ return [
         ->get('/players/download', 'players.download', DownloadPlayersController::class)
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)
+        ->post('/players/{id}/retire', 'players.retire', RetirePlayerController::class)
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
         ->post('/updates', 'updates', CreateUpdateController::class)
         ->get('/updates', 'updates.index', ListUpdatesController::class)
         ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class)
         ->get('/teams', 'teams', ListTeamsController::class)
         ->get('/teams/{id}', 'teams.show', ShowTeamController::class),
-    
+
     (new Extend\Frontend('forum'))
         ->route('/user/{username}/player', 'user.player')
         ->route('/user/{username}/updates', 'user.updates')

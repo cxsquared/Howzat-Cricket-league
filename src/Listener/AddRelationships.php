@@ -14,7 +14,7 @@ use Flarum\Api\Serializer\BasicUserSerializer;
 use Flarum\Event\GetApiRelationship;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class AddRelationships 
+class AddRelationships
 {
     public function subscribe(Dispatcher $events)
     {
@@ -39,6 +39,10 @@ class AddRelationships
             return $event->serializer->hasOne($event->model, PlayerSerializer::class, 'player');
         }
 
+        if ($event->isRelationship(BasicUserSerializer::class, 'retiredPlayers')) {
+            return $event->serializer->hasMany($event->model, PlayerSerializer::class, 'retired_players');
+        }
+
         if ($event->isRelationship(BasicUserSerializer::class, 'gmTeam')) {
             return $event->serializer->hasOne($event->model, TeamSerializer::class, 'gm_team');
         }
@@ -47,7 +51,7 @@ class AddRelationships
             return $event->serializer->hasOne($event->model, TeamSerializer::class, 'agm_team');
         }
 
-        if ($event->isRelationship(BasicUserSerializer::class, 'submitted_updates')) {
+        if ($event->isRelationship(BasicUserSerializer::class, 'submittedUpdates')) {
             return $event->serializer->hasMany($event->model, UpdateSerializer::class, 'submitted_updates');
         }
     }
@@ -56,6 +60,7 @@ class AddRelationships
     {
         if ($event->isController(ShowUserController::class)) {
             $event->data->load('player');
+            $event->data->load('retired_players');
             $event->data->load('gm_team');
             $event->data->load('agm_team');
             $event->data->load('submitted_updates');
@@ -72,6 +77,7 @@ class AddRelationships
     {
         if ($event->isController(ShowUserController::class)) {
             $event->addInclude('player');
+            $event->addInclude('retired_players');
             $event->addInclude('gm_team');
             $event->addInclude('agm_team');
             $event->addInclude('submitted_updates');

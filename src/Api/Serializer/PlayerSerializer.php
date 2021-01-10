@@ -13,9 +13,9 @@ class PlayerSerializer extends AbstractSerializer
 
     protected function getDefaultAttributes($player)
     {
-       if (! ($player instanceof Player)) {
+        if (!($player instanceof Player)) {
             throw new InvalidArgumentException(
-                get_class($this).' can only serialize instances of '.Player::class
+                get_class($this) . ' can only serialize instances of ' . Player::class
             );
         }
 
@@ -54,6 +54,11 @@ class PlayerSerializer extends AbstractSerializer
     }
 
     protected function user($player)
+    {
+        return $this->hasOne($player, BasicUserSerializer::class);
+    }
+
+    protected function retiredUser($player)
     {
         return $this->hasOne($player, BasicUserSerializer::class);
     }

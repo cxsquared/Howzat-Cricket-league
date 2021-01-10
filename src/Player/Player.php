@@ -14,10 +14,16 @@ class Player extends AbstractModel
 
     protected $dates = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'retired_at'
     ];
 
     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function retired_user()
     {
         return $this->belongsTo(User::class);
     }
@@ -39,9 +45,16 @@ class Player extends AbstractModel
         return $this;
     }
 
-    public static function createBase($user_id, $first_name, $last_name, $age,
-                                      $height, $weight, $nationality, $bowling_style)
-    {
+    public static function createBase(
+        $user_id,
+        $first_name,
+        $last_name,
+        $age,
+        $height,
+        $weight,
+        $nationality,
+        $bowling_style
+    ) {
         $player = new static;
 
         $player->user_id = $user_id;
@@ -50,15 +63,23 @@ class Player extends AbstractModel
         $player->age = $age;
         $player->height = $height;
         $player->weight = $weight;
-        $player->nationality = $nationality; 
+        $player->nationality = $nationality;
         $player->bowling_style = $bowling_style;
 
         return $player;
     }
 
-    public function updateBattingSkills($running, $defense, $attacking, $lofted,
-                                        $vs_spin, $vs_pace, $footwork, $timing, $control)
-    {
+    public function updateBattingSkills(
+        $running,
+        $defense,
+        $attacking,
+        $lofted,
+        $vs_spin,
+        $vs_pace,
+        $footwork,
+        $timing,
+        $control
+    ) {
         $this->running = $running;
         $this->defense = $defense;
         $this->attacking = $attacking;
@@ -72,11 +93,16 @@ class Player extends AbstractModel
         return $this;
     }
 
-    public function updateBowlingSkills($pace_flight, $swing_leg_spin,
-                                        $slower_ball_off_spin, $seam_drift,
-                                        $accuracy, $discipline,
-                                        $bouncer_bounce, $yorker_arm_ball)
-    {
+    public function updateBowlingSkills(
+        $pace_flight,
+        $swing_leg_spin,
+        $slower_ball_off_spin,
+        $seam_drift,
+        $accuracy,
+        $discipline,
+        $bouncer_bounce,
+        $yorker_arm_ball
+    ) {
         $this->pace_flight = $pace_flight;
         $this->swing_leg_spin = $swing_leg_spin;
         $this->slower_ball_off_spin = $slower_ball_off_spin;
@@ -100,6 +126,16 @@ class Player extends AbstractModel
     public function assignTeam($team_id)
     {
         $this->team_id = $team_id;
+
+        return $this;
+    }
+
+    public function retire(Carbon $retired_at)
+    {
+        $this->retired_at = $retired_at;
+        $this->retired_user_id = $this->user_id;
+        $this->user_id = NULL;
+        $this->team_id = NULL;
 
         return $this;
     }
