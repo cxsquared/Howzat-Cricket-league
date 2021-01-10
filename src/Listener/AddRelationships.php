@@ -26,11 +26,6 @@ class AddRelationships
 
     public function prepareApiAttributes(Serializing $event)
     {
-        /*
-        if ($event->isSerializer(BasicUserSerializer::class)) {
-            $event->attributes['player'] = $event->model->player;
-        }
-        */
     }
 
     public function getApiRelationship(GetApiRelationship $event)

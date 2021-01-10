@@ -83,7 +83,8 @@ export default class UpdateDirectoryState {
                             .find('users', `${id}/player`, null, {
                                 errorHandler() {},
                             })
-                            .then(() => this.parseResults(results));
+                            .catch(() => {})
+                            .finally(() => this.parseResults(results));
                     } else {
                         app.store.find('users', `${id}/player`, null, {
                             errorHandler() {},

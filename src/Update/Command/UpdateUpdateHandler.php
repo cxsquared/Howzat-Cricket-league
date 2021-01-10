@@ -9,6 +9,7 @@ use Cxsquared\HowzatCricketLeague\Update\Event\Saving;
 use Cxsquared\HowzatCricketLeague\Update\Event\UnderReview;
 use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Foundation\DispatchEventsTrait;
+use Flarum\Foundation\ValidationException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use LogicException;
@@ -21,8 +22,8 @@ class UpdateUpdateHandler
 
     public function __construct(Dispatcher $events, PlayerRepository $players)
     {
-       $this->events = $events; 
-       $this->players = $players;
+        $this->events = $events;
+        $this->players = $players;
     }
 
     public function handle(UpdateUpdate $command)
@@ -48,7 +49,7 @@ class UpdateUpdateHandler
                 }
             }
 
-            switch($status) {
+            switch ($status) {
                 case 'approved':
                     $update = $update->approve($actor->id);
                     $this->apply_player_tpe($player, $update, $previousStatus);
@@ -70,29 +71,29 @@ class UpdateUpdateHandler
                     );
                     break;
             }
-        } else if($update->status == 'pending') {
+        } else if ($update->status == 'pending') {
             $update = $update->under_review($actor->id);
         }
 
-        if(isset($attributes['updaterComment'])) {
+        if (isset($attributes['updaterComment'])) {
             $update->updater_comment = $attributes['updaterComment'];
         }
-        if(isset($attributes['date'])) {
+        if (isset($attributes['date'])) {
             $update->date = $attributes['date'];
         }
-        if(isset($attributes['link'])) {
+        if (isset($attributes['link'])) {
             $update->link = $attributes['link'];
         }
-        if(isset($attributes['type'])) {
+        if (isset($attributes['type'])) {
             $update->type = $attributes['type'];
         }
-        if(isset($attributes['comment'])) {
+        if (isset($attributes['comment'])) {
             $update->comment = $attributes['comment'];
         }
-        if(isset($attributes['tpe'])) {
+        if (isset($attributes['tpe'])) {
             $update->tpe = $attributes['tpe'];
         }
-        if(isset($attributes['isCapped'])) {
+        if (isset($attributes['isCapped'])) {
             $update->is_capped = $attributes['isCapped'];
         }
 

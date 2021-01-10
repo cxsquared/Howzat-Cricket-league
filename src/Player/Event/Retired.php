@@ -5,7 +5,7 @@ namespace Cxsquared\HowzatCricketLeague\Player\Event;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Flarum\user\User;
 
-class Retire
+class Retired
 {
     public $player;
 

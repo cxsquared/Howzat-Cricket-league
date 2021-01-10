@@ -2,9 +2,11 @@
 
 namespace Cxsquared\HowzatCricketLeague\Listener;
 
+use Carbon\Carbon;
 use Cxsquared\HowzatCricketLeague\Player\Event\Created;
-use Cxsquared\HowzatCricketLeague\Player\Event\Retire;
+use Cxsquared\HowzatCricketLeague\Player\Event\Retired;
 use Cxsquared\HowzatCricketLeague\SettingsUtils;
+use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Discussion\Command\StartDiscussion;
 use Flarum\Group\Group;
 use Flarum\Http\UrlGenerator;
@@ -13,6 +15,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\UserRepository;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Support\Facades\DB;
 
 class PlayerEvents
 {
@@ -42,7 +45,7 @@ class PlayerEvents
     public function subscribe(Dispatcher $events)
     {
         $events->listen(Created::class, [$this, 'onPlayerCreated']);
-        $events->listen(Retire::class, [$this, 'onPlayerRetire']);
+        $events->listen(Retired::class, [$this, 'onPlayerRetired']);
     }
 
     public function onPlayerCreated(Created $event)
@@ -94,11 +97,11 @@ class PlayerEvents
         );
     }
 
-    public function onPlayerRetire(Retire $event)
+    public function onPlayerRetired(Retired $event)
     {
         // Post recruitment Thread
         $playerName = $event->player->first_name . " " . $event->player->last_name;
-        $playerUrl = $this->url->to('forum')->route('user.player', ['username' => $event->player->user->username]);
+        $playerUrl = $this->url->to('forum')->route('user', ['username' => $event->player->retired_user->username]);
         $postBody = "[" . $playerName . "](" . $playerUrl . ") has retired!";
         $title = "[S" . $event->player->season . "] " . $playerName . " has retired!";
 
@@ -128,6 +131,8 @@ class PlayerEvents
                 )
             )
         );
+
+        // TODO deal with udpates
 
         return $this->bus->dispatch(
             new StartDiscussion($bot, $data, '127.0.0.1')

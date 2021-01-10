@@ -2,8 +2,12 @@
 
 namespace Cxsquared\HowzatCricketLeague\Player\Command;
 
+use Carbon\Carbon;
+use Cxsquared\HowzatCricketLeague\Player\Event\Retired;
 use Cxsquared\HowzatCricketLeague\Player\Event\Saving;
 use Cxsquared\HowzatCricketLeague\Player\Player;
+use Cxsquared\HowzatCricketLeague\Player\PlayerMovement;
+use Cxsquared\HowzatCricketLeague\Player\PlayerMovementUtils;
 use Cxsquared\HowzatCricketLeague\Player\PlayerRepository;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\TpeHelper;
@@ -12,8 +16,9 @@ use Flarum\Foundation\ValidationException;
 use Flarum\Locale\Translator;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
+use LogicException;
 
-class UpdatePlayerHandler 
+class UpdatePlayerHandler
 {
     use DispatchEventsTrait;
 
@@ -23,9 +28,11 @@ class UpdatePlayerHandler
 
     protected $translator;
 
-    public function __construct(Dispatcher $events, PlayerRepository $players,
-                                PlayerValidator $validator)
-    {
+    public function __construct(
+        Dispatcher $events,
+        PlayerRepository $players,
+        PlayerValidator $validator
+    ) {
         $this->events = $events;
         $this->players = $players;
         $this->validator = $validator;
@@ -64,6 +71,21 @@ class UpdatePlayerHandler
         $player = $player->updateTpe($player->tpe, $banked_tpe);
         $player = $player->updateUpdatedAt();
 
+        if (isset($attributes['retire']) && $attributes['retire'] === true) {
+            if ($player->retired_user_id !== NULL || $player->retired_at !== NULL) {
+                throw new LogicException("This player has already retired");
+            }
+
+            $player->retire(Carbon::now());
+            $player_movement = PlayerMovement::create($player->id, PlayerMovementUtils::retirement(), $player->team_id, NULL, Carbon::now());
+
+            $this->events->dispatch(
+                new Retired($player, $actor, $data)
+            );
+
+            $player_movement->save();
+        }
+
         $this->events->dispatch(
             new Saving($player, $actor, $data)
         );
@@ -78,7 +100,8 @@ class UpdatePlayerHandler
         return $player;
     }
 
-    private function isLoweringSkill(Player $player, array $attributes) {
+    private function isLoweringSkill(Player $player, array $attributes)
+    {
         $isLowering = false;
 
         if (isset($attributes['running'])) {

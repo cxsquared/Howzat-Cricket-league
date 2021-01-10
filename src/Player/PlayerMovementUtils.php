@@ -1,5 +1,7 @@
 <?php
 
+namespace Cxsquared\HowzatCricketLeague\Player;
+
 class PlayerMovementUtils
 {
     public static function draft()
