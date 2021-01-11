@@ -11,11 +11,13 @@ use Cxsquared\HowzatCricketLeague\Player\PlayerMovementUtils;
 use Cxsquared\HowzatCricketLeague\Player\PlayerRepository;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\TpeHelper;
+use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Foundation\ValidationException;
 use Flarum\Locale\Translator;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use LogicException;
 
 class UpdatePlayerHandler
