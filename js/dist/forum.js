@@ -6030,6 +6030,42 @@ Sortable.mount(Remove, Revert);
 
 /***/ }),
 
+/***/ "./src/common/utils/PlayerRoleMap.js":
+/*!*******************************************!*\
+  !*** ./src/common/utils/PlayerRoleMap.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PlayerRoleMap; });
+/**
+ * The sort options.
+ * We use a class and not just a POJO/function because we want extensions to be able to extend it
+ */
+var PlayerRoleMap = /*#__PURE__*/function () {
+  function PlayerRoleMap() {}
+
+  var _proto = PlayerRoleMap.prototype;
+
+  _proto.roleMap = function roleMap() {
+    return {
+      batter: 'batter',
+      wk: 'wk',
+      bowler: 'bowler',
+      bowler_1: '1_bowler',
+      bowler_2: '2_bowler'
+    };
+  };
+
+  return PlayerRoleMap;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/common/utils/PlayerSortMap.js":
 /*!*******************************************!*\
   !*** ./src/common/utils/PlayerSortMap.js ***!
@@ -7880,6 +7916,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_components_Link__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flarum/components/Link */ "flarum/components/Link");
 /* harmony import */ var flarum_components_Link__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Link__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _common_utils_flag__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../common/utils/flag */ "./src/common/utils/flag.js");
+/* harmony import */ var flarum_components_Select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! flarum/components/Select */ "flarum/components/Select");
+/* harmony import */ var flarum_components_Select__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flarum_components_Select__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _common_utils_PlayerRoleMap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../common/utils/PlayerRoleMap */ "./src/common/utils/PlayerRoleMap.js");
 
 
 
@@ -7888,7 +7927,52 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // https://github.com/flarum/tags/blob/master/js/src/admin/components/TagsPage.js
+
+
+
+function roleOptions(bowlingStyle) {
+  var options = {};
+  var mapping = new _common_utils_PlayerRoleMap__WEBPACK_IMPORTED_MODULE_9__["default"]().roleMap();
+
+  for (var role in mapping) {
+    options[role] = flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.lib.player_role." + role, {
+      style: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.player.style." + bowlingStyle)
+    });
+  }
+
+  return options;
+}
+
+function playerItem(player, gmView, changeRole) {
+  var baseView = [m("div", {
+    className: "TeamCard-flag"
+  }, Object(_common_utils_flag__WEBPACK_IMPORTED_MODULE_7__["default"])(player.nationality().toLowerCase())), m("div", null, player.user() ? m(flarum_components_Link__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    href: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.route('user.player', {
+      username: player.user().username()
+    })
+  }, player.name()) : player.name())];
+
+  if (gmView) {
+    baseView.push(m("div", null, m(flarum_components_Select__WEBPACK_IMPORTED_MODULE_8___default.a, {
+      options: roleOptions(player.bowlingStyle()),
+      value: player.role() || 'batter',
+      onchange: function onchange(v) {
+        return changeRole(player, v);
+      }
+    })));
+  } else {
+    var role = player.role() || 'batter';
+    baseView.push(m("div", null, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.lib.player_role." + role, {
+      style: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.player.style." + player.bowlingStyle())
+    })));
+  }
+
+  baseView.push(m("div", null, player.tpa()));
+  return m("li", {
+    "data-id": player.id()
+  }, baseView);
+} // https://github.com/flarum/tags/blob/master/js/src/admin/components/TagsPage.js
+
 
 var TeamCard = /*#__PURE__*/function (_Component) {
   Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(TeamCard, _Component);
@@ -7900,25 +7984,16 @@ var TeamCard = /*#__PURE__*/function (_Component) {
   var _proto = TeamCard.prototype;
 
   _proto.oninit = function oninit(vnode) {
-    var _this = this;
-
     _Component.prototype.oninit.call(this, vnode);
 
+    this.saving = false;
     this.team = this.attrs.team;
     this.gmView = flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.session.user === this.team.gmUser() || flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.session.user === this.team.agmUser() || flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.forum.attribute('adminUrl');
-    this.players = this.team.players();
-    this.players.sort(function (p1, p2) {
-      return p1 - p2;
-    });
-    this.rolesById = {};
-    this.players.forEach(function (p) {
-      _this.rolesById[p.id()] = p.role();
-    });
-    this.forceRefreshKey = 0;
+    this.forcedRefreshKey = 0;
   };
 
   _proto.view = function view() {
-    var _this2 = this;
+    var _this = this;
 
     var style = {
       backgroundImage: "url(" + this.team.logoLink() + ")",
@@ -7929,16 +8004,17 @@ var TeamCard = /*#__PURE__*/function (_Component) {
     if (this.gmView) {
       save = m(flarum_components_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
         className: "button Button--primary",
+        disabled: this.saving,
+        loading: this.saving,
         onclick: function onclick() {
-          return _this2.saveTeam();
+          return _this.saveTeam();
         }
       }, "Save");
     }
 
-    this.sortPlayers();
     return m("div", {
       className: "TeamCard",
-      key: this.forceRefreshKey,
+      key: this.forcedRefreshKey,
       oncreate: this.onListCreate.bind(this)
     }, m("div", {
       className: "TeamCard-header",
@@ -7947,18 +8023,29 @@ var TeamCard = /*#__PURE__*/function (_Component) {
       className: "TeamCard-players"
     }, m("li", null, m("legend", null), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.basics.player')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.basics.role')), m("legend", null, flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.basics.tpa'))), m("ul", {
       className: "PlayerList"
-    }, this.players.map(function (p) {
-      return _this2.viewPlayer(p);
-    }))));
+    }, this.getPlayers().map(function (p) {
+      return playerItem(p, _this.gmView, _this.changeRole.bind(_this));
+    }))), m("div", {
+      className: "Button-group"
+    }, save));
   };
 
-  _proto.onListCreate = function onListCreate(vnode) {
+  _proto.getPlayers = function getPlayers() {
+    var _this2 = this;
+
+    return flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.store.all('players').filter(function (p) {
+      return p.team() === _this2.team;
+    }).sort(function (p1, p2) {
+      return p1.order() - p2.order();
+    });
+  };
+
+  _proto.onListCreate = function onListCreate() {
     var _this3 = this;
 
     if (!this.gmView) return;
     this.$('.PlayerList').get().map(function (e) {
       sortablejs__WEBPACK_IMPORTED_MODULE_1__["default"].create(e, {
-        group: 'players',
         animation: 150,
         swapThreshold: 0.65,
         dragClass: 'sortable-dragging',
@@ -7970,9 +8057,7 @@ var TeamCard = /*#__PURE__*/function (_Component) {
     });
   };
 
-  _proto.onSortUpdate = function onSortUpdate(e) {
-    var _this4 = this;
-
+  _proto.onSortUpdate = function onSortUpdate() {
     var players = this.$('.PlayerList > li').map(function () {
       return {
         id: $(this).data('id')
@@ -7985,46 +8070,42 @@ var TeamCard = /*#__PURE__*/function (_Component) {
         }
       });
     });
-    this.players = flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.store.all('players').filter(function (p) {
-      return p.team() === _this4.team;
-    });
     this.forcedRefreshKey++;
     m.redraw();
   };
 
-  _proto.viewPlayer = function viewPlayer(player) {
-    var baseView = [m("div", {
-      className: "TeamCard-flag"
-    }, Object(_common_utils_flag__WEBPACK_IMPORTED_MODULE_7__["default"])(player.nationality().toLowerCase())), m("div", null, player.user() ? m(flarum_components_Link__WEBPACK_IMPORTED_MODULE_6___default.a, {
-      href: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.route('user.player', {
-        username: player.user().username()
-      })
-    }, player.name()) : player.name()), m("div", null, player.isBowler() ? flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.player.bowler', {
-      style: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.player.style." + player.bowlingStyle())
-    }) : flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.player.batter')), m("div", null, player.tpa())];
-
-    if (this.gmView) {
-      baseView = [m("div", {
-        className: "TeamCard-flag"
-      }, Object(_common_utils_flag__WEBPACK_IMPORTED_MODULE_7__["default"])(player.nationality().toLowerCase())), m("div", null, "GMView: ", player.user() ? m(flarum_components_Link__WEBPACK_IMPORTED_MODULE_6___default.a, {
-        href: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.route('user.player', {
-          username: player.user().username()
-        })
-      }, player.name()) : player.name()), m("div", null, player.isBowler() ? flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.player.bowler', {
-        style: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans("hcl.forum.player.style." + player.bowlingStyle())
-      }) : flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.translator.trans('hcl.forum.player.batter')), m("div", null, player.tpa())];
-    }
-
-    return m("li", {
-      "data-id": player.id()
-    }, baseView);
+  _proto.changeRole = function changeRole(player, role) {
+    flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.store.getById('players', player.id()).pushData({
+      attributes: {
+        role: role
+      }
+    });
+    m.redraw();
   };
 
-  _proto.saveTeam = function saveTeam() {};
+  _proto.saveTeam = function saveTeam() {
+    var _this4 = this;
 
-  _proto.sortPlayers = function sortPlayers() {
-    this.players.sort(function (p1, p2) {
-      return p1 - p2;
+    this.saving = true;
+    var players = this.getPlayers().map(function (p) {
+      return {
+        id: p.id(),
+        order: p.order(),
+        role: p.role()
+      };
+    });
+    flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.request({
+      url: flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.forum.attribute('apiUrl') + "/teams/" + this.team.id() + "/roles",
+      method: 'POST',
+      body: {
+        players: players
+      }
+    }).then(function () {
+      flarum_app__WEBPACK_IMPORTED_MODULE_3___default.a.alerts.show({
+        type: 'success'
+      }, "Team saved");
+    })["finally"](function () {
+      _this4.saving = false;
     });
   };
 

@@ -5,16 +5,22 @@ hcl:
       first_name_az: Name (a-z)
       first_name_za: Name (z-a)
       tpe: TPE
-      newest: Newest 
-      oldest: Oldest 
-      newest_update: Most Recent Update 
-      oldest_update: Least Recent Update 
+      newest: Newest
+      oldest: Oldest
+      newest_update: Most Recent Update
+      oldest_update: Least Recent Update
     update_status:
       approved: Approved
       denied: Denied
-      pending: Pending 
-      all: All 
+      pending: Pending
+      all: All
       under_review: Under Review
+    player_role:
+      batter: Batter
+      wk: Wicket Keeper
+      bowler: "{style} Bowler"
+      bowler_1: "1st Opening Bowler ({style})"
+      bowler_2: "2nd Opening Bowler ({style})"
   admin:
     title: Howzat Cricket League Settings
     headings:
@@ -32,11 +38,11 @@ hcl:
   forum:
     alerts:
       approved: Update Approved
-      denied: Update Denied 
-      underReview: Update put Under Review 
+      denied: Update Denied
+      underReview: Update put Under Review
       comment_required: You must include an updater comment to deny a claim
     nav:
-      claim_tpe: Claim TPE 
+      claim_tpe: Claim TPE
       players_create: Create Player
       players_view: Manager Player
     notifications:
@@ -46,30 +52,30 @@ hcl:
       update_button: Updates
     settings:
       notify_update_approved: Update Approved
-      notify_update_denied: Update Denied 
+      notify_update_denied: Update Denied
     basics:
       approved_by: Approved By
       capped: Capped
-      capped_this_week: Weekly Capped TPE 
+      capped_this_week: Weekly Capped TPE
       claim_tpe: Claim for TPE
       save_skills: Save Skills
       reset: Reset
       update: Spend Availabe TPE
       no_tpe: No Availabe TPE
       submitt: Submit
-      tpe: TPE 
+      tpe: TPE
       tpa: TPA
-      role: Role 
+      role: Role
       player: Player
       for_week: For Week
       type: Type
-      link: Link 
-      comment: Comment 
-      submitted_at: Submitted at Time 
+      link: Link
+      comment: Comment
+      submitted_at: Submitted at Time
       current_status: Status
-      last_updated: Last Updated Time 
-      updater: Updater 
-      updater_comment: Updater Comment 
+      last_updated: Last Updated Time
+      updater: Updater
+      updater_comment: Updater Comment
     updates:
       title: Claim TPE
       week_ending: Week Ending
@@ -87,26 +93,26 @@ hcl:
         welfare: Welfare
         affiliate: Affiliate
         pressConference: Press Conference
-        activityCheck: Acitvity Check 
-        job: Job 
-        predictions: Predictions 
+        activityCheck: Acitvity Check
+        job: Job
+        predictions: Predictions
         simAttendance: Sim Attendance
-        other: Other 
+        other: Other
         baseTpe: Base TPE
     page:
       empty_text: There's no items to show
       player_directory: Players
-      team_directory: Teams 
+      team_directory: Teams
       nav: Players
       refresh_tooltip: Refresh
-      download_tooltip: Download 
+      download_tooltip: Download
       new_update: New Update
       load_more_button: Load More
     user:
-      players_empty_text: It looks like there are no players here. 
-      updates_empty_text: It looks like there are no updates here. 
+      players_empty_text: It looks like there are no players here.
+      updates_empty_text: It looks like there are no updates here.
       player_link: Players
-      updates_link: Updates 
+      updates_link: Updates
       for_week: "For Week Ending in {week}"
     player:
       bowler: "{style} Bowler"
@@ -131,69 +137,69 @@ hcl:
         discipline: This reduces your inaccuracy and extras (wides & no balls)
         accuracy: The ability to land the ball on the pitch where you want it to go
         paceFlight:
-          pace: This ability changes how fast you can bowl 
-          spin: The more flight a ball has the more it will turn 
+          pace: This ability changes how fast you can bowl
+          spin: The more flight a ball has the more it will turn
         swingLegSpin:
-          pace: This is the ability to make the ball move sideways in the air  
-          spin: Leg spin is when a ball spins from right to left to a right handed batter 
+          pace: This is the ability to make the ball move sideways in the air
+          spin: Leg spin is when a ball spins from right to left to a right handed batter
         slowerBallOffSpin:
-          pace: This ball is bowled slower to trick the batter 
-          spin: Off spin is when a ball spins from left to right to a right handed batter 
+          pace: This ball is bowled slower to trick the batter
+          spin: Off spin is when a ball spins from left to right to a right handed batter
         seamDrift:
-          pace: The is the ability to make the ball move sideways when it bounces 
-          spin: Drift is how a ball moves sideways in the air 
+          pace: The is the ability to make the ball move sideways when it bounces
+          spin: Drift is how a ball moves sideways in the air
         bouncerBounce:
           pace: This is a ball that is pitched short and will bounce up towards the battsmans head
           spin: This helps your ability to fool the batsman making a ball bounce more than expected
         yorkerArmBall:
           pace: This is a ball that is pitched up around the batsmans toes, to try and get them bowled
           spin: This is a surprise ball where the ball doesn't spin sometimes fooling the batsman
-      identity: Identity 
+      identity: Identity
       first_name: First Name
       last_name: Last Name
-      bowling_style: Bowling Style 
-      age: Age 
+      bowling_style: Bowling Style
+      age: Age
       height: Height (cm)
       weight: Weight (kg)
       players: Players
       create: Create Player
       tpe: TPE
       banked: Banked
-      tpa: TPA 
+      tpa: TPA
       season: S
       country: Country
       team: Team
       style:
         pace: Pace
         spin: Spin
-      running: Running 
-      defense: Defense 
-      attacking: Attacking 
-      lofted: Lofted 
-      vsSpin: Vs Spin 
-      vsPace: Vs Pace 
-      footwork: Footwork 
-      timing: Timing 
-      control: Control 
+      running: Running
+      defense: Defense
+      attacking: Attacking
+      lofted: Lofted
+      vsSpin: Vs Spin
+      vsPace: Vs Pace
+      footwork: Footwork
+      timing: Timing
+      control: Control
       paceFlight:
-        pace: Pace 
-        spin: Flight 
+        pace: Pace
+        spin: Flight
       swingLegSpin:
-        pace: Swing 
-        spin: Leg Spin 
+        pace: Swing
+        spin: Leg Spin
       slowerBallOffSpin:
-        pace: Slower Ball 
-        spin: Off Spin 
+        pace: Slower Ball
+        spin: Off Spin
       seamDrift:
-        pace: Seam 
-        spin: Drift 
-      accuracy: Accuracy 
-      discipline: Discipline 
+        pace: Seam
+        spin: Drift
+      accuracy: Accuracy
+      discipline: Discipline
       bouncerBounce:
-        pace: Bouncer 
-        spin: Bounce 
+        pace: Bouncer
+        spin: Bounce
       yorkerArmBall:
-        pace: Yorker 
-        spin: Arm Ball 
+        pace: Yorker
+        spin: Arm Ball
       bowler_attributes: Bowling Skills
-      batting_attributes: Batting Skills 
+      batting_attributes: Batting Skills

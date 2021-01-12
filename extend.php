@@ -21,6 +21,7 @@ use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowTeamController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdatePlayerController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\UpdateTeamRoleController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdateUpdateController;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
@@ -33,11 +34,11 @@ use FoF\Components\Extend\AddFofComponents;
 return [
     new AddFofComponents(),
     (new Extend\Frontend('forum'))
-        ->js(__DIR__.'/js/dist/forum.js')
-        ->css(__DIR__.'/resources/less/forum.less'),
+        ->js(__DIR__ . '/js/dist/forum.js')
+        ->css(__DIR__ . '/resources/less/forum.less'),
     (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/resources/less/admin.less'),
+        ->js(__DIR__ . '/js/dist/admin.js')
+        ->css(__DIR__ . '/resources/less/admin.less'),
     new Extend\Locales(__DIR__ . '/resources/locale'),
 
     (new Extend\Model(User::class))
@@ -57,8 +58,9 @@ return [
         ->get('/updates', 'updates.index', ListUpdatesController::class)
         ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class)
         ->get('/teams', 'teams', ListTeamsController::class)
-        ->get('/teams/{id}', 'teams.show', ShowTeamController::class),
-    
+        ->get('/teams/{id}', 'teams.show', ShowTeamController::class)
+        ->post('/teams/{id}/roles', 'teams.updateRoles', UpdateTeamRoleController::class),
+
     (new Extend\Frontend('forum'))
         ->route('/user/{username}/player', 'user.player')
         ->route('/user/{username}/updates', 'user.updates')
