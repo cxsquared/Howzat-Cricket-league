@@ -13,9 +13,9 @@ class TeamSerializer extends AbstractSerializer
 
     protected function getDefaultAttributes($team)
     {
-        if (! ($team instanceof Team)) {
-            throw new InvalidArgumentException (
-                get_class($this).' can only serialize instances of '.Team::class
+        if (!($team instanceof Team)) {
+            throw new InvalidArgumentException(
+                get_class($this) . ' can only serialize instances of ' . Team::class
             );
         }
 
@@ -23,18 +23,18 @@ class TeamSerializer extends AbstractSerializer
             'name'          => $team->name,
             'logoLink'      => $team->logo_link,
             'primaryColor'  => $team->primary_color,
-            'secondaryColor'=> $team->secondary_color,
+            'secondaryColor' => $team->secondary_color,
             'createdAt'     => $this->formatDate($team->created_at),
             'updatedAt'     => $this->formatDate($team->updated_at)
         ];
     }
 
-    protected function gmUser($team)
+    protected function gm_user($team)
     {
         return $this->hasOne($team, BasicUserSerializer::class);
     }
 
-    protected function agmUser($team)
+    protected function agm_user($team)
     {
         return $this->hasOne($team, BasicUserSerializer::class);
     }

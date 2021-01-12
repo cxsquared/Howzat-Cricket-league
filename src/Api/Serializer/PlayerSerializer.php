@@ -13,9 +13,9 @@ class PlayerSerializer extends AbstractSerializer
 
     protected function getDefaultAttributes($player)
     {
-       if (! ($player instanceof Player)) {
+        if (!($player instanceof Player)) {
             throw new InvalidArgumentException(
-                get_class($this).' can only serialize instances of '.Player::class
+                get_class($this) . ' can only serialize instances of ' . Player::class
             );
         }
 
@@ -47,6 +47,8 @@ class PlayerSerializer extends AbstractSerializer
             'tpe'               => $player->tpe,
             'bankedTpe'         => $player->banked_tpe,
             'season'            => $player->season,
+            'role'              => $player->role,
+            'order'             => $player->order,
             'createdAt'         => $this->formatDate($player->created_at),
             'updatedAt'         => $this->formatDate($player->updated_at),
             'canEdit'           => $this->actor->can('edit', $player)

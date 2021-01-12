@@ -11,7 +11,7 @@ Object.assign(Team.prototype, {
     createdAt: Model.attribute('createdAt', Model.transformDate),
     updatedAt: Model.attribute('updatedAt', Model.transaformDate),
 
-    gmUser: Model.hasOne('gmUser'),
-    agmUser: Model.hasOne('agmUser'),
+    gmUser: Model.hasOne('gm_user'),
+    agmUser: Model.hasOne('agm_user'),
     players: Model.hasMany('players'),
 });

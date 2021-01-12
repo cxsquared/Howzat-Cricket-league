@@ -13,7 +13,7 @@ class ShowTeamController extends AbstractShowController
 {
     public $serializer = TeamSerializer::class;
 
-    public $include = ['players', 'gm_user', 'agm_user'];
+    public $include = ['players', 'gm_user', 'agm_user', 'players.user', 'players.team'];
 
     protected function data(Request $request, Document $document)
     {
