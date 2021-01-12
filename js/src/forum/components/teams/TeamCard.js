@@ -41,7 +41,7 @@ function playerItem(player, gmView, changeRole) {
 
         baseView.push(<div>{player.tpa()}</div>)
 
-        return <li data-id={player.id()}>
+        return <li data-id={player.id()} key={`${player.id()}_${player.order()}`}>
             {baseView}
         </li>  
 }

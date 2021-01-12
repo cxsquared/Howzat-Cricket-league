@@ -7969,7 +7969,8 @@ function playerItem(player, gmView, changeRole) {
 
   baseView.push(m("div", null, player.tpa()));
   return m("li", {
-    "data-id": player.id()
+    "data-id": player.id(),
+    key: player.id() + "_" + player.order()
   }, baseView);
 } // https://github.com/flarum/tags/blob/master/js/src/admin/components/TagsPage.js
 
