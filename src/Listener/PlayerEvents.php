@@ -4,6 +4,7 @@ namespace Cxsquared\HowzatCricketLeague\Listener;
 
 use Carbon\Carbon;
 use Cxsquared\HowzatCricketLeague\Player\Event\Created;
+use Cxsquared\HowzatCricketLeague\Player\Event\Released;
 use Cxsquared\HowzatCricketLeague\Player\Event\Retired;
 use Cxsquared\HowzatCricketLeague\SettingsUtils;
 use Cxsquared\HowzatCricketLeague\Update\Update;
@@ -46,6 +47,56 @@ class PlayerEvents
     {
         $events->listen(Created::class, [$this, 'onPlayerCreated']);
         $events->listen(Retired::class, [$this, 'onPlayerRetired']);
+        $events->listen(Released::class, [$this, 'onPlayerReleased']);
+    }
+
+    public function onPlayerReleased(Released $event)
+    {
+        // Post recruitment Thread
+        $playerName = $event->player->first_name . " " . $event->player->last_name;
+        $postBody = "";
+        if ($event->player->user) {
+            $playerUrl = $this->url->to('forum')->route('user', ['username' => $event->player->user->username]);
+            $postBody = "[" . $playerName . "](" . $playerUrl . ") has been released by the " . $event->team->name;
+        } else if ($event->player->retired_user) {
+            $playerUrl = $this->url->to('forum')->route('user', ['username' => $event->player->retired_user->username]);
+            $postBody = "[" . $playerName . "](" . $playerUrl . ") has been released by the " . $event->team->name;
+        } else {
+            $postBody = $playerName . " has been released by the " . $event->team->name;
+        }
+
+        $title = "[S" . $event->player->season . "] " . $event->team->name . ' releases ' . $playerName;
+
+        $botId = SettingsUtils::GetBotUserId($this->settings);
+        $bot = $this->users->findOrFail($botId);
+
+        $leagueMovementsTagId = SettingsUtils::GetLeagueMovementsTagId($this->settings);
+        $releaseTagId = SettingsUtils::GetReleasedTagId($this->settings);
+
+        $data = array(
+            "attributes" => array(
+                "title" => $title,
+                "content" => $postBody
+            ),
+            "relationships" => array(
+                "tags" => array(
+                    "data" => array(
+                        array(
+                            "id" => $leagueMovementsTagId,
+                            "type" => "tags"
+                        ),
+                        array(
+                            "id" => $releaseTagId,
+                            "type" => "tags"
+                        )
+                    )
+                )
+            )
+        );
+
+        return $this->bus->dispatch(
+            new StartDiscussion($bot, $data, '127.0.0.1')
+        );
     }
 
     public function onPlayerCreated(Created $event)

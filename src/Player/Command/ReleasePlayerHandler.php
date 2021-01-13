@@ -9,6 +9,7 @@ use Cxsquared\HowzatCricketLeague\Player\PlayerMovement;
 use Cxsquared\HowzatCricketLeague\Player\PlayerRepository;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\SettingsUtils;
+use Cxsquared\HowzatCricketLeague\Team\Team;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -44,8 +45,9 @@ class ReleasePlayerHandler
         $actor = $command->actor;
 
         $player = Player::findOrFail($command->playerId);
+        $team = Team::findOrFail($player->team_id);
 
-        if ($actor->id !== $player->team->gm_user_id && $actor->id !== $player->team->agm_user_id) {
+        if ($actor->id !== $team->gm_user_id && $actor->id !== $team->agm_user_id) {
             $actor->assertAdmin();
         }
 
@@ -53,13 +55,13 @@ class ReleasePlayerHandler
 
         $player_movement = PlayerMovement::released(
             $player->id,
-            $player->team_id,
+            $team->id,
             Carbon::now(),
             SettingsUtils::GetSeason($this->settings)
         );
 
         $this->events->dispatch(
-            new Released($player, $player->team, $actor)
+            new Released($player, $team, $actor)
         );
 
         $player->save();

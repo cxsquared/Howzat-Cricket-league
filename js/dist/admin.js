@@ -165,6 +165,10 @@ flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.initializers.add('cxsquared/ho
           name: "hcl.retirement-tag-id",
           setting: s
         }), m(NumberItem, {
+          label: flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.admin.headings.release'),
+          name: "hcl.released-tag-id",
+          setting: s
+        }), m(NumberItem, {
           label: flarum_app__WEBPACK_IMPORTED_MODULE_2___default.a.translator.trans('hcl.admin.headings.season'),
           name: "hcl.season",
           setting: s

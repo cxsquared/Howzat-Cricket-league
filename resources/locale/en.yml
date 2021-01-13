@@ -29,6 +29,7 @@ hcl:
       captain_group_id: Captain Group Id
       league_movement_tag_id: League Movement Tag Id
       retirement_tag_id: Retirement Tag Id
+      release: Release Tag Id
       season: Season
     permissions:
       update_players: Update Players

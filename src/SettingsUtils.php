@@ -41,6 +41,11 @@ class SettingsUtils
         return $settings->get('hcl.retirement-tag-id', 52);
     }
 
+    public static function GetReleasedTagId(SettingsRepositoryInterface $settings)
+    {
+        return $settings->get('hcl.released-tag-id', 53);
+    }
+
     public static function GetSeason(SettingsRepositoryInterface $settings)
     {
         return $settings->get('hcl.season', 2);
