@@ -53,7 +53,8 @@ class Player extends AbstractModel
         $height,
         $weight,
         $nationality,
-        $bowling_style
+        $bowling_style,
+        $season
     ) {
         $player = new static;
 
@@ -65,6 +66,7 @@ class Player extends AbstractModel
         $player->weight = $weight;
         $player->nationality = $nationality;
         $player->bowling_style = $bowling_style;
+        $player->season = $season;
 
         return $player;
     }
@@ -135,7 +137,6 @@ class Player extends AbstractModel
         $this->retired_at = $retired_at;
         $this->retired_user_id = $this->user_id;
         $this->user_id = NULL;
-        $this->team_id = NULL;
 
         return $this;
     }

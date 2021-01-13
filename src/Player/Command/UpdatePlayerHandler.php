@@ -11,14 +11,13 @@ use Cxsquared\HowzatCricketLeague\Player\PlayerMovementUtils;
 use Cxsquared\HowzatCricketLeague\Player\PlayerRepository;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\TpeHelper;
-use Cxsquared\HowzatCricketLeague\Update\Update;
+use Cxsquared\HowzatCricketLeague\SettingsUtils;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Foundation\ValidationException;
 use Flarum\Locale\Translator;
+use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use LogicException;
 
 class UpdatePlayerHandler
 {
@@ -30,14 +29,18 @@ class UpdatePlayerHandler
 
     protected $translator;
 
+    protected $settings;
+
     public function __construct(
         Dispatcher $events,
         PlayerRepository $players,
-        PlayerValidator $validator
+        PlayerValidator $validator,
+        SettingsRepositoryInterface $settings
     ) {
         $this->events = $events;
         $this->players = $players;
         $this->validator = $validator;
+        $this->settings = $settings;
         $this->translator = app(Translator::class);
     }
 
@@ -75,11 +78,19 @@ class UpdatePlayerHandler
 
         if (isset($attributes['retire']) && $attributes['retire'] === true) {
             if ($player->retired_user_id !== NULL || $player->retired_at !== NULL) {
-                throw new LogicException("This player has already retired");
+                throw new ValidationException(["This player has already retired"]);
             }
 
             $player->retire(Carbon::now());
-            $player_movement = PlayerMovement::create($player->id, PlayerMovementUtils::retirement(), $player->team_id, NULL, Carbon::now());
+            $player_movement = PlayerMovement::create(
+                $player->id,
+                PlayerMovementUtils::retirement(),
+                $player->team_id,
+                NULL,
+                Carbon::now(),
+                SettingsUtils::GetSeason($this->settings),
+                null
+            );
 
             $this->events->dispatch(
                 new Retired($player, $actor, $data)

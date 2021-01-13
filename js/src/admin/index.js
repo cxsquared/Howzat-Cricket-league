@@ -34,7 +34,6 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
         app.modal.show(SettingsModal , {
             title: app.translator.trans('hcl.admin.title'),
             type: 'small',
-
             items: (s) => [
                 <div className="Forum-group">
                     <NumberItem label={app.translator.trans('hcl.admin.headings.bot_id')}
@@ -51,6 +50,9 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
                                 setting={s} />
                     <NumberItem label={app.translator.trans('hcl.admin.headings.retirement_tag_id')}
                                 name="hcl.retirement-tag-id"
+                                setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.season')}
+                                name="hcl.season"
                                 setting={s} />
                 </div>
             ]

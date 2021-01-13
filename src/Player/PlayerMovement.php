@@ -32,14 +32,24 @@ class PlayerMovement extends AbstractModel
         return $this->belongsTo(Team::class);
     }
 
-    public static function create($player_id, $type, $from_team_id, $to_team_id, $date)
-    {
+    public static function create(
+        $player_id,
+        $type,
+        $from_team_id,
+        $to_team_id,
+        $date,
+        $season,
+        $draft_number
+    ) {
         $player_movement = new static;
 
         $player_movement->player_id = $player_id;
         $player_movement->type = $type;
         $player_movement->from_team_id = $from_team_id;
         $player_movement->to_team_id = $to_team_id;
+        $player_movement->date = $date;
+        $player_movement->season = $season;
+        $player_movement->draft_number = $draft_number;
 
         $player_movement->created_at = Carbon::now();
 

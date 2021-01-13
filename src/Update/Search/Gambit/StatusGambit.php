@@ -16,7 +16,7 @@ class StatusGambit extends AbstractRegexGambit
 
     public function __construct(UpdateRepository $updates)
     {
-       $this->updates = $updates;
+        $this->updates = $updates;
     }
 
     public function apply(AbstractSearch $search, $bit)
@@ -26,12 +26,12 @@ class StatusGambit extends AbstractRegexGambit
 
     protected function conditions(AbstractSearch $search, array $matches, $negate)
     {
-        if (! $search instanceof UpdateSearch) {
+        if (!$search instanceof UpdateSearch) {
             throw new LogicException('This gambit can only be applied on an UpdateSearch');
         }
 
         $status = trim($matches[1], '"');
 
-        $search->getQuery()->where('status', $negate ? '!=': '=', $status);
+        $search->getQuery()->where('status', $negate ? '!=' : '=', $status);
     }
 }

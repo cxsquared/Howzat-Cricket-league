@@ -12,7 +12,6 @@ use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\Foundation\ValidationException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
-use LogicException;
 
 class UpdateUpdateHandler
 {
@@ -43,9 +42,9 @@ class UpdateUpdateHandler
 
             if ($status == $previousStatus) {
                 if ($status == 'approved') {
-                    throw new LogicException('This update has already been approved');
+                    throw new ValidationException(['This update has already been approved']);
                 } else if ($status == 'denied') {
-                    throw new LogicException('This update has already been denied');
+                    throw new ValidationException(['This update has already been denied']);
                 }
             }
 
