@@ -32,6 +32,40 @@ class PlayerMovement extends AbstractModel
         return $this->belongsTo(Team::class);
     }
 
+    public static function retired(
+        $player_id,
+        $from_team_id,
+        $date,
+        $season
+    ) {
+        return PlayerMovement::create(
+            $player_id,
+            PlayerMovementUtils::retirement(),
+            $from_team_id,
+            NULL,
+            $date,
+            $season,
+            null
+        );
+    }
+
+    public static function released(
+        $player_id,
+        $from_team_id,
+        $date,
+        $season
+    ) {
+        return PlayerMovement::create(
+            $player_id,
+            PlayerMovementUtils::released(),
+            $from_team_id,
+            NULL,
+            $date,
+            $season,
+            null
+        );
+    }
+
     public static function create(
         $player_id,
         $type,

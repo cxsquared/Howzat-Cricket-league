@@ -5,7 +5,7 @@ import PermissionGrid from 'flarum/components/PermissionGrid';
 
 const {
     SettingsModal,
-    items: { NumberItem }
+    items: { NumberItem },
 } = settings;
 
 app.initializers.add('cxsquared/howzat-cricket-league', () => {
@@ -31,31 +31,23 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
     });
 
     app.extensionSettings['cxsquared-howzat-cricket-league'] = () => {
-        app.modal.show(SettingsModal , {
+        app.modal.show(SettingsModal, {
             title: app.translator.trans('hcl.admin.title'),
             type: 'small',
             items: (s) => [
                 <div className="Forum-group">
-                    <NumberItem label={app.translator.trans('hcl.admin.headings.bot_id')}
-                                name="hcl.bot-id"
-                                setting={s} />
-                    <NumberItem label={app.translator.trans('hcl.admin.headings.player_tag_id')}
-                                name="hcl.player-tag-id"
-                                setting={s} />
-                    <NumberItem label={app.translator.trans('hcl.admin.headings.captain_group_id')}
-                                name="hcl.captain-group-id"
-                                setting={s} />
-                    <NumberItem label={app.translator.trans('hcl.admin.headings.league_movement_tag_id')}
-                                name="hcl.league-movements-tag-id"
-                                setting={s} />
-                    <NumberItem label={app.translator.trans('hcl.admin.headings.retirement_tag_id')}
-                                name="hcl.retirement-tag-id"
-                                setting={s} />
-                    <NumberItem label={app.translator.trans('hcl.admin.headings.season')}
-                                name="hcl.season"
-                                setting={s} />
-                </div>
-            ]
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.bot_id')} name="hcl.bot-id" setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.player_tag_id')} name="hcl.player-tag-id" setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.captain_group_id')} name="hcl.captain-group-id" setting={s} />
+                    <NumberItem
+                        label={app.translator.trans('hcl.admin.headings.league_movement_tag_id')}
+                        name="hcl.league-movements-tag-id"
+                        setting={s}
+                    />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.retirement_tag_id')} name="hcl.retirement-tag-id" setting={s} />
+                    <NumberItem label={app.translator.trans('hcl.admin.headings.season')} name="hcl.season" setting={s} />
+                </div>,
+            ],
         });
     };
 });

@@ -17,6 +17,7 @@ use Cxsquared\HowzatCricketLeague\Api\Controller\DownloadPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListTeamsController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListUpdatesController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\ReleasePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowTeamController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
@@ -55,6 +56,7 @@ return [
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
+        ->post('/players/{id}/release', 'players.release', ReleasePlayerController::class)
         ->post('/updates', 'updates', CreateUpdateController::class)
         ->get('/updates', 'updates.index', ListUpdatesController::class)
         ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class)

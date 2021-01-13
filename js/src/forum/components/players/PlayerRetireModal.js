@@ -30,7 +30,7 @@ export default class PlayerRetireModal extends Modal {
                     </Button>
                 </div>
             </div>
-        )
+        );
     }
 
     onsubmit(e) {
@@ -38,17 +38,18 @@ export default class PlayerRetireModal extends Modal {
 
         this.saving = true;
 
-        this.attrs.player.save({ retire: true })
-        .then(() => {
-            this.hide();
-            app.alerts.show({ type: 'success' }, app.translator.trans('hcl.forum.alerts.player_retired'))
+        this.attrs.player
+            .save({ retire: true })
+            .then(() => {
+                this.hide();
+                app.alerts.show({ type: 'success' }, app.translator.trans('hcl.forum.alerts.player_retired'));
 
-            if (this.attrs.showPlayer) {
-                this.attrs.showPlayer(null);
-            }
-        })
-        .catch(() => {
-            this.saving = false;
-        })
+                if (this.attrs.showPlayer) {
+                    this.attrs.showPlayer(null);
+                }
+            })
+            .catch(() => {
+                this.saving = false;
+            });
     }
 }

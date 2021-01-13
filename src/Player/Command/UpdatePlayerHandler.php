@@ -7,7 +7,6 @@ use Cxsquared\HowzatCricketLeague\Player\Event\Retired;
 use Cxsquared\HowzatCricketLeague\Player\Event\Saving;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerMovement;
-use Cxsquared\HowzatCricketLeague\Player\PlayerMovementUtils;
 use Cxsquared\HowzatCricketLeague\Player\PlayerRepository;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\TpeHelper;
@@ -82,14 +81,11 @@ class UpdatePlayerHandler
             }
 
             $player->retire(Carbon::now());
-            $player_movement = PlayerMovement::create(
+            $player_movement = PlayerMovement::retired(
                 $player->id,
-                PlayerMovementUtils::retirement(),
                 $player->team_id,
-                NULL,
                 Carbon::now(),
                 SettingsUtils::GetSeason($this->settings),
-                null
             );
 
             $this->events->dispatch(

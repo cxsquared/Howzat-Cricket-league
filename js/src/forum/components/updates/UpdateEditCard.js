@@ -72,7 +72,7 @@ export default class UpdateEditCard extends Component {
         if (this.playerDeleted) {
             playerName = 'Retired';
         } else {
-            playerName = this.player.name()
+            playerName = this.player.name();
         }
 
         return (
@@ -81,9 +81,7 @@ export default class UpdateEditCard extends Component {
                     <div className="UpdateEditCard-fields">
                         <div className="UpdateEditCard-item">
                             <legend>{app.translator.trans('hcl.forum.basics.player')}</legend>
-                            <a href={app.route('user.updates', { username: this.update.submittedUser().username() })}>
-                                {playerName} (
-                            </a>
+                            <a href={app.route('user.updates', { username: this.update.submittedUser().username() })}>{playerName} (</a>
                             <a href={app.route('user', { username: this.update.submittedUser().username() })}>
                                 {username(this.update.submittedUser())}
                             </a>

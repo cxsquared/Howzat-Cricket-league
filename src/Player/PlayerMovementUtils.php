@@ -13,4 +13,9 @@ class PlayerMovementUtils
     {
         return 'retirement';
     }
+
+    public static function released()
+    {
+        return 'released';
+    }
 }

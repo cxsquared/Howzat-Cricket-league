@@ -59,10 +59,14 @@ export default class PlayerUserPage extends UserPage {
 
         let retire = null;
         if (this.user === app.session.user || app.forum.attribute('adminUrl')) {
-            retire = <Button className="Button Button--danger"
-                             onclick={() => app.modal.show(PlayerRetireModal, { player: this.player, showPlayer: this.showPlayer.bind(this) })} >
-                {app.translator.trans('hcl.forum.player.retire.button')}
-            </Button>;
+            retire = (
+                <Button
+                    className="Button Button--danger"
+                    onclick={() => app.modal.show(PlayerRetireModal, { player: this.player, showPlayer: this.showPlayer.bind(this) })}
+                >
+                    {app.translator.trans('hcl.forum.player.retire.button')}
+                </Button>
+            );
         }
 
         return (
@@ -73,7 +77,7 @@ export default class PlayerUserPage extends UserPage {
                     </li>
                 </ul>
                 {retire}
-           </div>
+            </div>
         );
     }
 

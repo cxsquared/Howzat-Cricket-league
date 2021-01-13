@@ -84,16 +84,18 @@ export default class PlayerCard extends Component {
 
         let team = null;
         if (player.team()) {
-            team = [<div className="PlayerCard-data PlayerCard-team">
-                    <Link href={app.route('teams.show', { id: player.team().id() })}
-                          title={player.team().name()}
-                          alt={player.team().name()} >
-                        <img src={player.team().logoLink()}
-                             alt={player.team().name()}
-                             style = {{backgroundColor: `${Color(`#${player.team().primaryColor()}`).darken(0.35).hex()}` }} />
+            team = [
+                <div className="PlayerCard-data PlayerCard-team">
+                    <Link href={app.route('teams.show', { id: player.team().id() })} title={player.team().name()} alt={player.team().name()}>
+                        <img
+                            src={player.team().logoLink()}
+                            alt={player.team().name()}
+                            style={{ backgroundColor: `${Color(`#${player.team().primaryColor()}`).darken(0.35).hex()}` }}
+                        />
                     </Link>
                 </div>,
-            seperator];
+                seperator,
+            ];
         }
 
         return (

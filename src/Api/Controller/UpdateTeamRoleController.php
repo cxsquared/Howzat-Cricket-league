@@ -25,7 +25,7 @@ class UpdateTeamRoleController implements RequestHandlerInterface
 
         $team = Team::findOrFail($teamId);
 
-        if ($actor->id !== $team->gm_user_id || $actor->id !== $team->agm_user_id) {
+        if ($actor->id !== $team->gm_user_id && $actor->id !== $team->agm_user_id) {
             $actor->assertAdmin();
         }
 

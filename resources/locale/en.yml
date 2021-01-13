@@ -45,6 +45,7 @@ hcl:
       underReview: Update put Under Review
       comment_required: You must include an updater comment to deny a claim
       player_retired: Player retired
+      player_released: Player released
     nav:
       claim_tpe: Claim TPE
       players_create: Create Player
@@ -124,6 +125,11 @@ hcl:
         title: Retire?
         warning: Are you sure you want to retire your player?
         button: Retire
+      release:
+        title: Release?
+        warning_update: "Are you sure you want to release this player? They last updated on {latestUpdate}"
+        warning: "Are you sure you want to release this player?"
+        button: Release
       bowler: "{style} Bowler"
       batter: Batter
       update:
