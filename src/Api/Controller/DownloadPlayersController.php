@@ -78,7 +78,7 @@ class DownloadPlayersController implements RequestHandlerInterface
         $style = $player->bowling_style === 'pace' ? 'p' : 's';
 
         $role = 1;
-        if ($player->role === "bowler") {
+        if (strpos($player->role, "bowler")) {
             $role = 2;
         } else if ($player->role === "wk") {
             $role = 0;
