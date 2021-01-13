@@ -47,6 +47,8 @@ class PlayerSerializer extends AbstractSerializer
             'tpe'               => $player->tpe,
             'bankedTpe'         => $player->banked_tpe,
             'season'            => $player->season,
+            'role'              => $player->role,
+            'order'             => $player->order,
             'createdAt'         => $this->formatDate($player->created_at),
             'updatedAt'         => $this->formatDate($player->updated_at),
             'canEdit'           => $this->actor->can('edit', $player)

@@ -36,6 +36,8 @@ Object.assign(Player.prototype, {
     bankedTpe: Model.attribute('bankedTpe'),
     
     season: Model.attribute('season'),
+    role: Model.attribute('role'),
+    order: Model.attribute('order'), 
 
     // Computed
     name: computed('firstName', 'lastName', (fn, ln) => `${fn} ${ln}`),

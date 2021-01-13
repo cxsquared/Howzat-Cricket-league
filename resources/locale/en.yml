@@ -15,6 +15,12 @@ hcl:
       pending: Pending
       all: All
       under_review: Under Review
+    player_role:
+      batter: Batter
+      wk: Wicket Keeper
+      bowler: "{style} Bowler"
+      bowler_1: "1st Opening Bowler ({style})"
+      bowler_2: "2nd Opening Bowler ({style})"
   admin:
     title: Howzat Cricket League Settings
     headings:

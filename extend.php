@@ -21,6 +21,7 @@ use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowTeamController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdatePlayerController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\UpdateTeamRoleController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\UpdateUpdateController;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Team\Team;
@@ -58,7 +59,8 @@ return [
         ->get('/updates', 'updates.index', ListUpdatesController::class)
         ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class)
         ->get('/teams', 'teams', ListTeamsController::class)
-        ->get('/teams/{id}', 'teams.show', ShowTeamController::class),
+        ->get('/teams/{id}', 'teams.show', ShowTeamController::class)
+        ->post('/teams/{id}/roles', 'teams.updateRoles', UpdateTeamRoleController::class),
 
     (new Extend\Frontend('forum'))
         ->route('/u/{username}/player', 'user.player')
