@@ -4,6 +4,8 @@ import Placeholder from 'flarum/components/Placeholder';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import LinkButton from 'flarum/components/LinkButton';
 import PlayerCard from './PlayerCard';
+import Button from 'flarum/components/Button';
+import PlayerRetireModal from './PlayerRetireModal';
 
 /**
  * The `PlayerUserPage` component shows a user's players inside
@@ -55,6 +57,18 @@ export default class PlayerUserPage extends UserPage {
             return LoadingIndicator.component();
         }
 
+        let retire = null;
+        if (this.user === app.session.user || app.forum.attribute('adminUrl')) {
+            retire = (
+                <Button
+                    className="Button Button--danger"
+                    onclick={() => app.modal.show(PlayerRetireModal, { player: this.player, showPlayer: this.showPlayer.bind(this) })}
+                >
+                    {app.translator.trans('hcl.forum.player.retire.button')}
+                </Button>
+            );
+        }
+
         return (
             <div className="PlayersUserPage">
                 <ul className="PlayersUserPage-list">
@@ -62,6 +76,7 @@ export default class PlayerUserPage extends UserPage {
                         <PlayerCard player={this.player} showUser={false} />
                     </li>
                 </ul>
+                {retire}
             </div>
         );
     }

@@ -33,8 +33,9 @@ app.initializers.add('cxsquared/howzat-cricket-league', () => {
 
     // New Model Relationships
     User.prototype.player = Model.hasOne('player');
-    User.prototype.submittedUpdates = Model.hasMany('submittedUpdates');
-    User.prototype.gmTeam = Model.hasOne('gmTeam');
+    User.prototype.retiredPlayers = Model.hasMany('retired_players');
+    User.prototype.submittedUpdates = Model.hasMany('submitted_updates');
+    User.prototype.gmTeam = Model.hasOne('gm_team');
 
     // New Routes
     app.routes['players'] = { path: '/players', component: PlayerDirectoryPage };

@@ -60,6 +60,11 @@ class PlayerSerializer extends AbstractSerializer
         return $this->hasOne($player, BasicUserSerializer::class);
     }
 
+    protected function retiredUser($player)
+    {
+        return $this->hasOne($player, BasicUserSerializer::class);
+    }
+
     protected function team($player)
     {
         return $this->hasOne($player, TeamSerializer::class);

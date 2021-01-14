@@ -7,6 +7,7 @@ use Cxsquared\HowzatCricketLeague\Player\Event\Created;
 use Cxsquared\HowzatCricketLeague\Player\Player;
 use Cxsquared\HowzatCricketLeague\Player\PlayerValidator;
 use Cxsquared\HowzatCricketLeague\Player\Event\Saving;
+use Cxsquared\HowzatCricketLeague\SettingsUtils;
 use Cxsquared\HowzatCricketLeague\Update\DateHelper;
 use Cxsquared\HowzatCricketLeague\Update\Update;
 use Flarum\Foundation\DispatchEventsTrait;
@@ -22,8 +23,11 @@ class CreatePlayerHandler
 
     protected $settings;
 
-    public function __construct(Dispatcher $events, PlayerValidator $validator, SettingsRepositoryInterface $settings)
-    {
+    public function __construct(
+        Dispatcher $events,
+        PlayerValidator $validator,
+        SettingsRepositoryInterface $settings
+    ) {
         $this->events = $events;
         $this->validator = $validator;
         $this->settings = $settings;
@@ -44,7 +48,8 @@ class CreatePlayerHandler
             Arr::get($data, 'attributes.height'),
             Arr::get($data, 'attributes.weight'),
             Arr::get($data, 'attributes.nationality'),
-            Arr::get($data, 'attributes.bowlingStyle')
+            Arr::get($data, 'attributes.bowlingStyle'),
+            SettingsUtils::GetSeason($this->settings)
         );
 
         // Starting Banked TPE is 30

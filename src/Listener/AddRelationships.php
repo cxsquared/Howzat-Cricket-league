@@ -14,7 +14,7 @@ use Flarum\Api\Serializer\BasicUserSerializer;
 use Flarum\Event\GetApiRelationship;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class AddRelationships 
+class AddRelationships
 {
     public function subscribe(Dispatcher $events)
     {
@@ -26,11 +26,6 @@ class AddRelationships
 
     public function prepareApiAttributes(Serializing $event)
     {
-        /*
-        if ($event->isSerializer(BasicUserSerializer::class)) {
-            $event->attributes['player'] = $event->model->player;
-        }
-        */
     }
 
     public function getApiRelationship(GetApiRelationship $event)
@@ -39,11 +34,15 @@ class AddRelationships
             return $event->serializer->hasOne($event->model, PlayerSerializer::class, 'player');
         }
 
-        if ($event->isRelationship(BasicUserSerializer::class, 'gmTeam')) {
+        if ($event->isRelationship(BasicUserSerializer::class, 'retired_players')) {
+            return $event->serializer->hasMany($event->model, PlayerSerializer::class, 'retired_players');
+        }
+
+        if ($event->isRelationship(BasicUserSerializer::class, 'gm_team')) {
             return $event->serializer->hasOne($event->model, TeamSerializer::class, 'gm_team');
         }
 
-        if ($event->isRelationship(BasicUserSerializer::class, 'agmTeam')) {
+        if ($event->isRelationship(BasicUserSerializer::class, 'agm_team')) {
             return $event->serializer->hasOne($event->model, TeamSerializer::class, 'agm_team');
         }
 
@@ -56,6 +55,7 @@ class AddRelationships
     {
         if ($event->isController(ShowUserController::class)) {
             $event->data->load('player');
+            $event->data->load('retired_players');
             $event->data->load('gm_team');
             $event->data->load('agm_team');
             $event->data->load('submitted_updates');
@@ -65,6 +65,8 @@ class AddRelationships
             $event->data->load('player');
             $event->data->load('gm_team');
             $event->data->load('agm_team');
+            $event->data->load('submitted_updates');
+            $event->data->load('retired_players');
         }
     }
 
@@ -72,6 +74,7 @@ class AddRelationships
     {
         if ($event->isController(ShowUserController::class)) {
             $event->addInclude('player');
+            $event->addInclude('retired_players');
             $event->addInclude('gm_team');
             $event->addInclude('agm_team');
             $event->addInclude('submitted_updates');
@@ -81,6 +84,8 @@ class AddRelationships
             $event->addInclude('player');
             $event->addInclude('gm_team');
             $event->addInclude('agm_team');
+            $event->addInclude('submitted_updates');
+            $event->addInclude('retired_players');
         }
     }
 }

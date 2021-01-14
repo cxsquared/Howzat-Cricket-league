@@ -17,6 +17,7 @@ use Cxsquared\HowzatCricketLeague\Api\Controller\DownloadPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListPlayersController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListTeamsController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ListUpdatesController;
+use Cxsquared\HowzatCricketLeague\Api\Controller\ReleasePlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowPlayerController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowTeamController;
 use Cxsquared\HowzatCricketLeague\Api\Controller\ShowUserPlayerController;
@@ -45,7 +46,8 @@ return [
         ->hasOne('player', Player::class)
         ->hasOne('gm_team', Team::class, 'gm_user_id')
         ->hasOne('agm_team', Team::class, 'agm_user_id')
-        ->hasMany('submitted_updates', Update::class, 'submitted_user_id'),
+        ->hasMany('submitted_updates', Update::class, 'submitted_user_id')
+        ->hasMany('retired_players', Player::class, 'retired_user_id'),
 
     (new Extend\Routes('api'))
         ->get('/users/{id}/player', 'users.player', ShowUserPlayerController::class)
@@ -54,6 +56,7 @@ return [
         ->get('/players/{id}', 'players.show', ShowPlayerController::class)
         ->post('/players', 'players', CreatePlayerController::class)
         ->patch('/players/{id}', 'players.update', UpdatePlayerController::class)
+        ->post('/players/{id}/release', 'players.release', ReleasePlayerController::class)
         ->post('/updates', 'updates', CreateUpdateController::class)
         ->get('/updates', 'updates.index', ListUpdatesController::class)
         ->patch('/updates/{id}', 'updates.update', UpdateUpdateController::class)
@@ -62,8 +65,8 @@ return [
         ->post('/teams/{id}/roles', 'teams.updateRoles', UpdateTeamRoleController::class),
 
     (new Extend\Frontend('forum'))
-        ->route('/user/{username}/player', 'user.player')
-        ->route('/user/{username}/updates', 'user.updates')
+        ->route('/u/{username}/player', 'user.player')
+        ->route('/u/{username}/updates', 'user.updates')
         ->route('/player/create', 'player.create')
         ->route('/players', 'players')
         ->route('/updates', 'updates')

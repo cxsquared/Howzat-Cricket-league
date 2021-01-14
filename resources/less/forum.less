@@ -469,6 +469,12 @@
       margin: 0;
       text-shadow: 5px 5px #111;
     }
+
+    @media @phone {
+      h1 {
+        font-size: 2rem;
+      }
+    }
   }
 
   .TeamCard-players {
@@ -478,7 +484,19 @@
 
     li {
       display: grid;
-      grid-template-columns: 0.5fr 2fr 1fr 0.5fr;
+      grid-template-columns: 0.5fr 1.5fr 1.25fr 0.5fr;
+
+      @media @phone {
+        grid-template-columns: 1.5fr 1.25fr 0.5fr;
+
+        .TeamCard-flag {
+          display: none;
+        }
+
+        select {
+          width: 100%;
+        }
+      }
 
       legend,
       div {
@@ -493,6 +511,14 @@
           height: 100%;
           margin: auto;
         }
+      }
+    }
+
+    li.TeamCard--gm {
+      grid-template-columns: 0.5fr 1.5fr 1.25fr 0.5fr 0.5fr;
+
+      @media @phone {
+        grid-template-columns: 1.5fr 1.25fr 0.5fr 0.5fr;
       }
     }
   }

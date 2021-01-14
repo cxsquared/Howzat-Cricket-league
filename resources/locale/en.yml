@@ -27,6 +27,10 @@ hcl:
       bot_id: Bot User Id
       player_tag_id: Player Tag Id
       captain_group_id: Captain Group Id
+      league_movement_tag_id: League Movement Tag Id
+      retirement_tag_id: Retirement Tag Id
+      release: Release Tag Id
+      season: Season
     permissions:
       update_players: Update Players
   api:
@@ -41,6 +45,8 @@ hcl:
       denied: Update Denied
       underReview: Update put Under Review
       comment_required: You must include an updater comment to deny a claim
+      player_retired: Player retired
+      player_released: Player released
     nav:
       claim_tpe: Claim TPE
       players_create: Create Player
@@ -76,6 +82,7 @@ hcl:
       last_updated: Last Updated Time
       updater: Updater
       updater_comment: Updater Comment
+      cancel: Cancel
     updates:
       title: Claim TPE
       week_ending: Week Ending
@@ -115,6 +122,15 @@ hcl:
       updates_link: Updates
       for_week: "For Week Ending in {week}"
     player:
+      retire:
+        title: Retire?
+        warning: Are you sure you want to retire your player?
+        button: Retire
+      release:
+        title: Release?
+        warning_update: "Are you sure you want to release this player? They last updated on {latestUpdate}"
+        warning: "Are you sure you want to release this player?"
+        button: Release
       bowler: "{style} Bowler"
       batter: Batter
       update:

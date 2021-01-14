@@ -2,8 +2,6 @@
 
 namespace Cxsquared\HowzatCricketLeague\Player;
 
-use Flarum\User\User;
-
 class PlayerRepository
 {
     public function query()
@@ -13,14 +11,14 @@ class PlayerRepository
 
     public function findOrFail($id)
     {
-        $query = Player::where('id', $id);
+        $query = $this->query()->where('id', $id);
 
         return $query->firstOrFail();
     }
 
     public function findOrFailByUserId($id)
     {
-        $query = Player::where('user_id', $id);
+        $query = $this->query()->where('user_id', $id);
 
         return $query->firstOrFail();
     }
