@@ -50,7 +50,7 @@ hcl:
     nav:
       claim_tpe: Claim TPE
       players_create: Create Player
-      players_view: Manager Player
+      players_view: Manage Player
     notifications:
       update_approved: "{username} approved your update"
       update_denied: "{username} denied your update"
@@ -118,7 +118,7 @@ hcl:
     user:
       players_empty_text: It looks like there are no players here.
       updates_empty_text: It looks like there are no updates here.
-      player_link: Players
+      player_link: Player
       updates_link: Updates
       for_week: "For Week Ending in {week}"
     player:
