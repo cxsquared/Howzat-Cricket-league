@@ -29,7 +29,7 @@ class DownloadPlayersController implements RequestHandlerInterface
             'Running', 'Defence', 'Attacking', 'Lofted', 'Vs Spin', 'Vs Pace', 'Footwork', 'Timing', 'Control',
             'Dedicated Bowler',
             'Pace / Flight', 'Swing / Leg Spin', 'Discipline', 'Seam / Drift', 'Accuracy', 'Slower Ball / Off Spin', 'Bouncer / Bounce', 'Yorker / Arm Ball',
-            'Stamina', 'Pace or Spin'
+            'Stamina', 'Pace or Spin', 'Role'
         ];
 
         $teamCount = Player::query()
@@ -78,7 +78,7 @@ class DownloadPlayersController implements RequestHandlerInterface
         $style = $player->bowling_style === 'pace' ? 'p' : 's';
 
         $role = 1;
-        if (strpos($player->role, "bowler")) {
+        if (strpos($player->role, "bowler") !== false) {
             $role = 2;
         } else if ($player->role === "wk") {
             $role = 0;
@@ -89,7 +89,7 @@ class DownloadPlayersController implements RequestHandlerInterface
             $player->running, $player->defense, $player->attacking, $player->lofted, $player->vs_spin, $player->vs_pace, $player->footwork, $player->timing, $player->control,
             $role,
             $player->pace_flight, $player->swing_leg_spin, $player->discipline, $player->seam_drift, $player->accuracy, $player->slower_ball_off_spin, $player->bouncer_bounce, $player->yorker_arm_ball,
-            70, $style
+            70, $style, $player->role
         ];
 
         fputcsv($fh, $player_row);

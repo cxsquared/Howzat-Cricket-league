@@ -66,8 +66,8 @@ hcl:
       claim_tpe: Claim for TPE
       save_skills: Save Skills
       reset: Reset
-      update: Spend Availabe TPE
-      no_tpe: No Availabe TPE
+      update: Spend Available TPE
+      no_tpe: No Available TPE
       submitt: Submit
       tpe: TPE
       tpa: TPA
@@ -100,7 +100,7 @@ hcl:
         welfare: Welfare
         affiliate: Affiliate
         pressConference: Press Conference
-        activityCheck: Acitvity Check
+        activityCheck: Activity Check
         job: Job
         predictions: Predictions
         simAttendance: Sim Attendance
@@ -165,10 +165,10 @@ hcl:
           pace: The is the ability to make the ball move sideways when it bounces
           spin: Drift is how a ball moves sideways in the air
         bouncerBounce:
-          pace: This is a ball that is pitched short and will bounce up towards the battsmans head
+          pace: This is a ball that is pitched short and will bounce up towards the batsman's head
           spin: This helps your ability to fool the batsman making a ball bounce more than expected
         yorkerArmBall:
-          pace: This is a ball that is pitched up around the batsmans toes, to try and get them bowled
+          pace: This is a ball that is pitched up around the batsman's toes, to try and get them bowled
           spin: This is a surprise ball where the ball doesn't spin sometimes fooling the batsman
       identity: Identity
       first_name: First Name
